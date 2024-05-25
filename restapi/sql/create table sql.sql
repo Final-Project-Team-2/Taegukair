@@ -134,9 +134,11 @@ CREATE TABLE family (
     family_relation varchar(255) NOT NULL,
     family_phone varchar(255) NOT NULL,
     family_name varchar(255) NOT NULL,
+    image BLOB,
     PRIMARY KEY (family_user_id),
     FOREIGN KEY (user_ID) REFERENCES users (user_ID)
 );
+
 
 -- pet 테이블 생성 (users 테이블 참조)
 CREATE TABLE pet (
@@ -145,6 +147,7 @@ CREATE TABLE pet (
     pet_Name varchar(255) NOT NULL,
     species varchar(255) NOT NULL,
     breed varchar(255) NOT NULL,
+    image BLOB,
     PRIMARY KEY (pet_id),
     FOREIGN KEY (user_ID) REFERENCES users (user_ID)
 );
