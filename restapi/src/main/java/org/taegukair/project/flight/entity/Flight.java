@@ -24,11 +24,11 @@ public class Flight {
     private Airplane airplane;
 
     @OneToOne
-    @JoinColumn(name = "start_airport_ID")
+    @JoinColumn(name = "departure_airport_ID")
     private AirPort startAirPort;
 
     @OneToOne
-    @JoinColumn(name = "end_airport_ID")
+    @JoinColumn(name = "arrival_airport_ID")
     private AirPort endAirPort;
 
     @Column(name = "flight_Price")
