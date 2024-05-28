@@ -11,40 +11,38 @@ import org.taegukair.project.flight.dto.AirplaneDTO;
 import org.taegukair.project.flight.service.AirplaneService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/airplane")
 public class AirplaneController {
 
-    private static final Logger log = LoggerFactory.getLogger(AirplaneController.class);
-
-    private final AirplaneService airplaneService;
+        private final AirplaneService airplaneService;
 
     public AirplaneController(AirplaneService airplaneService) {
         this.airplaneService = airplaneService;
     }
 
     @Operation(summary = "항공기 전체 조회 요청", description = "항공기 조회가 진행됩니다.", tags = {"AirplaneController"})
-    @GetMapping("/admin/airplane")
+    @GetMapping("/all")
     public ResponseEntity<ResponseDTO> findAllAirplane() {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 조회 성공", airplaneService.findAllAirplane()));
     }
 
     @Operation(summary = "항공기 상세 조회 요청", description = "항공기 상세 조회가 진행됩니다.", tags = {"AirplaneController"})
-    @GetMapping("/admin/airplane/{airplaneId}")
+    @GetMapping("/{airplaneId}")
     public ResponseEntity<ResponseDTO> findAirplane(@PathVariable int airplaneId) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 상세 조회 성공", airplaneService.findAirplane(airplaneId)));
     }
 
     @Operation(summary = "항공기 등록 요청", description = "항공기 등록이 진행됩니다.", tags = {"AirplaneController"})
-    @PostMapping("/admin/airplane/registairplane")
+    @PostMapping("/registairplane")
     public ResponseEntity<ResponseDTO> saveAirplane(@RequestBody AirplaneDTO airplaneDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 등록 성공", airplaneService.saveAirplane(airplaneDTO)));
     }
 
     @Operation(summary = "항공기 수정 요청", description = "항공기 수정이 진행됩니다.", tags = {"AirplaneController"})
-    @PostMapping("/admin/airplane/{airplaneId}")
+    @PostMapping("/{airplaneId}")
     public ResponseEntity<ResponseDTO> updateAirplane(@PathVariable int airplaneId, @RequestBody AirplaneDTO airplaneDTO) {
         // airplaneId를 사용하여 어떤 항공기를 수정할 것인지 결정.
         // airplaneDTO를 사용하여 수정할 항공기의 정보를 제공.
@@ -53,7 +51,7 @@ public class AirplaneController {
     }
 
     @Operation(summary = "항공기 삭제 요청", description = "항공기 삭제가 진행됩니다.", tags = {"AirplaneController"})
-    @DeleteMapping("/admin/airplane/{airplaneId}")
+    @DeleteMapping("/{airplaneId}")
     public ResponseEntity<ResponseDTO> deleteAirplane(@PathVariable int airplaneId) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 삭제 성공", airplaneService.deleteAirplane(airplaneId)));

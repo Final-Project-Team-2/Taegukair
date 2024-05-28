@@ -28,7 +28,7 @@ public class AirPortController {
     }
 
     @GetMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> getAirPortDetail(@PathVariable Long airportId) {
+    public ResponseEntity<ResponseDTO> getAirPortDetail(@PathVariable int airportId) {
         AirPortDTO airPort = airPortService.getAirPortDetail(airportId);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 상세정보 조회 성공", airPort));
     }
@@ -40,13 +40,13 @@ public class AirPortController {
     }
 
     @PutMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> updateAirPort(@PathVariable Long airportId, @RequestBody AirPortDTO airPortDTO) {
+    public ResponseEntity<ResponseDTO> updateAirPort(@PathVariable int airportId, @RequestBody AirPortDTO airPortDTO) {
         AirPortDTO updatedAirPort = airPortService.updateAirPort(airportId, airPortDTO);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 수정 성공", updatedAirPort));
     }
 
     @DeleteMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> deleteAirPort(@PathVariable Long airportId) {
+    public ResponseEntity<ResponseDTO> deleteAirPort(@PathVariable int airportId) {
         airPortService.deleteAirPort(airportId);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 삭제 성공", null));
     }

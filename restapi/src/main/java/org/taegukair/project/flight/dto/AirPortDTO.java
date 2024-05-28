@@ -1,7 +1,7 @@
 package org.taegukair.project.flight.dto;
 
 public class AirPortDTO {
-    private Long airportId;
+    private int airportId;
     private String airportName;
     private String airportIata;
     private String airportLocation;
@@ -9,18 +9,18 @@ public class AirPortDTO {
     public AirPortDTO() {
     }
 
-    public AirPortDTO(Long airportId, String airportName, String airportIata, String airportLocation) {
+    public AirPortDTO(int airportId, String airportName, String airportIata, String airportLocation) {
         this.airportId = airportId;
         this.airportName = airportName;
         this.airportIata = airportIata;
         this.airportLocation = airportLocation;
     }
 
-    public Long getAirportId() {
+    public int getAirportId() {
         return airportId;
     }
 
-    public void setAirportId(Long airportId) {
+    public void setAirportId(int airportId) {
         this.airportId = airportId;
     }
 

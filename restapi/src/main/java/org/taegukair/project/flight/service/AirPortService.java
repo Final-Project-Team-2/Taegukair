@@ -38,12 +38,12 @@ public class AirPortService {
         return airports.stream().map(airPort -> new AirPortDTO(airPort.getAirportId(), airPort.getAirportName(), airPort.getAirportIata(), airPort.getAirportLocation())).collect(Collectors.toList());
     }
 
-    public AirPortDTO getAirPortDetail(Long airportId) {
+    public AirPortDTO getAirPortDetail(int airportId) {
         AirPort airPort = airPortRepository.findById(airportId).orElseThrow(() -> new RuntimeException("공항을 찾을 수 없습니다."));
         return new AirPortDTO(airPort.getAirportId(), airPort.getAirportName(), airPort.getAirportIata(), airPort.getAirportLocation());
     }
 
-    public AirPortDTO updateAirPort(Long airportId, AirPortDTO airPortDTO) {
+    public AirPortDTO updateAirPort(int airportId, AirPortDTO airPortDTO) {
         AirPort airPort = airPortRepository.findById(airportId).orElseThrow(() -> new RuntimeException("공항을 찾을 수 없습니다."));
         airPort.setAirportName(airPortDTO.getAirportName());
         airPort.setAirportIata(airPortDTO.getAirportIata());
@@ -52,7 +52,7 @@ public class AirPortService {
         return new AirPortDTO(updatedAirPort.getAirportId(), updatedAirPort.getAirportName(), updatedAirPort.getAirportIata(), updatedAirPort.getAirportLocation());
     }
 
-    public void deleteAirPort(Long airportId) {
+    public void deleteAirPort(int airportId) {
         airPortRepository.deleteById(airportId);
     }
 }
