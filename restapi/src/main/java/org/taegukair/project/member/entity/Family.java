@@ -12,8 +12,8 @@ public class Family {
     private String familyUserId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private Users user;
+    @JoinColumn(name = "member_code", nullable = false)
+    private Member member;
 
     @Column
     private LocalDate familyBirthDate;
@@ -36,9 +36,9 @@ public class Family {
     public Family() {
     }
 
-    public Family(String familyUserId, Users user, LocalDate familyBirthDate, int familyKey, String familyRelation, String familyPhone, String familyName, byte[] image) {
+    public Family(String familyUserId, Member member, LocalDate familyBirthDate, int familyKey, String familyRelation, String familyPhone, String familyName, byte[] image) {
         this.familyUserId = familyUserId;
-        this.user = user;
+        this.member = member;
         this.familyBirthDate = familyBirthDate;
         this.familyKey = familyKey;
         this.familyRelation = familyRelation;
@@ -55,12 +55,12 @@ public class Family {
         this.familyUserId = familyUserId;
     }
 
-    public Users getUser() {
-        return user;
+    public Member getMember() {
+        return member;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDate getFamilyBirthDate() {
@@ -115,7 +115,7 @@ public class Family {
     public String toString() {
         return "Family{" +
                 "familyUserId='" + familyUserId + '\'' +
-                ", user=" + user +
+                ", member=" + member +
                 ", familyBirthDate=" + familyBirthDate +
                 ", familyKey=" + familyKey +
                 ", familyRelation='" + familyRelation + '\'' +

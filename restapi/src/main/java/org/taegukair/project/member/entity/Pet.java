@@ -12,8 +12,8 @@ public class Pet {
     private int petId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private Users user;
+    @JoinColumn(name = "member", nullable = false)
+    private Member member;
 
     @Column(nullable = false)
     private String petName;
@@ -30,9 +30,9 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(int petId, Users user, String petName, String species, String breed, byte[] image) {
+    public Pet(int petId, Member member, String petName, String species, String breed, byte[] image) {
         this.petId = petId;
-        this.user = user;
+        this.member = member;
         this.petName = petName;
         this.species = species;
         this.breed = breed;
@@ -47,12 +47,12 @@ public class Pet {
         this.petId = petId;
     }
 
-    public Users getUser() {
-        return user;
+    public Member getUser() {
+        return member;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUser(Member member) {
+        this.member = member;
     }
 
     public String getPetName() {

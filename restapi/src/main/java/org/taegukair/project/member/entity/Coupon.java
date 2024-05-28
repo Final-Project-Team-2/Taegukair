@@ -13,8 +13,8 @@ public class Coupon {
     private int couponId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private Users user;
+    @JoinColumn(name = "member_code", nullable = false)
+    private Member member;
 
     @Column(nullable = false)
     private String couponCode;
@@ -37,9 +37,9 @@ public class Coupon {
     public Coupon() {
     }
 
-    public Coupon(int couponId, Users user, String couponCode, int discountAmount, int discountPercentage, Timestamp createdAt, LocalDate validUntil, boolean isPossible) {
+    public Coupon(int couponId, Member member, String couponCode, int discountAmount, int discountPercentage, Timestamp createdAt, LocalDate validUntil, boolean isPossible) {
         this.couponId = couponId;
-        this.user = user;
+        this.member = member;
         this.couponCode = couponCode;
         this.discountAmount = discountAmount;
         this.discountPercentage = discountPercentage;
@@ -56,12 +56,12 @@ public class Coupon {
         this.couponId = couponId;
     }
 
-    public Users getUser() {
-        return user;
+    public Member getMember() {
+        return member;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public String getCouponCode() {
@@ -116,7 +116,7 @@ public class Coupon {
     public String toString() {
         return "Coupon{" +
                 "couponId=" + couponId +
-                ", user=" + user +
+                ", member=" + member +
                 ", couponCode='" + couponCode + '\'' +
                 ", discountAmount=" + discountAmount +
                 ", discountPercentage=" + discountPercentage +
