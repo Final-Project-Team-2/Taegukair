@@ -15,7 +15,7 @@ public class Reservation {
     private String reservationNo;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_code", nullable = false)
     private Member member;
 
     @ManyToOne

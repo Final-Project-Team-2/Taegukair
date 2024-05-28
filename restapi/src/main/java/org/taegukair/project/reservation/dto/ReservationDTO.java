@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ReservationDTO {
     private String reservationNo;
-    private String userId;
+    private int memberCode;
     private int flightId;
     private String seatNo;
     private int couponId;
@@ -13,9 +13,12 @@ public class ReservationDTO {
     private int baggagePrice;
     private LocalDate reservationDate;
 
-    public ReservationDTO(String reservationNo, String userId, int flightId, String seatNo, int couponId, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public ReservationDTO() {
+    }
+
+    public ReservationDTO(String reservationNo, int memberCode, int flightId, String seatNo, int couponId, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
         this.reservationNo = reservationNo;
-        this.userId = userId;
+        this.memberCode = memberCode;
         this.flightId = flightId;
         this.seatNo = seatNo;
         this.couponId = couponId;
@@ -23,9 +26,6 @@ public class ReservationDTO {
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
         this.reservationDate = reservationDate;
-    }
-
-    public ReservationDTO() {
     }
 
     public String getReservationNo() {
@@ -36,12 +36,12 @@ public class ReservationDTO {
         this.reservationNo = reservationNo;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getMemberCode() {
+        return memberCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 
     public int getFlightId() {
@@ -104,7 +104,7 @@ public class ReservationDTO {
     public String toString() {
         return "ReservationDTO{" +
                 "reservationNo='" + reservationNo + '\'' +
-                ", userId='" + userId + '\'' +
+                ", memberCode='" + memberCode + '\'' +
                 ", flightId=" + flightId +
                 ", seatNo='" + seatNo + '\'' +
                 ", couponId=" + couponId +
@@ -114,6 +114,4 @@ public class ReservationDTO {
                 ", reservationDate=" + reservationDate +
                 '}';
     }
-
-
 }
