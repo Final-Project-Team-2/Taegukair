@@ -22,7 +22,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Query("SELECT m.memberCode FROM Member m WHERE m.memberId = ?1")
     int findMemberCodeByMemberId(String orderMemberId);
 
+
     // 모든 회원 조회 (JpaRepository에서 기본 제공)
     @Override
     List<Member> findAll();
+
 }

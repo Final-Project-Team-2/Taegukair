@@ -4,49 +4,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.taegukair.project.board.dto.BoardDTO;
 import org.taegukair.project.board.service.BoardService;
 import org.taegukair.project.flight.dto.ResponseDTO;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/airports")
+@RequestMapping("/api/v1/boards")
 public class BoardController {
 
-    private final BoardService airPortService;
+    private final BoardService boardService;
 
     @Autowired
-    public BoardController(BoardService airPortService) {
-        this.airPortService = airPortService;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDTO> getAllBoards() {
+        List<BoardDTO> boards = boardService.getAllBoards();
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 조회 성공", boards));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResponseDTO> findAirPort(@RequestParam(name = "s", defaultValue = "all") String airportName) {
-        List<BoardDTO> airPorts = airPortService.findAirPort(airportName);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", airPorts));
+    public ResponseEntity<ResponseDTO> findBoard(@RequestParam(name = "s", required = false) String title) {
+        List<BoardDTO> boards;
+        if (title == null || title.isEmpty() || title.equals("all")) {
+            boards = boardService.getAllBoards();
+        } else {
+            boards = boardService.findBoard(title);
+        }
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", boards));
     }
 
-    @GetMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> getAirPortDetail(@PathVariable Long airportId) {
-        BoardDTO airPort = airPortService.getAirPortDetail(airportId);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 상세정보 조회 성공", airPort));
+    @GetMapping("/{boardId}")
+    public ResponseEntity<ResponseDTO> getBoardDetail(@PathVariable Long boardId) {
+        BoardDTO board = boardService.getBoardDetail(boardId);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세 정보 조회 성공", board));
     }
 
-    @PostMapping("/registAirPort")
-    public ResponseEntity<ResponseDTO> addAirPort(@RequestBody BoardDTO airPortDTO) {
-        BoardDTO createdAirPort = airPortService.addAirPort(airPortDTO);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 등록 성공", createdAirPort));
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDTO> addBoard(@RequestBody BoardDTO boardDTO, @RequestHeader("username") String username) {
+        BoardDTO createdBoard = boardService.addBoard(boardDTO, username);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "글 작성 성공", createdBoard));
     }
 
-    @PutMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> updateAirPort(@PathVariable Long airportId, @RequestBody BoardDTO airPortDTO) {
-        BoardDTO updatedAirPort = airPortService.updateAirPort(airportId, airPortDTO);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 수정 성공", updatedAirPort));
+    @PutMapping("/{boardId}")
+    public ResponseEntity<ResponseDTO> updateBoard(@PathVariable Long boardId, @RequestBody BoardDTO boardDTO, @RequestHeader("username") String username) {
+        BoardDTO updatedBoard = boardService.updateBoard(boardId, boardDTO, username);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "글 수정 성공", updatedBoard));
     }
 
-    @DeleteMapping("/{airportId}")
-    public ResponseEntity<ResponseDTO> deleteAirPort(@PathVariable Long airportId) {
-        airPortService.deleteAirPort(airportId);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공항 삭제 성공", null));
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<ResponseDTO> deleteBoard(@PathVariable Long boardId) {
+        boardService.deleteBoard(boardId);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "글 삭제 성공", null));
     }
 }

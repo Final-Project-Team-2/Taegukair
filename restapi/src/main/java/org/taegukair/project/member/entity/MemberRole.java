@@ -1,14 +1,15 @@
 package org.taegukair.project.member.entity;
 
 import jakarta.persistence.*;
-import org.taegukair.project.member.entity.Authority;
 
 @Entity
 @Table(name = "member_role")
+@IdClass(MemberRolePk.class)
 public class MemberRole {
+
 	@Id
 	@Column(name = "member_code")
-	private int memberNo;
+	private int memberCode;
 
 	@Id
 	@Column(name = "authority_code")
@@ -21,23 +22,23 @@ public class MemberRole {
 	// Default constructor
 	public MemberRole() {}
 
-	public MemberRole(int memberNo, int authorityCode) {
-		this.memberNo = memberNo;
+	public MemberRole(int memberCode, int authorityCode) {
+		this.memberCode = memberCode;
 		this.authorityCode = authorityCode;
 	}
 
-	public MemberRole(int memberNo, int authorityCode, Authority authority) {
-		this.memberNo = memberNo;
+	public MemberRole(int memberCode, int authorityCode, Authority authority) {
+		this.memberCode = memberCode;
 		this.authorityCode = authorityCode;
 		this.authority = authority;
 	}
 
-	public int getMemberNo() {
-		return memberNo;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public int getAuthorityCode() {
@@ -59,7 +60,7 @@ public class MemberRole {
 	@Override
 	public String toString() {
 		return "MemberRole{" +
-				"memberNo=" + memberNo +
+				"memberCode=" + memberCode +
 				", authorityCode=" + authorityCode +
 				", authority=" + authority +
 				'}';

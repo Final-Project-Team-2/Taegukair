@@ -3,7 +3,6 @@ package org.taegukair.project.member.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-/* 설명. 복합키 타입을 정의할 때는 Serializable을 반드시 구현 */
 public class MemberRolePk implements Serializable {
     private int memberCode;
     private int authorityCode;
@@ -33,24 +32,23 @@ public class MemberRolePk implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "MemberRolePk{" +
-                "memberCode=" + memberCode +
-                ", authorityCode=" + authorityCode +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberRolePk that = (MemberRolePk) o;
+        return memberCode == that.memberCode && authorityCode == that.authorityCode;
     }
 
-    // hashCode and equals methods
     @Override
     public int hashCode() {
         return Objects.hash(memberCode, authorityCode);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        MemberRolePk that = (MemberRolePk) obj;
-        return memberCode == that.memberCode && authorityCode == that.authorityCode;
+    public String toString() {
+        return "MemberRolePk{" +
+                "memberCode=" + memberCode +
+                ", authorityCode=" + authorityCode +
+                '}';
     }
 }
