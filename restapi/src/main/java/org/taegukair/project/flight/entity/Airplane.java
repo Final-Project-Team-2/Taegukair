@@ -12,7 +12,7 @@ public class Airplane {
     private int airplaneId;
 
     @Column(name = "airplane_Type")
-    private String airplaneName;
+    private String airplaneType;
 
     @Column(name = "airplane_No")
     private String airplaneNo;
@@ -23,9 +23,9 @@ public class Airplane {
     public Airplane() {
     }
 
-    public Airplane(int airplaneId, String airplaneName, String airplaneNo, int airplaneSeat) {
+    public Airplane(int airplaneId, String airplaneType, String airplaneNo, int airplaneSeat) {
         this.airplaneId = airplaneId;
-        this.airplaneName = airplaneName;
+        this.airplaneType = airplaneType;
         this.airplaneNo = airplaneNo;
         this.airplaneSeat = airplaneSeat;
     }
@@ -38,12 +38,12 @@ public class Airplane {
         this.airplaneId = airplaneId;
     }
 
-    public String getAirplaneName() {
-        return airplaneName;
+    public String getAirplaneType() {
+        return airplaneType;
     }
 
-    public void setAirplaneName(String airplaneName) {
-        this.airplaneName = airplaneName;
+    public void setAirplaneType(String airplaneType) {
+        this.airplaneType = airplaneType;
     }
 
     public String getAirplaneNo() {
@@ -66,7 +66,7 @@ public class Airplane {
     public String toString() {
         return "Airplane{" +
                 "airplaneId=" + airplaneId +
-                ", airplaneName='" + airplaneName + '\'' +
+                ", airplaneType='" + airplaneType + '\'' +
                 ", airplaneNo='" + airplaneNo + '\'' +
                 ", airplaneSeat=" + airplaneSeat +
                 '}';

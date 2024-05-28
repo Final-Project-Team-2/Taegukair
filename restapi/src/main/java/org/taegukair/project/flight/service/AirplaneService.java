@@ -85,7 +85,7 @@ public class AirplaneService {
             Airplane airplane = airplaneRepository.findById(airplaneId).get();
 
             airplane.setAirplaneNo(airplaneDTO.getAirplaneNo());
-            airplane.setAirplaneName(airplaneDTO.getAirplaneName());
+            airplane.setAirplaneType(airplaneDTO.getAirplaneType());
             airplane.setAirplaneSeat(airplaneDTO.getAirplaneSeat());
 
             result = 1;

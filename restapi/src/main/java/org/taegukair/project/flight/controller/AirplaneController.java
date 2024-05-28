@@ -37,15 +37,15 @@ public class AirplaneController {
     }
 
     @Operation(summary = "항공기 등록 요청", description = "항공기 등록이 진행됩니다.", tags = {"AirplaneController"})
-    @PostMapping("/admin/airplane")
-    public ResponseEntity<ResponseDTO> saveAirplane(@ModelAttribute AirplaneDTO airplaneDTO) {
+    @PostMapping("/admin/airplane/registairplane")
+    public ResponseEntity<ResponseDTO> saveAirplane(@RequestBody AirplaneDTO airplaneDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 등록 성공", airplaneService.saveAirplane(airplaneDTO)));
     }
 
     @Operation(summary = "항공기 수정 요청", description = "항공기 수정이 진행됩니다.", tags = {"AirplaneController"})
     @PostMapping("/admin/airplane/{airplaneId}")
-    public ResponseEntity<ResponseDTO> updateAirplane(@PathVariable int airplaneId, @ModelAttribute AirplaneDTO airplaneDTO) {
+    public ResponseEntity<ResponseDTO> updateAirplane(@PathVariable int airplaneId, @RequestBody AirplaneDTO airplaneDTO) {
         // airplaneId를 사용하여 어떤 항공기를 수정할 것인지 결정.
         // airplaneDTO를 사용하여 수정할 항공기의 정보를 제공.
 
