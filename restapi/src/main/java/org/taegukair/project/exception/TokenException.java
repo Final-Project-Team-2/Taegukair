@@ -1,7 +1,7 @@
-//package org.taegukair.project.exception;
-//
-//public class TokenException extends RuntimeException{
-//	public TokenException(String message) {
-//		super(message);
-//	}
-//}
+package org.taegukair.project.exception;
+
+public class TokenException extends RuntimeException{
+	public TokenException(String message) {
+		super(message);
+	}
+}

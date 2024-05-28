@@ -12,7 +12,7 @@ public class Pet {
     private int petId;
 
     @ManyToOne
-    @JoinColumn(name = "member", nullable = false)
+    @JoinColumn(name = "member_code", nullable = false)
     private Member member;
 
     @Column(nullable = false)
@@ -47,11 +47,11 @@ public class Pet {
         this.petId = petId;
     }
 
-    public Member getUser() {
+    public Member getMember() {
         return member;
     }
 
-    public void setUser(Member member) {
+    public void setMember(Member member) {
         this.member = member;
     }
 
@@ -91,7 +91,7 @@ public class Pet {
     public String toString() {
         return "Pet{" +
                 "petId=" + petId +
-                ", user=" + user +
+                ", member=" + member +
                 ", petName='" + petName + '\'' +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
