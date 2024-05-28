@@ -10,7 +10,7 @@ public class AirPort {
     @Id
     @Column(name = "airport_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long airportId;
+    private int airportId;
 
     @Column(name = "airport_Name")
     private String airportName;
@@ -24,18 +24,18 @@ public class AirPort {
     public AirPort() {
     }
 
-    public AirPort(Long airportId, String airportName, String airportIata, String airportLocation) {
+    public AirPort(int airportId, String airportName, String airportIata, String airportLocation) {
         this.airportId = airportId;
         this.airportName = airportName;
         this.airportIata = airportIata;
         this.airportLocation = airportLocation;
     }
 
-    public Long getAirportId() {
+    public int getAirportId() {
         return airportId;
     }
 
-    public void setAirportId(Long airportId) {
+    public void setAirportId(int airportId) {
         this.airportId = airportId;
     }
 

@@ -5,6 +5,6 @@ import org.taegukair.project.flight.entity.AirPort;
 
 import java.util.List;
 
-public interface AirPortRepository extends JpaRepository<AirPort, Long> {
+public interface AirPortRepository extends JpaRepository<AirPort, Integer> {
     List<AirPort> findByAirportNameContainingIgnoreCase(String airportName);
 }

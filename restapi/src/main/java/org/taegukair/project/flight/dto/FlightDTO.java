@@ -10,18 +10,18 @@ public class FlightDTO {
 
     private LocalDateTime endTime;
 
-    private AirplaneDTO airplane;
+    private int airplane;
 
-    private AirPortDTO startAirPort;
+    private int startAirPort;
 
-    private AirPortDTO endAirPort;
+    private int endAirPort;
 
     private int flightPrice;
 
     public FlightDTO() {
     }
 
-    public FlightDTO(int flightId, LocalDateTime startTime, LocalDateTime endTime, AirplaneDTO airplane, AirPortDTO startAirPort, AirPortDTO endAirPort, int flightPrice) {
+    public FlightDTO(int flightId, LocalDateTime startTime, LocalDateTime endTime, int airplane, int startAirPort, int endAirPort, int flightPrice) {
         this.flightId = flightId;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -55,27 +55,27 @@ public class FlightDTO {
         this.endTime = endTime;
     }
 
-    public AirplaneDTO getAirplane() {
+    public int getAirplane() {
         return airplane;
     }
 
-    public void setAirplane(AirplaneDTO airplane) {
+    public void setAirplane(int airplane) {
         this.airplane = airplane;
     }
 
-    public AirPortDTO getStartAirPort() {
+    public int getStartAirPort() {
         return startAirPort;
     }
 
-    public void setStartAirPort(AirPortDTO startAirPort) {
+    public void setStartAirPort(int startAirPort) {
         this.startAirPort = startAirPort;
     }
 
-    public AirPortDTO getEndAirPort() {
+    public int getEndAirPort() {
         return endAirPort;
     }
 
-    public void setEndAirPort(AirPortDTO endAirPort) {
+    public void setEndAirPort(int endAirPort) {
         this.endAirPort = endAirPort;
     }
 
