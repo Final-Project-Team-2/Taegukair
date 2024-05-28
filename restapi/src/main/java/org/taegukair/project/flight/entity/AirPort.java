@@ -2,74 +2,74 @@ package org.taegukair.project.flight.entity;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "airport")
-
 public class AirPort {
 
     @Id
     @Column(name = "airport_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int airPortId;
+    private Long airportId;
 
     @Column(name = "airport_Name")
-    private String airPortName;
+    private String airportName;
 
     @Column(name = "airport_Iata")
-    private String airPortIata;
+    private String airportIata;
 
     @Column(name = "airport_location")
-    private String airPortLocation;
+    private String airportLocation;
 
     public AirPort() {
     }
 
-    public AirPort(int airPortId, String airPortName, String airPortIata, String airPortLocation) {
-        this.airPortId = airPortId;
-        this.airPortName = airPortName;
-        this.airPortIata = airPortIata;
-        this.airPortLocation = airPortLocation;
+    public AirPort(Long airportId, String airportName, String airportIata, String airportLocation) {
+        this.airportId = airportId;
+        this.airportName = airportName;
+        this.airportIata = airportIata;
+        this.airportLocation = airportLocation;
     }
 
-    public int getAirPortId() {
-        return airPortId;
+    public Long getAirportId() {
+        return airportId;
     }
 
-    public void setAirPortId(int airPortId) {
-        this.airPortId = airPortId;
+    public void setAirportId(Long airportId) {
+        this.airportId = airportId;
     }
 
-    public String getAirPortName() {
-        return airPortName;
+    public String getAirportName() {
+        return airportName;
     }
 
-    public void setAirPortName(String airPortName) {
-        this.airPortName = airPortName;
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
     }
 
-    public String getAirPortIata() {
-        return airPortIata;
+    public String getAirportIata() {
+        return airportIata;
     }
 
-    public void setAirPortIata(String airPortIata) {
-        this.airPortIata = airPortIata;
+    public void setAirportIata(String airportIata) {
+        this.airportIata = airportIata;
     }
 
-    public String getAirPortLocation() {
-        return airPortLocation;
+    public String getAirportLocation() {
+        return airportLocation;
     }
 
-    public void setAirPortLocation(String airPortLocation) {
-        this.airPortLocation = airPortLocation;
+    public void setAirportLocation(String airportLocation) {
+        this.airportLocation = airportLocation;
     }
 
     @Override
     public String toString() {
         return "AirPort{" +
-                "airPortId=" + airPortId +
-                ", airPortName='" + airPortName + '\'' +
-                ", airPortIata='" + airPortIata + '\'' +
-                ", airPortLocation='" + airPortLocation + '\'' +
+                "airportId=" + airportId +
+                ", airportName='" + airportName + '\'' +
+                ", airportIata='" + airportIata + '\'' +
+                ", airportLocation='" + airportLocation + '\'' +
                 '}';
     }
 }
