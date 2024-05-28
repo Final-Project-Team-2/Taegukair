@@ -4,7 +4,7 @@ public class AirplaneDTO {
 
     private int airplaneId;
 
-    private String airplaneName;
+    private String airplaneType;
 
     private String airplaneNo;
 
@@ -13,9 +13,9 @@ public class AirplaneDTO {
     public AirplaneDTO() {
     }
 
-    public AirplaneDTO(int airplaneId, String airplaneName, String airplaneNo, int airplaneSeat) {
+    public AirplaneDTO(int airplaneId, String airplaneType, String airplaneNo, int airplaneSeat) {
         this.airplaneId = airplaneId;
-        this.airplaneName = airplaneName;
+        this.airplaneType = airplaneType;
         this.airplaneNo = airplaneNo;
         this.airplaneSeat = airplaneSeat;
     }
@@ -28,12 +28,12 @@ public class AirplaneDTO {
         this.airplaneId = airplaneId;
     }
 
-    public String getAirplaneName() {
-        return airplaneName;
+    public String getAirplaneType() {
+        return airplaneType;
     }
 
-    public void setAirplaneName(String airplaneName) {
-        this.airplaneName = airplaneName;
+    public void setAirplaneType(String airplaneType) {
+        this.airplaneType = airplaneType;
     }
 
     public String getAirplaneNo() {
@@ -56,7 +56,7 @@ public class AirplaneDTO {
     public String toString() {
         return "AirplaneDTO{" +
                 "airplaneId=" + airplaneId +
-                ", airplaneName='" + airplaneName + '\'' +
+                ", airplaneType='" + airplaneType + '\'' +
                 ", airplaneNo='" + airplaneNo + '\'' +
                 ", airplaneSeat=" + airplaneSeat +
                 '}';

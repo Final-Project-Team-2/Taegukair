@@ -6,16 +6,16 @@ public class SeatDTO {
 
     private FlightDTO flight;
 
-    private SeatTypeDTO seatType;
+    private int seatType;
 
-    private SeatClassDTO seatClass;
+    private int seatClass;
 
     private boolean isReserved;
 
     public SeatDTO() {
     }
 
-    public SeatDTO(String seatNo, FlightDTO flight, SeatTypeDTO seatType, SeatClassDTO seatClass, boolean isReserved) {
+    public SeatDTO(String seatNo, FlightDTO flight, int seatType, int seatClass, boolean isReserved) {
         this.seatNo = seatNo;
         this.flight = flight;
         this.seatType = seatType;
@@ -39,19 +39,19 @@ public class SeatDTO {
         this.flight = flight;
     }
 
-    public SeatTypeDTO getSeatType() {
+    public int getSeatType() {
         return seatType;
     }
 
-    public void setSeatType(SeatTypeDTO seatType) {
+    public void setSeatType(int seatType) {
         this.seatType = seatType;
     }
 
-    public SeatClassDTO getSeatClass() {
+    public int getSeatClass() {
         return seatClass;
     }
 
-    public void setSeatClass(SeatClassDTO seatClass) {
+    public void setSeatClass(int seatClass) {
         this.seatClass = seatClass;
     }
 

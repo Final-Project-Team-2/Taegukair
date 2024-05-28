@@ -7,6 +7,7 @@
 //import org.springframework.security.web.DefaultSecurityFilterChain;
 //import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //import org.taegukair.project.jwt.JwtFilter;
+//import org.taegukair.project.jwt.TokenProvider;
 //
 ///* 설명. JWT 관련 필터를 UsernamePasswordAuthenticationFilter 앞 쪽에 추가 */
 //@Configuration
