@@ -23,42 +23,57 @@
 -- DROP TABLE IF EXISTS password_reset;
 -- DROP TABLE IF EXISTS coupon;
 -- DROP TABLE IF EXISTS board;
--- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS permission;
--- DROP TABLE IF EXISTS seat_class;
--- DROP TABLE IF EXISTS seat_type;
+-- DROP TABLE IF EXISTS member_role;
+-- DROP TABLE IF EXISTS authority;
+-- DROP TABLE IF EXISTS member;
+
+create table if not exists member
+(
+    -- column level constraints
+    member_code int auto_increment comment '회원식별코드',
+    member_id varchar(255) unique not null comment '아이디',
+    member_name varchar(255) not null comment '회원이름',
+    member_password varchar(255) not null comment '비밀번호',
+    member_email varchar(255) not null comment '이메일',
+    member_gender varchar(255) not null comment '성별',
+    birth_date date NOT NULL,
+    member_phone varchar(255) NOT NULL,
+    -- table level constraints
+    constraint pk_member_code primary key (member_code)
+) engine=innodb comment '회원';
 
 
--- 가장 독립적인 테이블 생성
-CREATE TABLE permission (
-    permission_Code int NOT NULL AUTO_INCREMENT,
-    permission_Name varchar(255) NOT NULL,
-    permission_Desc varchar(255) NOT NULL,
-    PRIMARY KEY (permission_Code)
-);
+-- tbl_authority(권한)
+create table if not exists authority
+(
+    -- column level constraints
+    authority_code int auto_increment comment '권한식별코드',
+    authority_name varchar(255) not null comment '권한명',
+    authority_desc varchar(4000) not null comment '권한설명',
+    -- table level constraints
+    constraint pk_authority_code primary key (authority_code)
+) engine=innodb comment '권한';
 
--- users 테이블 생성 (permission 테이블 참조)
-CREATE TABLE users (
-    user_ID varchar(255) NOT NULL,
-    user_PW varchar(255) NOT NULL,
-    user_Email varchar(255) NOT NULL,
-    user_Key int NOT NULL,
-    user_Name varchar(255) NOT NULL,
-    user_Gender varchar(255) NOT NULL,
-    birth_Date date NOT NULL,
-    user_Phone varchar(255) NOT NULL,
-    permission_Code int NOT NULL,
-    PRIMARY KEY (user_ID),
-    FOREIGN KEY (permission_Code) REFERENCES permission (permission_Code)
-);
+
+-- tbl_member_role(회원별권한)
+create table if not exists member_role
+(
+    -- column level constraints
+    member_code int not null comment '회원식별코드',
+    authority_code int not null comment '권한식별코드',
+    -- table level constraints
+    constraint pk_member_role primary key (member_code, authority_code),
+    FOREIGN KEY (member_code) REFERENCES member (member_code),
+    FOREIGN KEY (authority_code) REFERENCES authority (authority_code)
+) engine=innodb comment '회원별권한';
 
 -- 독립적인 테이블 생성
 CREATE TABLE airport (
-    airport_ID int NOT NULL AUTO_INCREMENT,
-    airport_Name varchar(255) NOT NULL,
-    airport_Iata varchar(255) NOT NULL,
-    airport_location varchar(255) NOT NULL,
-    PRIMARY KEY (airport_ID)
+     airport_ID int NOT NULL AUTO_INCREMENT,
+     airport_Name varchar(255) NOT NULL,
+     airport_Iata varchar(255) NOT NULL,
+     airport_location varchar(255) NOT NULL,
+     PRIMARY KEY (airport_ID)
 );
 
 -- 독립적인 테이블 생성
@@ -120,15 +135,15 @@ CREATE TABLE password_reset (
     Reset_Code int NOT NULL AUTO_INCREMENT,
     reset_Token varchar(255) NOT NULL,
     token_Expiration varchar(255) NOT NULL,
-    user_ID varchar(255) NOT NULL,
+    member_code int NOT NULL,
     PRIMARY KEY (Reset_Code),
-    FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+    FOREIGN KEY (member_code) REFERENCES member (member_code)
 );
 
--- family 테이블 생성 (users 테이블 참조)
+-- family 테이블 생성 (member 테이블 참조)
 CREATE TABLE family (
     family_user_id varchar(255) NOT NULL,
-    user_ID varchar(255) NOT NULL,
+    member_code int NOT NULL,
     family_birth_date date,
     family_key int NOT NULL,
     family_relation varchar(255) NOT NULL,
@@ -136,26 +151,26 @@ CREATE TABLE family (
     family_name varchar(255) NOT NULL,
     image BLOB,
     PRIMARY KEY (family_user_id),
-    FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+    FOREIGN KEY (member_code) REFERENCES member (member_code)
 );
 
 
--- pet 테이블 생성 (users 테이블 참조)
+-- pet 테이블 생성 (member 테이블 참조)
 CREATE TABLE pet (
     pet_id int NOT NULL AUTO_INCREMENT,
-    user_ID varchar(255) NOT NULL,
+    member_code int NOT NULL,
     pet_Name varchar(255) NOT NULL,
     species varchar(255) NOT NULL,
     breed varchar(255) NOT NULL,
     image BLOB,
     PRIMARY KEY (pet_id),
-    FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+    FOREIGN KEY (member_code) REFERENCES member (member_code)
 );
 
--- coupon 테이블 생성 (users 테이블 참조)
+-- coupon 테이블 생성 (member 테이블 참조)
 CREATE TABLE coupon (
     coupon_id int NOT NULL AUTO_INCREMENT,
-    user_ID varchar(255) NOT NULL,
+    member_code int NOT NULL,
     coupon_code varchar(255) NOT NULL,
     discount_amount int,
     discount_percentage int,
@@ -163,26 +178,26 @@ CREATE TABLE coupon (
     valid_until date NOT NULL,
     is_possible boolean NOT NULL,
     PRIMARY KEY (coupon_id),
-    FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+    FOREIGN KEY (member_code) REFERENCES member (member_code)
 );
 
--- board 테이블 생성 (users 테이블 참조)
+-- board 테이블 생성 (member 테이블 참조)
 CREATE TABLE board (
-board_id int NOT NULL AUTO_INCREMENT,
-user_ID varchar(255) NOT NULL,
-title varchar(255) NOT NULL,
-content varchar(255),
-submission_date date NOT NULL,
-status varchar(255) NOT NULL,
-answer varchar(255),  -- 추가된 컬럼
-PRIMARY KEY (board_id),
-FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+   board_id int NOT NULL AUTO_INCREMENT,
+   member_code int NOT NULL,
+   title varchar(255) NOT NULL,
+   content varchar(255),
+   submission_date date NOT NULL,
+   status varchar(255) NOT NULL,
+   answer varchar(255),  -- 추가된 컬럼
+   PRIMARY KEY (board_id),
+   FOREIGN KEY (member_code) REFERENCES member (member_code)
 );
 
--- reservation 테이블 생성 (users, flight, seat, coupon 테이블 참조)
+-- reservation 테이블 생성 (member, flight, seat, coupon 테이블 참조)
 CREATE TABLE reservation (
     Reservation_No varchar(255) NOT NULL,
-    user_ID varchar(255) NOT NULL,
+    member_code int NOT NULL,
     flight_ID int NOT NULL,
     seat_No varchar(255) NOT NULL,
     coupon_id int,
@@ -191,15 +206,8 @@ CREATE TABLE reservation (
     baggage_price int NOT NULL,
     reservation_Date date NOT NULL,
     PRIMARY KEY (Reservation_No),
-    FOREIGN KEY (user_ID) REFERENCES users (user_ID),
+    FOREIGN KEY (member_code) REFERENCES member (member_code),
     FOREIGN KEY (flight_ID) REFERENCES flight (flight_ID),
     FOREIGN KEY (seat_No) REFERENCES seat (seat_No),
     FOREIGN KEY (coupon_id) REFERENCES coupon (coupon_id)
 );
-
-
-
-
-
-
-
