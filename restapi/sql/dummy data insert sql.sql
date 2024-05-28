@@ -1,12 +1,13 @@
 -- permission 테이블에 대한 더미 데이터
-INSERT INTO permission (permission_Name, permission_Desc) VALUES 
+INSERT INTO permission (permission_Name, permission_Desc) VALUES
 ('Admin', 'Administrator with full access'),
 ('User', 'Regular user with limited access'),
 ('Guest', 'Guest user with read-only access');
 
 -- users 테이블에 대한 더미 데이터
-INSERT INTO users (user_ID, user_PW, user_Email, user_Key, user_Name, user_Gender, birth_Date, user_Phone, permission_Code) VALUES 
-('admin', '1234', 'admin@example.com', 55588213, 'User One', 'M', '1990-01-01', '010-1111-1111', 1),
+INSERT INTO users (user_ID, user_PW, user_Email, user_Key, user_Name, user_Gender, birth_Date, user_Phone, permission_Code) VALUES
+('admin', '1234', 'admin@example.com', 55588213, 'User One', 'M', '1990-01-01', '010-1010-1010', 1),
+('user1', 'pw1', 'user1@example.com', 1, 'User One', 'F', '1996-03-28', '010-1111-1111', 2),
 ('user2', 'pw2', 'user2@example.com', 2, 'User Two', 'F', '1992-02-02', '010-2222-2222', 2),
 ('user3', 'pw3', 'user3@example.com', 3, 'User Three', 'M', '1993-03-03', '010-3333-3333', 2),
 ('user4', 'pw4', 'user4@example.com', 4, 'User Four', 'F', '1994-04-04', '010-4444-4444', 2),
@@ -18,7 +19,7 @@ INSERT INTO users (user_ID, user_PW, user_Email, user_Key, user_Name, user_Gende
 ('user10', 'pw10', 'user10@example.com', 10, 'User Ten', 'F', '2000-10-10', '010-1010-1010', 2);
 
 -- airport 테이블에 대한 더미 데이터
-INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES 
+INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
 ('Incheon International Airport', 'ICN', 'Incheon'),
 ('Gimpo International Airport', 'GMP', 'Seoul'),
 ('Gimhae International Airport', 'PUS', 'Busan'),
@@ -31,7 +32,7 @@ INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
 ('Ulsan Airport', 'USN', 'Ulsan');
 
 -- airplane 테이블에 대한 더미 데이터
-INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES 
+INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES
 ('Boeing 747', 'B747-1', 416),
 ('Airbus A380', 'A380-1', 555),
 ('Boeing 777', 'B777-1', 396),
@@ -44,20 +45,20 @@ INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES
 ('Airbus A220', 'A220-1', 160);
 
 -- seat_class 테이블에 대한 더미 데이터
-INSERT INTO seat_class (seat_class_name, seat_class_price) VALUES 
+INSERT INTO seat_class (seat_class_name, seat_class_price) VALUES
 ('First', 50000),
 ('Business', 30000),
 ('Economy', 10000);
 
 -- seat_type 테이블에 대한 더미 데이터
-INSERT INTO seat_type (seat_type_name, seat_type_price) VALUES 
+INSERT INTO seat_type (seat_type_name, seat_type_price) VALUES
 ('Window', 10000),
 ('Pet seat', 5000),
 ('Extra Legroom', 20000),
 ('Standard', 0);
 
 -- flight 테이블에 대한 더미 데이터
-INSERT INTO flight (start_Time, end_Time, airplane_ID, departure_airport_ID, arrival_airport_ID, flight_Price) VALUES 
+INSERT INTO flight (start_Time, end_Time, airplane_ID, departure_airport_ID, arrival_airport_ID, flight_Price) VALUES
 ('2024-06-01 08:00:00', '2024-06-01 10:00:00', 1, 1, 2, 150000),
 ('2024-06-01 11:00:00', '2024-06-01 13:00:00', 2, 2, 3, 200000),
 ('2024-06-01 14:00:00', '2024-06-01 16:00:00', 3, 3, 4, 180000),
@@ -70,24 +71,24 @@ INSERT INTO flight (start_Time, end_Time, airplane_ID, departure_airport_ID, arr
 ('2024-06-02 20:00:00', '2024-06-02 22:00:00', 10, 10, 1, 250000);
 
 -- seat 테이블에 대한 더미 데이터
-INSERT INTO seat (flight_ID, seat_No, seat_type_ID, seat_ID, is_reserved) VALUES 
+INSERT INTO seat (flight_ID, seat_No, seat_type_ID, seat_ID, is_reserved) VALUES
 (1, '1A', 1, 1, false),
 (1, '1B', 2, 2, false),
 (1, '1C', 3, 3, false),
-(1, '2A', 1, 4, false),
-(1, '2B', 2, 5, false),
-(1, '2C', 3, 6, false),
+(1, '2A', 1, 2, false),
+(1, '2B', 2, 3, false),
+(1, '2C', 3, 2, false),
 (2, '1A', 1, 1, false),
 (2, '1B', 2, 2, false),
 (2, '1C', 3, 3, false),
-(2, '2A', 1, 4, false);
+(2, '2A', 1, 3, false);
 
 -- password_reset 테이블에 대한 더미 데이터
-INSERT INTO password_reset (reset_Token, token_Expiration, user_ID) VALUES 
-('token1', '2024-06-01 12:00:00', 'user1');
+INSERT INTO password_reset (reset_Token, token_Expiration, user_ID) VALUES
+('token1', '2024-06-01 12:00:00', 'user2');
 
 -- family 테이블에 대한 더미 데이터
-INSERT INTO family (family_user_id, user_ID, family_birth_date, family_key, family_relation, family_phone, family_name) VALUES 
+INSERT INTO family (family_user_id, user_ID, family_birth_date, family_key, family_relation, family_phone, family_name) VALUES
 ('fam1', 'user1', '2000-01-01', 1, 'Father', '010-1111-1111', 'Father One'),
 ('fam2', 'user2', '2002-02-02', 2, 'Mother', '010-2222-2222', 'Mother Two'),
 ('fam3', 'user3', '2003-03-03', 3, 'Brother', '010-3333-3333', 'Brother Three'),
@@ -97,24 +98,24 @@ INSERT INTO family (family_user_id, user_ID, family_birth_date, family_key, fami
 ('fam7', 'user7', '2007-07-07', 7, 'Uncle', '010-7777-7777', 'Uncle Seven'),
 ('fam8', 'user8', '2008-08-08', 8, 'Aunt', '010-8888-8888', 'Aunt Eight'),
 ('fam9', 'user9', '2009-09-09', 9, 'Cousin', '010-9999-9999', 'Cousin Nine'),
-('fam10', 'user10', '2010-10-10', 10, 'Nephew', '010-1010-1010', 'Nephew Ten');
+('fam10', 'user10', '2000-01-01', 10, 'Father', '010-1004-1004', 'Father Ten');
 
 -- pet 테이블에 대한 더미 데이터
-INSERT INTO pet (user_ID, pet_Name, species, breed) VALUES 
-('user1', 'Buddy', 'Dog', 'Golden Retriever'),
-('user2', 'Mittens', 'Cat', 'Siamese'),
-('user3', 'Charlie', 'Dog', 'Beagle'),
-('user4', 'Bella', 'Cat', 'Persian'),
-('user5', 'Max', 'Dog', 'Bulldog'),
-('user6', 'Luna', 'Cat', 'Maine Coon'),
-('user7', 'Rocky', 'Dog', 'Poodle'),
-('user8', 'Simba', 'Cat', 'Bengal'),
-('user9', 'Cooper', 'Dog', 'Labrador'),
-('user10', 'Daisy', 'Cat', 'Sphynx');
+INSERT INTO pet (user_ID, pet_Name, species, breed) VALUES
+('user1', 'Apple', 'Dog', 'Golden Retriever'),
+('user2', 'Buddy', 'Dog', 'Golden Retriever'),
+('user3', 'Mittens', 'Cat', 'Siamese'),
+('user4', 'Charlie', 'Dog', 'Beagle'),
+('user5', 'Bella', 'Cat', 'Persian'),
+('user6', 'Max', 'Dog', 'Bulldog'),
+('user7', 'Luna', 'Cat', 'Maine Coon'),
+('user8', 'Rocky', 'Dog', 'Poodle'),
+('user9', 'Simba', 'Cat', 'Bengal'),
+('user10', 'Buddy', 'Cat', 'Persian');
 
 -- coupon 테이블에 대한 더미 데이터
-INSERT INTO coupon (user_ID, coupon_code, discount_amount, discount_percentage, valid_until, is_possible) VALUES 
-('user1', 'C1001', 10000, 10, '2024-12-31', true),
+INSERT INTO coupon (user_ID, coupon_code, discount_amount, discount_percentage, valid_until, is_possible) VALUES
+('user1', 'C1001', 100000, 8, '2024-12-31', true),
 ('user2', 'C1002', 20000, 15, '2024-12-31', true),
 ('user3', 'C1003', 15000, 20, '2024-12-31', true),
 ('user4', 'C1004', 30000, 25, '2024-12-31', true),
@@ -123,7 +124,7 @@ INSERT INTO coupon (user_ID, coupon_code, discount_amount, discount_percentage, 
 ('user7', 'C1007', 35000, 35, '2024-12-31', true),
 ('user8', 'C1008', 40000, 40, '2024-12-31', true),
 ('user9', 'C1009', 45000, 45, '2024-12-31', true),
-('user10', 'C1010', 50000, 50, '2024-12-31', true);
+('user10', 'C1010', 30000, 15, '2024-12-31', true);
 
 INSERT INTO board (user_ID, title, content, submission_date, status, answer) VALUES
 ('user1', 'Title 1', 'Content 1', '2024-06-01', 'false', '오늘은 일 하기 싫어요.'),
@@ -138,7 +139,7 @@ INSERT INTO board (user_ID, title, content, submission_date, status, answer) VAL
 ('user10', 'Title 10', 'Content 10', '2024-06-09', 'true', '월급 받기 힘들다..');
 
 -- reservation 테이블에 대한 더미 데이터
-INSERT INTO reservation (Reservation_No, user_ID, flight_ID, seat_No, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date) VALUES 
+INSERT INTO reservation (Reservation_No, user_ID, flight_ID, seat_No, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date) VALUES
 ('R1001', 'user1', 1, '1A', 1, 2, 1, 50000, '2024-06-01'),
 ('R1002', 'user2', 2, '1B', 2, 1, 0, 25000, '2024-06-02'),
 ('R1003', 'user3', 3, '1C', 3, 3, 2, 75000, '2024-06-03'),
