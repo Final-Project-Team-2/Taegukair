@@ -126,18 +126,17 @@ INSERT INTO coupon (user_ID, coupon_code, discount_amount, discount_percentage, 
 ('user9', 'C1009', 45000, 45, '2024-12-31', true),
 ('user10', 'C1010', 30000, 15, '2024-12-31', true);
 
--- board 테이블에 대한 더미 데이터
-INSERT INTO board (user_ID, title, content, submission_date, status) VALUES
-('user1', 'Title 1', 'Content 1', '2024-06-01', 'false'),
-('user2', 'Title 2', 'Content 2', '2024-06-02', 'false'),
-('user3', 'Title 3', 'Content 3', '2024-06-03', 'true'),
-('user4', 'Title 4', 'Content 4', '2024-06-04', 'false'),
-('user5', 'Title 5', 'Content 5', '2024-06-05', 'true'),
-('user6', 'Title 6', 'Content 6', '2024-06-06', 'false'),
-('user7', 'Title 7', 'Content 7', '2024-06-07', 'true'),
-('user8', 'Title 8', 'Content 8', '2024-06-08', 'false'),
-('user9', 'Title 9', 'Content 9', '2024-06-09', 'true'),
-('user10', 'Title 10', 'Content 10', '2024-06-09', 'true');
+INSERT INTO board (user_ID, title, content, submission_date, status, answer) VALUES
+('user1', 'Title 1', 'Content 1', '2024-06-01', 'false', '오늘은 일 하기 싫어요.'),
+('user2', 'Title 2', 'Content 2', '2024-06-02', 'false', '난 오늘도 배고프다.'),
+('user3', 'Title 3', 'Content 3', '2024-06-03', 'true', '이것도 질문이에요?'),
+('user4', 'Title 4', 'Content 4', '2024-06-04', 'false', '할 수 있습니다!'),
+('user5', 'Title 5', 'Content 5', '2024-06-05', 'true', '행복한 하루 보내세요.'),
+('user6', 'Title 6', 'Content 6', '2024-06-06', 'false', '좋은 일이 있을거에요.'),
+('user7', 'Title 7', 'Content 7', '2024-06-07', 'true', '비행기 안타요'),
+('user8', 'Title 8', 'Content 8', '2024-06-08', 'false', '관둘겁니다 저 이제 당신 때문에'),
+('user9', 'Title 9', 'Content 9', '2024-06-09', 'true', '당신 때문에 너무 힘들어요'),
+('user10', 'Title 10', 'Content 10', '2024-06-09', 'true', '월급 받기 힘들다..');
 
 -- reservation 테이블에 대한 더미 데이터
 INSERT INTO reservation (Reservation_No, user_ID, flight_ID, seat_No, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date) VALUES

@@ -168,15 +168,15 @@ CREATE TABLE coupon (
 
 -- board 테이블 생성 (users 테이블 참조)
 CREATE TABLE board (
-   board_id int NOT NULL AUTO_INCREMENT,
-   user_ID varchar(255) NOT NULL,
-   title varchar(255) NOT NULL,
-   content varchar(255),
-   submission_date date NOT NULL,
-   status varchar(255) NOT NULL,
-   answer varchar(255),  -- 추가된 컬럼
-   PRIMARY KEY (board_id),
-   FOREIGN KEY (user_ID) REFERENCES users (user_ID)
+board_id int NOT NULL AUTO_INCREMENT,
+user_ID varchar(255) NOT NULL,
+title varchar(255) NOT NULL,
+content varchar(255),
+submission_date date NOT NULL,
+status varchar(255) NOT NULL,
+answer varchar(255),  -- 추가된 컬럼
+PRIMARY KEY (board_id),
+FOREIGN KEY (user_ID) REFERENCES users (user_ID)
 );
 
 -- reservation 테이블 생성 (users, flight, seat, coupon 테이블 참조)
