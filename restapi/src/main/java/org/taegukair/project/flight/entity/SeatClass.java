@@ -7,9 +7,9 @@ import jakarta.persistence.*;
 public class SeatClass {
 
     @Id
-    @Column(name = "seat_ID")
+    @Column(name = "seat_class_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatId;
+    private int seatClassId;
 
     @Column(name = "seat_class_name")
     private String seatClassName;
@@ -20,18 +20,18 @@ public class SeatClass {
     public SeatClass() {
     }
 
-    public SeatClass(int seatId, String seatClassName, int seatClassPrice) {
-        this.seatId = seatId;
+    public SeatClass(int seatClassId, String seatClassName, int seatClassPrice) {
+        this.seatClassId = seatClassId;
         this.seatClassName = seatClassName;
         this.seatClassPrice = seatClassPrice;
     }
 
-    public int getSeatId() {
-        return seatId;
+    public int getSeatClassId() {
+        return seatClassId;
     }
 
-    public void setSeatId(int seatId) {
-        this.seatId = seatId;
+    public void setSeatClassId(int seatClassId) {
+        this.seatClassId = seatClassId;
     }
 
     public String getSeatClassName() {
@@ -53,7 +53,7 @@ public class SeatClass {
     @Override
     public String toString() {
         return "SeatClass{" +
-                "seatId=" + seatId +
+                "seatClassId=" + seatClassId +
                 ", seatClassName='" + seatClassName + '\'' +
                 ", seatClassPrice=" + seatClassPrice +
                 '}';

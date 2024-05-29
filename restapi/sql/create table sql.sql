@@ -13,8 +13,8 @@
 
 -- 순서대로 테이블 삭제
 
--- DROP TABLE IF EXISTS reservation;
--- DROP TABLE IF EXISTS seat;
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS seat;
 -- DROP TABLE IF EXISTS flight;
 -- DROP TABLE IF EXISTS airplane;
 -- DROP TABLE IF EXISTS airport;
@@ -31,7 +31,7 @@
 -- DROP TABLE IF EXISTS seat_class;
 -- DROP TABLE IF EXISTS permission;
 
-show tables;
+-- show tables;
 
 
 create table if not exists member
@@ -94,18 +94,18 @@ CREATE TABLE airplane (
 
 -- 독립적인 테이블 생성
 CREATE TABLE seat_class (
-                            seat_ID int NOT NULL AUTO_INCREMENT,
+                            seat_class_id int NOT NULL AUTO_INCREMENT,
                             seat_class_name varchar(255) NOT NULL,
                             seat_class_price int NOT NULL,
-                            PRIMARY KEY (seat_ID)
+                            PRIMARY KEY (seat_class_id)
 );
 
 -- 독립적인 테이블 생성
 CREATE TABLE seat_type (
-                           seat_type_ID int NOT NULL AUTO_INCREMENT,
+                           seat_type_id int NOT NULL AUTO_INCREMENT,
                            seat_type_name varchar(255) NOT NULL,
                            seat_type_price int,
-                           PRIMARY KEY (seat_type_ID)
+                           PRIMARY KEY (seat_type_id)
 );
 
 -- flight 테이블 생성 (airplane, airport 테이블 참조)
@@ -125,16 +125,16 @@ CREATE TABLE flight (
 
 -- seat 테이블 생성 (flight, seat_class, seat_type 테이블 참조)
 CREATE TABLE seat (
+                      seat_id int NOT NULL AUTO_INCREMENT,
                       flight_ID int NOT NULL,
-                      seat_No varchar(255) NOT NULL,
-                      seat_type_ID int NOT NULL,
-                      seat_ID int NOT NULL,
+                      seat_no varchar(255) NOT NULL,
+                      seat_type_id int NOT NULL,
+                      seat_class_id int NOT NULL,
                       is_reserved boolean NOT NULL,
-                      PRIMARY KEY (flight_ID, seat_No),
-                      FOREIGN KEY (seat_type_ID) REFERENCES seat_type (seat_type_ID),
-                      FOREIGN KEY (seat_ID) REFERENCES seat_class (seat_ID),
-                      FOREIGN KEY (flight_ID) REFERENCES flight (flight_ID),
-                      INDEX (seat_No)
+                      PRIMARY KEY (seat_id),
+                      FOREIGN KEY (seat_type_id) REFERENCES seat_type (seat_type_id),
+                      FOREIGN KEY (seat_class_id) REFERENCES seat_class (seat_class_id),
+                      FOREIGN KEY (flight_ID) REFERENCES flight (flight_ID)
 );
 
 -- 독립적인 테이블 생성
@@ -206,7 +206,7 @@ CREATE TABLE reservation (
                              Reservation_No varchar(255) NOT NULL,
                              member_code int NOT NULL,
                              flight_ID int NOT NULL,
-                             seat_No varchar(255) NOT NULL,
+                             seat_id int NOT NULL,
                              coupon_id int,
                              baggage_amount int NOT NULL,
                              extra_baggage_amount int NOT NULL,
@@ -215,6 +215,6 @@ CREATE TABLE reservation (
                              PRIMARY KEY (Reservation_No),
                              FOREIGN KEY (member_code) REFERENCES member (member_code),
                              FOREIGN KEY (flight_ID) REFERENCES flight (flight_ID),
-                             FOREIGN KEY (seat_No) REFERENCES seat (seat_No),
+                             FOREIGN KEY (seat_id) REFERENCES seat (seat_id),
                              FOREIGN KEY (coupon_id) REFERENCES coupon (coupon_id)
 );
