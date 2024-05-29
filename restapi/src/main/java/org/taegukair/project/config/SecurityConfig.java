@@ -208,7 +208,7 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		// 변경된 부분: setAllowedOrigins에 추가된 도메인들
-		configuration.setAllowedOrigins(Arrays.asList("http://3.39.99.175", "http://localhost:3333"));
+		configuration.setAllowedOrigins(Arrays.asList("http://3.39.99.175", "http://localhost:3000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin",
 				"Content-type",

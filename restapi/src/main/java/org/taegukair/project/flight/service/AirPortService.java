@@ -1,7 +1,5 @@
 package org.taegukair.project.flight.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.taegukair.project.flight.dto.AirPortDTO;
@@ -14,45 +12,76 @@ import java.util.stream.Collectors;
 @Service
 public class AirPortService {
 
-    private static final Logger log = LoggerFactory.getLogger(AirPortService.class);
+    private final AirPortRepository airPortRepository;
 
     @Autowired
-    private AirPortRepository airPortRepository;
-
     public AirPortService(AirPortRepository airPortRepository) {
         this.airPortRepository = airPortRepository;
     }
 
-    public AirPortDTO addAirPort(AirPortDTO airPortDTO) {
-        AirPort airPort = new AirPort();
-        airPort.setAirportName(airPortDTO.getAirportName());
-        airPort.setAirportIata(airPortDTO.getAirportIata());
-        airPort.setAirportLocation(airPortDTO.getAirportLocation());
-        AirPort savedAirPort = airPortRepository.save(airPort);
-        return new AirPortDTO(savedAirPort.getAirportId(), savedAirPort.getAirportName(), savedAirPort.getAirportIata(), savedAirPort.getAirportLocation());
+    // 전체 공항 목록 조회
+    public List<AirPortDTO> getAllAirPorts() {
+        List<AirPort> airPorts = airPortRepository.findAll();
+        return airPorts.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
+    // 공항 이름으로 검색
     public List<AirPortDTO> findAirPort(String airportName) {
-        log.info("Searching for airport with name containing: {}", airportName);
-        List<AirPort> airports = airPortRepository.findByAirportNameContainingIgnoreCase(airportName);
-        return airports.stream().map(airPort -> new AirPortDTO(airPort.getAirportId(), airPort.getAirportName(), airPort.getAirportIata(), airPort.getAirportLocation())).collect(Collectors.toList());
+        List<AirPort> airPorts = airPortRepository.findByAirportNameContainingIgnoreCase(airportName);
+        return airPorts.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
+    // 공항 상세 정보 조회
     public AirPortDTO getAirPortDetail(int airportId) {
-        AirPort airPort = airPortRepository.findById(airportId).orElseThrow(() -> new RuntimeException("공항을 찾을 수 없습니다."));
-        return new AirPortDTO(airPort.getAirportId(), airPort.getAirportName(), airPort.getAirportIata(), airPort.getAirportLocation());
+        AirPort airPort = airPortRepository.findById(airportId)
+                .orElseThrow(() -> new RuntimeException("Airport not found"));
+        return convertToDTO(airPort);
     }
 
+    // 공항 등록
+    public AirPortDTO addAirPort(AirPortDTO airPortDTO) {
+        AirPort airPort = convertToEntity(airPortDTO);
+        AirPort savedAirPort = airPortRepository.save(airPort);
+        return convertToDTO(savedAirPort);
+    }
+
+    // 공항 수정
     public AirPortDTO updateAirPort(int airportId, AirPortDTO airPortDTO) {
-        AirPort airPort = airPortRepository.findById(airportId).orElseThrow(() -> new RuntimeException("공항을 찾을 수 없습니다."));
-        airPort.setAirportName(airPortDTO.getAirportName());
-        airPort.setAirportIata(airPortDTO.getAirportIata());
-        airPort.setAirportLocation(airPortDTO.getAirportLocation());
-        AirPort updatedAirPort = airPortRepository.save(airPort);
-        return new AirPortDTO(updatedAirPort.getAirportId(), updatedAirPort.getAirportName(), updatedAirPort.getAirportIata(), updatedAirPort.getAirportLocation());
+        AirPort existingAirPort = airPortRepository.findById(airportId)
+                .orElseThrow(() -> new RuntimeException("Airport not found"));
+        existingAirPort.setAirportName(airPortDTO.getAirportName());
+        existingAirPort.setAirportIata(airPortDTO.getAirportIata());
+        existingAirPort.setAirportLocation(airPortDTO.getAirportLocation());
+        AirPort updatedAirPort = airPortRepository.save(existingAirPort);
+        return convertToDTO(updatedAirPort);
     }
 
+    // 공항 삭제
     public void deleteAirPort(int airportId) {
-        airPortRepository.deleteById(airportId);
+        AirPort existingAirPort = airPortRepository.findById(airportId)
+                .orElseThrow(() -> new RuntimeException("Airport not found"));
+        airPortRepository.delete(existingAirPort);
+    }
+
+    private AirPortDTO convertToDTO(AirPort airPort) {
+        return new AirPortDTO(
+                airPort.getAirportId(),
+                airPort.getAirportName(),
+                airPort.getAirportIata(),
+                airPort.getAirportLocation()
+        );
+    }
+
+    private AirPort convertToEntity(AirPortDTO airPortDTO) {
+        return new AirPort(
+                airPortDTO.getAirportId(),
+                airPortDTO.getAirportName(),
+                airPortDTO.getAirportIata(),
+                airPortDTO.getAirportLocation()
+        );
     }
 }
