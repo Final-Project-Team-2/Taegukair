@@ -7,6 +7,10 @@ import jakarta.persistence.*;
 public class Seat {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "seat_id")
+    private int seatId;
+
     @Column(name = "seat_No")
     private String seatNo;
 
@@ -15,11 +19,11 @@ public class Seat {
     private Flight flight;
 
     @OneToOne
-    @JoinColumn(name = "seat_type_ID")
+    @JoinColumn(name = "seat_type_id")
     private SeatType seatType;
 
     @OneToOne
-    @JoinColumn(name = "seat_ID")
+    @JoinColumn(name = "seat_class_id")
     private SeatClass seatClass;
 
     @Column(name = "is_reserved")
@@ -28,12 +32,21 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(String seatNo, Flight flight, SeatType seatType, SeatClass seatClass, boolean isReserved) {
+    public Seat(int seatId, String seatNo, Flight flight, SeatType seatType, SeatClass seatClass, boolean isReserved) {
+        this.seatId = seatId;
         this.seatNo = seatNo;
         this.flight = flight;
         this.seatType = seatType;
         this.seatClass = seatClass;
         this.isReserved = isReserved;
+    }
+
+    public int getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
     }
 
     public String getSeatNo() {
@@ -79,7 +92,8 @@ public class Seat {
     @Override
     public String toString() {
         return "Seat{" +
-                "seatNo='" + seatNo + '\'' +
+                "seatId=" + seatId +
+                ", seatNo='" + seatNo + '\'' +
                 ", flight=" + flight +
                 ", seatType=" + seatType +
                 ", seatClass=" + seatClass +

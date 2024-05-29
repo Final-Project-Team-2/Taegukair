@@ -33,7 +33,7 @@ INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
 
 -- 비행기(Airplane) 테이블에 대한 더미 데이터
 INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES
-('Boeing 747', 'B747-1', 416),
+('Oeing 172', 'O172-1', 30),
 ('Airbus A380', 'A380-1', 555),
 ('Boeing 777', 'B777-1', 396),
 ('Airbus A350', 'A350-1', 440),
@@ -71,17 +71,17 @@ INSERT INTO flight (start_Time, end_Time, airplane_ID, departure_airport_ID, arr
 ('2024-06-02 20:00:00', '2024-06-02 22:00:00', 10, 10, 1, 250000);
 
 -- 좌석(Seat) 테이블에 대한 더미 데이터
-INSERT INTO seat (flight_ID, seat_No, seat_type_id, seat_class_id, is_reserved) VALUES
-(1, '1A', 1, 1, false),
-(1, '1B', 2, 2, false),
-(1, '1C', 3, 3, false),
-(1, '2A', 1, 2, false),
-(1, '2B', 2, 3, false),
-(1, '2C', 3, 2, false),
-(2, '1A', 1, 1, false),
-(2, '1B', 2, 2, false),
-(2, '1C', 3, 3, false),
-(2, '2A', 1, 3, false);
+INSERT INTO seat (flight_ID, seat_no, seat_type_id, seat_class_id, is_reserved) VALUES
+(1, 'A1', 1, 1, 1), (1, 'A2', 4, 1, 0), (1, 'A3', 4, 1, 0), (1, 'A4', 1, 1, 0),
+(1, 'B1', 1, 2, 0), (1, 'B2', 4, 2, 0), (1, 'B3', 4, 2, 0), (1, 'B4', 1, 2, 0),
+(1, 'C1', 1, 2, 0), (1, 'C2', 4, 2, 0), (1, 'C3', 4, 2, 0), (1, 'C4', 1, 2, 0),
+(1, 'D1', 1, 3, 0), (1, 'D2', 4, 3, 0), (1, 'D3', 4, 3, 0), (1, 'D4', 1, 3, 0),
+(1, 'E1', 1, 3, 0), (1, 'E2', 4, 3, 0), (1, 'E3', 4, 3, 0), (1, 'E4', 1, 3, 0),
+(1, 'F1', 1, 3, 0), (1, 'F2', 4, 3, 0), (1, 'F3', 4, 3, 0), (1, 'F4', 1, 3, 0),
+(1, 'G1', 3, 3, 0), (1, 'G2', 3, 3, 0), (1, 'G3', 3, 3, 0), (1, 'G4', 3, 3, 0),
+(1, 'H1', 1, 3, 0), (1, 'H2', 4, 3, 0), (1, 'H3', 4, 3, 0), (1, 'H4', 1, 3, 0),
+(1, 'I1', 2, 3, 0), (1, 'I2', 4, 3, 0), (1, 'I3', 2, 3, 0), (1, 'I4', 1, 3, 0),
+(1, 'J1', 2, 3, 0), (1, 'J2', 4, 3, 0), (1, 'J3', 4, 3, 0), (1, 'J4', 1, 3, 0);
 
 -- 비밀번호 재설정(Password_Reset) 테이블에 대한 더미 데이터
 INSERT INTO password_reset (reset_Token, token_Expiration, member_code) VALUES

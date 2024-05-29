@@ -13,8 +13,8 @@
 
 -- 순서대로 테이블 삭제
 
--- DROP TABLE IF EXISTS reservation;
--- DROP TABLE IF EXISTS seat;
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS seat;
 -- DROP TABLE IF EXISTS flight;
 -- DROP TABLE IF EXISTS airplane;
 -- DROP TABLE IF EXISTS airport;
@@ -127,8 +127,8 @@ CREATE TABLE flight (
 CREATE TABLE seat (
                       seat_id int NOT NULL AUTO_INCREMENT,
                       flight_ID int NOT NULL,
-                      seat_No varchar(255) NOT NULL,
-                      seat_type_ID int NOT NULL,
+                      seat_no varchar(255) NOT NULL,
+                      seat_type_id int NOT NULL,
                       seat_class_id int NOT NULL,
                       is_reserved boolean NOT NULL,
                       PRIMARY KEY (seat_id),
