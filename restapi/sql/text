@@ -1,0 +1,22 @@
+postman 회원가입 데이터 입력 예시
+{
+    "memberId": "wade",
+    "memberPassword": "123",
+    "memberName": "wade",
+    "memberEmail": "wade.doe@example.com",
+    "memberGender": "male",
+    "birthDate": "1990-01-01",
+    "memberPhone": "123-456-7890"
+}
+
+회원 조회(관리자)
+{
+    "memberId": "admin",
+    "memberPassword": "1234"
+}
+
+회원 조회(일반 유저)
+{
+    "memberId": "user77",
+    "memberPassword": "1234"
+}
