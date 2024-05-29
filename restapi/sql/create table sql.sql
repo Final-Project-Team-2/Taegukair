@@ -15,23 +15,21 @@
 
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS seat;
--- DROP TABLE IF EXISTS flight;
--- DROP TABLE IF EXISTS airplane;
--- DROP TABLE IF EXISTS airport;
--- DROP TABLE IF EXISTS pet;
--- DROP TABLE IF EXISTS family;
--- DROP TABLE IF EXISTS password_reset;
--- DROP TABLE IF EXISTS coupon;
--- DROP TABLE IF EXISTS board;
--- DROP TABLE IF EXISTS member_role;
--- DROP TABLE IF EXISTS authority;
--- DROP TABLE IF EXISTS member;
--- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS seat_type;
--- DROP TABLE IF EXISTS seat_class;
--- DROP TABLE IF EXISTS permission;
+DROP TABLE IF EXISTS flight;
+DROP TABLE IF EXISTS airplane;
+DROP TABLE IF EXISTS airport;
+DROP TABLE IF EXISTS pet;
+DROP TABLE IF EXISTS family;
+DROP TABLE IF EXISTS password_reset;
+DROP TABLE IF EXISTS coupon;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS member_role;
+DROP TABLE IF EXISTS authority;
+DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS seat_type;
+DROP TABLE IF EXISTS seat_class;
 
--- show tables;
+show tables;
 
 
 create table if not exists member
