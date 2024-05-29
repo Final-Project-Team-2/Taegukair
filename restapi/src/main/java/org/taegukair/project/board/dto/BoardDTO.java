@@ -3,20 +3,21 @@ package org.taegukair.project.board.dto;
 import java.time.LocalDate;
 
 public class BoardDTO {
-    private int boardId;
-    private String userId;
+    private Long boardId;
+    private int memberCode;
     private String title;
     private String content;
     private LocalDate submissionDate;
     private String status;
     private String answer;
 
-    public BoardDTO() {
-    }
+    // Constructors, getters and setters
 
-    public BoardDTO(int boardId, String userId, String title, String content, LocalDate submissionDate, String status, String answer) {
+    public BoardDTO() {}
+
+    public BoardDTO(Long boardId, int memberCode, String title, String content, LocalDate submissionDate, String status, String answer) {
         this.boardId = boardId;
-        this.userId = userId;
+        this.memberCode = memberCode;
         this.title = title;
         this.content = content;
         this.submissionDate = submissionDate;
@@ -24,20 +25,20 @@ public class BoardDTO {
         this.answer = answer;
     }
 
-    public int getBoardId() {
+    public Long getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(int boardId) {
+    public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getMemberCode() {
+        return memberCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 
     public String getTitle() {
@@ -78,18 +79,5 @@ public class BoardDTO {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardDTO{" +
-                "boardId=" + boardId +
-                ", userId='" + userId + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", submissionDate=" + submissionDate +
-                ", status='" + status + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
     }
 }

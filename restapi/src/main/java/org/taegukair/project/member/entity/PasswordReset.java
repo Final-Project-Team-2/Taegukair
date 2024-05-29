@@ -16,17 +16,17 @@ public class PasswordReset {
     private String tokenExpiration;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private Users user;
+    @JoinColumn(name = "member_code", nullable = false)
+    private Member member;
 
     public PasswordReset() {
     }
 
-    public PasswordReset(int resetCode, String resetToken, String tokenExpiration, Users user) {
+    public PasswordReset(int resetCode, String resetToken, String tokenExpiration, Member member) {
         this.resetCode = resetCode;
         this.resetToken = resetToken;
         this.tokenExpiration = tokenExpiration;
-        this.user = user;
+        this.member = member;
     }
 
     public int getResetCode() {
@@ -53,12 +53,12 @@ public class PasswordReset {
         this.tokenExpiration = tokenExpiration;
     }
 
-    public Users getUser() {
-        return user;
+    public Member getMember() {
+        return member;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PasswordReset {
                 "resetCode=" + resetCode +
                 ", resetToken='" + resetToken + '\'' +
                 ", tokenExpiration='" + tokenExpiration + '\'' +
-                ", user=" + user +
+                ", member=" + member +
                 '}';
     }
 }

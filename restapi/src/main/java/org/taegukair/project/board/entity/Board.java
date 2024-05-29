@@ -1,42 +1,42 @@
 package org.taegukair.project.board.entity;
 
 import jakarta.persistence.*;
-import org.taegukair.project.member.entity.Users;
+import org.taegukair.project.member.entity.Member;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "board")
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int boardId;
+    @Column(name = "board_id")
+    private Long boardId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private Users user;
+    @JoinColumn(name = "member_code", nullable = false)
+    private Member member;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column
+    @Column(name = "content")
     private String content;
 
-    @Column(nullable = false)
+    @Column(name = "submission_date", nullable = false)
     private LocalDate submissionDate;
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private String status;
 
-    @Column
+    @Column(name = "answer")
     private String answer;
 
-    public Board() {
-    }
+    // Constructors, getters and setters
 
-    public Board(int boardId, Users user, String title, String content, LocalDate submissionDate, String status, String answer) {
-        this.boardId = boardId;
-        this.user = user;
+    public Board() {}
+
+    public Board(Member member, String title, String content, LocalDate submissionDate, String status, String answer) {
+        this.member = member;
         this.title = title;
         this.content = content;
         this.submissionDate = submissionDate;
@@ -44,20 +44,20 @@ public class Board {
         this.answer = answer;
     }
 
-    public int getBoardId() {
+    public Long getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(int boardId) {
+    public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
 
-    public Users getUser() {
-        return user;
+    public Member getMember() {
+        return member;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public String getTitle() {
@@ -98,18 +98,5 @@ public class Board {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "boardId=" + boardId +
-                ", user=" + user +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", submissionDate=" + submissionDate +
-                ", status='" + status + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
     }
 }

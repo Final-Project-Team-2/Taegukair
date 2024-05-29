@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /* 설명. Swagger는 OpenAPI Specification(OAS)이다.
  *  build.gradle에 의존성을 추가해줘야 한다.
+
  *  접속: http://zibegaza.site:8080/swagger-ui/index.html (application.yaml 참고)
  * */
 @OpenAPIDefinition(
@@ -28,3 +29,4 @@ public class SwaggerConfig {
                 .build();
     }
 }
+
