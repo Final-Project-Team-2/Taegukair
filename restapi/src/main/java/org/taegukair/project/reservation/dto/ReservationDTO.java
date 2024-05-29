@@ -3,25 +3,34 @@ package org.taegukair.project.reservation.dto;
 import java.time.LocalDate;
 
 public class ReservationDTO {
+
     private String reservationNo;
-    private int memberCode;
-    private int flightId;
-    private String seatNo;
-    private int couponId;
+
+    private int member;
+
+    private int flight;
+
+    private int seat;
+
+    private int coupon;
+
     private int baggageAmount;
+
     private int extraBaggageAmount;
+
     private int baggagePrice;
+
     private LocalDate reservationDate;
 
     public ReservationDTO() {
     }
 
-    public ReservationDTO(String reservationNo, int memberCode, int flightId, String seatNo, int couponId, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public ReservationDTO(String reservationNo, int member, int flight, int seat, int coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
         this.reservationNo = reservationNo;
-        this.memberCode = memberCode;
-        this.flightId = flightId;
-        this.seatNo = seatNo;
-        this.couponId = couponId;
+        this.member = member;
+        this.flight = flight;
+        this.seat = seat;
+        this.coupon = coupon;
         this.baggageAmount = baggageAmount;
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
@@ -36,36 +45,36 @@ public class ReservationDTO {
         this.reservationNo = reservationNo;
     }
 
-    public int getMemberCode() {
-        return memberCode;
+    public int getMember() {
+        return member;
     }
 
-    public void setMemberCode(int memberCode) {
-        this.memberCode = memberCode;
+    public void setMember(int member) {
+        this.member = member;
     }
 
-    public int getFlightId() {
-        return flightId;
+    public int getFlight() {
+        return flight;
     }
 
-    public void setFlightId(int flightId) {
-        this.flightId = flightId;
+    public void setFlight(int flight) {
+        this.flight = flight;
     }
 
-    public String getSeatNo() {
-        return seatNo;
+    public int getSeat() {
+        return seat;
     }
 
-    public void setSeatNo(String seatNo) {
-        this.seatNo = seatNo;
+    public void setSeat(int seat) {
+        this.seat = seat;
     }
 
-    public int getCouponId() {
-        return couponId;
+    public int getCoupon() {
+        return coupon;
     }
 
-    public void setCouponId(int couponId) {
-        this.couponId = couponId;
+    public void setCoupon(int coupon) {
+        this.coupon = coupon;
     }
 
     public int getBaggageAmount() {
@@ -104,10 +113,10 @@ public class ReservationDTO {
     public String toString() {
         return "ReservationDTO{" +
                 "reservationNo='" + reservationNo + '\'' +
-                ", memberCode='" + memberCode + '\'' +
-                ", flightId=" + flightId +
-                ", seatNo='" + seatNo + '\'' +
-                ", couponId=" + couponId +
+                ", member=" + member +
+                ", flight=" + flight +
+                ", seat=" + seat +
+                ", coupon=" + coupon +
                 ", baggageAmount=" + baggageAmount +
                 ", extraBaggageAmount=" + extraBaggageAmount +
                 ", baggagePrice=" + baggagePrice +

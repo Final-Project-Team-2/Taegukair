@@ -9,40 +9,40 @@ import org.taegukair.project.member.entity.Member;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "reservation")
 public class Reservation {
+
     @Id
     @Column(name = "Reservation_No")
     private String reservationNo;
 
-    @ManyToOne
-    @JoinColumn(name = "member_code", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "member_code")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "flight_ID", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "flight_ID")
     private Flight flight;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_No", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    @Column(name = "baggage_amount", nullable = false)
+    @Column(name = "baggage_amount")
     private int baggageAmount;
 
-    @Column(name = "extra_baggage_amount", nullable = false)
+    @Column(name = "extra_baggage_amount")
     private int extraBaggageAmount;
 
-    @Column(name = "baggage_price", nullable = false)
+    @Column(name = "baggage_price")
     private int baggagePrice;
 
-    @Column(name = "reservation_Date", nullable = false)
+    @Column(name = "reservation_Date")
     private LocalDate reservationDate;
-
-    // Constructors, getters and setters
 
     public Reservation() {
     }
@@ -129,5 +129,20 @@ public class Reservation {
 
     public void setReservationDate(LocalDate reservationDate) {
         this.reservationDate = reservationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationNo='" + reservationNo + '\'' +
+                ", member=" + member +
+                ", flight=" + flight +
+                ", seat=" + seat +
+                ", coupon=" + coupon +
+                ", baggageAmount=" + baggageAmount +
+                ", extraBaggageAmount=" + extraBaggageAmount +
+                ", baggagePrice=" + baggagePrice +
+                ", reservationDate=" + reservationDate +
+                '}';
     }
 }

@@ -1,24 +1,22 @@
 package org.taegukair.project.flight.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.taegukair.project.common.ResponseDTO;
-import org.taegukair.project.flight.dto.AirPortDTO;
 import org.taegukair.project.flight.dto.FlightDTO;
 import org.taegukair.project.flight.service.FlightService;
+
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
-@RequestMapping("/api/vi/flight")
+@RequestMapping("/api/v1/flight")
 public class FlightController {
 
     private final FlightService flightService;
 
+    @Autowired
     public FlightController(FlightService flightService) {
         this.flightService = flightService;
     }
@@ -26,7 +24,7 @@ public class FlightController {
     @GetMapping("/all")
     public ResponseEntity<ResponseDTO> getAllFlights() {
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 조회 성공", flightService.findAllFlight()));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 조회 성공", flightService.findAllFlights()));
     }
 
     @GetMapping("/{flightId}")
