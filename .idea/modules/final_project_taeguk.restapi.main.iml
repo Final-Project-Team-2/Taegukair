@@ -6,14 +6,10 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="entityManagerFactory" value="aa17c39b-924a-4687-bb3a-53aeaea10075" />
+          <factory-entry name="entityManagerFactory" value="30e0e3db-72a0-4cc6-a5a3-215b5fe0ac35" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
-  </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
