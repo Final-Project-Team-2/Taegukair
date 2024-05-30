@@ -45,10 +45,13 @@ public class Reservation implements Serializable {
     @Column(name = "reservation_Date")
     private LocalDate reservationDate;
 
+    @Column(name = "reservation_total_price")
+    private int reservationTotalPrice;
+
     public Reservation() {
     }
 
-    public Reservation(String reservationNo, Member member, Flight flight, Seat seat, Coupon coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public Reservation(String reservationNo, Member member, Flight flight, Seat seat, Coupon coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate, int reservationTotalPrice) {
         this.reservationNo = reservationNo;
         this.member = member;
         this.flight = flight;
@@ -58,6 +61,7 @@ public class Reservation implements Serializable {
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
         this.reservationDate = reservationDate;
+        this.reservationTotalPrice = reservationTotalPrice;
     }
 
     public String getReservationNo() {
@@ -132,6 +136,14 @@ public class Reservation implements Serializable {
         this.reservationDate = reservationDate;
     }
 
+    public int getReservationTotalPrice() {
+        return reservationTotalPrice;
+    }
+
+    public void setReservationTotalPrice(int reservationTotalPrice) {
+        this.reservationTotalPrice = reservationTotalPrice;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -144,6 +156,7 @@ public class Reservation implements Serializable {
                 ", extraBaggageAmount=" + extraBaggageAmount +
                 ", baggagePrice=" + baggagePrice +
                 ", reservationDate=" + reservationDate +
+                ", reservationTotalPrice=" + reservationTotalPrice +
                 '}';
     }
 }

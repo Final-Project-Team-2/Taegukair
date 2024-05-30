@@ -43,4 +43,5 @@ public class SeatService {
 
         return seatList.stream().map(seat -> modelMapper.map(seat, Seat.class)).collect(Collectors.toList());
     }
+
 }

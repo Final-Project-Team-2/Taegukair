@@ -13,6 +13,7 @@ import org.taegukair.project.flight.repository.SeatRepository;
 import org.taegukair.project.flight.service.FlightService;
 import org.taegukair.project.member.entity.Coupon;
 import org.taegukair.project.member.entity.Member;
+import org.taegukair.project.member.repository.CouponRepository;
 import org.taegukair.project.member.repository.MemberRepository;
 import org.taegukair.project.reservation.dto.ReservationDTO;
 import org.taegukair.project.reservation.entity.Reservation;
@@ -32,14 +33,16 @@ public class ReservationService {
     private final ModelMapper modelMapper;
     private final FlightRepository flightRepository;
     private final SeatRepository seatRepository;
+    private final CouponRepository couponRepository;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, MemberRepository memberRepository, ModelMapper modelMapper, FlightRepository flightRepository, SeatRepository seatRepository) {
+    public ReservationService(ReservationRepository reservationRepository, MemberRepository memberRepository, ModelMapper modelMapper, FlightRepository flightRepository, SeatRepository seatRepository, CouponRepository couponRepository) {
         this.reservationRepository = reservationRepository;
         this.memberRepository = memberRepository;
+        this.modelMapper = modelMapper;
         this.flightRepository = flightRepository;
         this.seatRepository = seatRepository;
-        this.modelMapper = modelMapper;
+        this.couponRepository = couponRepository;
     }
 
     public Object findAllReservations() {
@@ -58,8 +61,6 @@ public class ReservationService {
     public Object findReservation(String reservationNo) {
 
         log.info("[ReservationService] findReservation() Start");
-
-//        Reservation reservation = reservationRepository.findByReservationNo(reservationNo).get();
 
         Reservation reservation = null;
 
@@ -113,17 +114,24 @@ public class ReservationService {
 
             newReservation.setSeat(seat);
 
-//            Coupon coupon = couponRepository.findById(reservationDTO.getCoupon())
-//                    .orElse(null);
+            Coupon coupon = couponRepository.findById(reservationDTO.getCoupon())
+                    .orElse(null);
 
-//            Coupon coupon = null;
-//
-//            newReservation.setCoupon(coupon);
+            if (coupon == null) {
+                // 쿠폰이 없을 때: 아무 동작도 하지 않음
+            } else if (coupon.getMemberCode() != reservationDTO.getMember()) {
+                // 쿠폰이 본인의 것이 아닐 때
+                return "유효한 쿠폰이 아닙니다!";
+            } else {
+                newReservation.setCoupon(coupon);
+            }
+
 
             newReservation.setBaggageAmount(reservationDTO.getBaggageAmount());
             newReservation.setExtraBaggageAmount(reservationDTO.getExtraBaggageAmount());
             newReservation.setBaggagePrice(reservationDTO.getBaggagePrice());
             newReservation.setReservationDate(reservationDTO.getReservationDate());
+            newReservation.setReservationTotalPrice(reservationDTO.getReservationTotalPrice());
 
             log.info("newReservation : {}", newReservation);
 
@@ -131,7 +139,8 @@ public class ReservationService {
 
             seat.setReserved(true);
 
-//            coupon.setPossible(false);
+            assert coupon != null;
+            coupon.setPossible(false);
 
             result = 1;
         } catch (Exception e) {
@@ -142,6 +151,7 @@ public class ReservationService {
         return (result > 0) ? "예약 성공" : "예약 실패";
     }
 
+    @Transactional
     public Object deleteReservation(String reservationNo) {
 
         int result = 0;

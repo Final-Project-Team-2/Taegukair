@@ -30,7 +30,7 @@ public class Member {
     private String memberGender;
 
     @Column(name = "birth_date", nullable = false)
-//    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
 
     @Column(name = "member_phone", nullable = false, length = 255)

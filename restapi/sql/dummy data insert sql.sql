@@ -161,15 +161,27 @@ INSERT INTO board (member_code, title, content, submission_date, status, answer)
     (10, 'Title 10', 'Content 10', '2024-06-09', 'true', '월급 받기 힘들다..');
 
 -- 예약(Reservation) 테이블에 대한 더미 데이터
-INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date) VALUES
-('8D8E1A7B', 1, 1, '1', 1, 2, 1, 50000, '2024-06-01'),
-('9C2A4B1F', 2, 2, '2', 2, 1, 0, 25000, '2024-06-02'),
-('1E7A9D3C', 3, 3, '3', 3, 3, 2, 75000, '2024-06-03'),
-('4B2C7E9F', 4, 4, '4', 4, 1, 1, 50000, '2024-06-04'),
-('6A1D3B2E', 5, 5, '5', 5, 2, 0, 25000, '2024-06-05'),
-('7C4E2A1F', 6, 6, '6', 6, 3, 2, 75000, '2024-06-06'),
-('3D7A1B2C', 7, 7, '7', 7, 1, 1, 50000, '2024-06-07'),
-('2E9B4A7D', 8, 8, '8', 8, 2, 0, 25000, '2024-06-08'),
-('5C1E3A7B', 9, 9, '9', 9, 3, 2, 75000, '2024-06-09'),
-('7A9D3C2E', 10, 10, '10', 10, 1, 1, 50000, '2024-06-10');
+-- INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date, reservation_total_price) VALUES
+-- ('8D8E1A7B', 1, 1, '1', 1, 2, 1, 50000, '2024-06-01'),
+-- ('9C2A4B1F', 2, 2, '2', 2, 1, 0, 25000, '2024-06-02'),
+-- ('1E7A9D3C', 3, 3, '3', 3, 3, 2, 75000, '2024-06-03'),
+-- ('4B2C7E9F', 4, 4, '4', 4, 1, 1, 50000, '2024-06-04'),
+-- ('6A1D3B2E', 5, 5, '5', 5, 2, 0, 25000, '2024-06-05'),
+-- ('7C4E2A1F', 6, 6, '6', 6, 3, 2, 75000, '2024-06-06'),
+-- ('3D7A1B2C', 7, 7, '7', 7, 1, 1, 50000, '2024-06-07'),
+-- ('2E9B4A7D', 8, 8, '8', 8, 2, 0, 25000, '2024-06-08'),
+-- ('5C1E3A7B', 9, 9, '9', 9, 3, 2, 75000, '2024-06-09'),
+-- ('7A9D3C2E', 10, 10, '10', 10, 1, 1, 50000, '2024-06-10');
 
+-- 예약(Reservation) 테이블에 대한 더미 데이터
+INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date, reservation_total_price) VALUES
+('8D8E1A7B', 1, 1, 1, NULL, 1, 1, 50000, '2024-06-01', 260000),
+('9C2A4B1F', 2, 2, 2, NULL, 1, 0, 25000, '2024-06-02', 255000),
+('1E7A9D3C', 3, 3, 3, NULL, 0, 2, 75000, '2024-06-03', 285000),
+('4B2C7E9F', 4, 4, 4, NULL, 1, 1, 50000, '2024-06-04', 300000),
+('6A1D3B2E', 5, 5, 5, NULL, 0, 0, 25000, '2024-06-05', 300000),
+('7C4E2A1F', 6, 6, 6, NULL, 1, 2, 75000, '2024-06-06', 320000),
+('3D7A1B2C', 7, 7, 7, NULL, 0, 1, 50000, '2024-06-07', 290000),
+('2E9B4A7D', 8, 8, 8, NULL, 0, 0, 25000, '2024-06-08', 285000),
+('5C1E3A7B', 9, 9, 9, NULL, 1, 2, 75000, '2024-06-09', 305000),
+('7A9D3C2E', 10, 10, 10, NULL, 1, 1, 50000, '2024-06-10', 290000);

@@ -12,7 +12,7 @@ public class ReservationDTO {
 
     private int seat;
 
-//    private int coupon;
+    private int coupon;
 
     private int baggageAmount;
 
@@ -22,18 +22,22 @@ public class ReservationDTO {
 
     private LocalDate reservationDate;
 
+    private int reservationTotalPrice;
+
     public ReservationDTO() {
     }
 
-    public ReservationDTO(String reservationNo, int member, int flight, int seat, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public ReservationDTO(String reservationNo, int member, int flight, int seat, int coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate, int reservationTotalPrice) {
         this.reservationNo = reservationNo;
         this.member = member;
         this.flight = flight;
         this.seat = seat;
+        this.coupon = coupon;
         this.baggageAmount = baggageAmount;
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
         this.reservationDate = reservationDate;
+        this.reservationTotalPrice = reservationTotalPrice;
     }
 
     public String getReservationNo() {
@@ -68,6 +72,14 @@ public class ReservationDTO {
         this.seat = seat;
     }
 
+    public int getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(int coupon) {
+        this.coupon = coupon;
+    }
+
     public int getBaggageAmount() {
         return baggageAmount;
     }
@@ -100,6 +112,14 @@ public class ReservationDTO {
         this.reservationDate = reservationDate;
     }
 
+    public int getReservationTotalPrice() {
+        return reservationTotalPrice;
+    }
+
+    public void setReservationTotalPrice(int reservationTotalPrice) {
+        this.reservationTotalPrice = reservationTotalPrice;
+    }
+
     @Override
     public String toString() {
         return "ReservationDTO{" +
@@ -107,10 +127,12 @@ public class ReservationDTO {
                 ", member=" + member +
                 ", flight=" + flight +
                 ", seat=" + seat +
+                ", coupon=" + coupon +
                 ", baggageAmount=" + baggageAmount +
                 ", extraBaggageAmount=" + extraBaggageAmount +
                 ", baggagePrice=" + baggagePrice +
                 ", reservationDate=" + reservationDate +
+                ", reservationTotalPrice=" + reservationTotalPrice +
                 '}';
     }
 }
