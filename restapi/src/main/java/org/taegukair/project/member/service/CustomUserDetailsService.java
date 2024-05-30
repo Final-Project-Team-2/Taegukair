@@ -21,7 +21,7 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService{
 	private final MemberRepository memberRepository;
 	private final ModelMapper modelMapper;
-	
+
 	@Autowired
 	public CustomUserDetailsService(MemberRepository memberRepository, ModelMapper modelMapper) {
 		this.memberRepository = memberRepository;
@@ -39,19 +39,19 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
 		Member member = memberRepository.findByMemberId(memberId);
-		
+
 		/* 설명. MemberDTO는 엔티티를 옮겨 담는 DTO이자 UserDetails이다. */
 		MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
-		
+
 		/* 설명. 엔티티로는 MemberDTO에 추가한 Collection<GrantedAuthority> authorities 속성이 옮겨담아지지 않는다. */
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		for(MemberRole memberRole : member.getMemberRole()) {
 			String authorityName = memberRole.getAuthority().getAuthorityName();
 			authorities.add(new SimpleGrantedAuthority(authorityName));
 		}
-		
+
 		memberDTO.setAuthorities(authorities);
-		
+
 		return memberDTO;
 	}
 }

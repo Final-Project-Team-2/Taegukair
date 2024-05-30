@@ -12,7 +12,7 @@ public class ReservationDTO {
 
     private int seat;
 
-    private int coupon;
+//    private int coupon;
 
     private int baggageAmount;
 
@@ -25,12 +25,11 @@ public class ReservationDTO {
     public ReservationDTO() {
     }
 
-    public ReservationDTO(String reservationNo, int member, int flight, int seat, int coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public ReservationDTO(String reservationNo, int member, int flight, int seat, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
         this.reservationNo = reservationNo;
         this.member = member;
         this.flight = flight;
         this.seat = seat;
-        this.coupon = coupon;
         this.baggageAmount = baggageAmount;
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
@@ -67,14 +66,6 @@ public class ReservationDTO {
 
     public void setSeat(int seat) {
         this.seat = seat;
-    }
-
-    public int getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(int coupon) {
-        this.coupon = coupon;
     }
 
     public int getBaggageAmount() {
@@ -116,7 +107,6 @@ public class ReservationDTO {
                 ", member=" + member +
                 ", flight=" + flight +
                 ", seat=" + seat +
-                ", coupon=" + coupon +
                 ", baggageAmount=" + baggageAmount +
                 ", extraBaggageAmount=" + extraBaggageAmount +
                 ", baggagePrice=" + baggagePrice +

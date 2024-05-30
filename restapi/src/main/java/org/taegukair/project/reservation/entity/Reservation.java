@@ -6,11 +6,12 @@ import org.taegukair.project.flight.entity.Seat;
 import org.taegukair.project.member.entity.Coupon;
 import org.taegukair.project.member.entity.Member;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "reservation")
-public class Reservation {
+public class Reservation implements Serializable {
 
     @Id
     @Column(name = "Reservation_No")

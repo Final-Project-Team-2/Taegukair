@@ -2,6 +2,7 @@ package org.taegukair.project.member.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +30,8 @@ public class Member {
     private String memberGender;
 
     @Column(name = "birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+//    @Temporal(TemporalType.DATE)
+    private LocalDate birthDate;
 
     @Column(name = "member_phone", nullable = false, length = 255)
     private String memberPhone;
@@ -42,7 +43,7 @@ public class Member {
     // Default constructor
     public Member() {}
 
-    public Member(int memberCode, String memberId, String memberName, String memberPassword, String memberEmail, String memberGender, Date birthDate, String memberPhone, List<MemberRole> memberRole) {
+    public Member(int memberCode, String memberId, String memberName, String memberPassword, String memberEmail, String memberGender, LocalDate birthDate, String memberPhone, List<MemberRole> memberRole) {
         this.memberCode = memberCode;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -102,11 +103,11 @@ public class Member {
         this.memberGender = memberGender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

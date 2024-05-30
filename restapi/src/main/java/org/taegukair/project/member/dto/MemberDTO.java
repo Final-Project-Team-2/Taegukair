@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MemberDTO implements UserDetails {
-
+//public class MemberDTO {
     private int memberCode;
     private String memberId;
     private String memberPassword;

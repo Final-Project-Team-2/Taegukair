@@ -116,9 +116,9 @@ public class ReservationService {
 //            Coupon coupon = couponRepository.findById(reservationDTO.getCoupon())
 //                    .orElse(null);
 
-            Coupon coupon = null;
-
-            newReservation.setCoupon(coupon);
+//            Coupon coupon = null;
+//
+//            newReservation.setCoupon(coupon);
 
             newReservation.setBaggageAmount(reservationDTO.getBaggageAmount());
             newReservation.setExtraBaggageAmount(reservationDTO.getExtraBaggageAmount());

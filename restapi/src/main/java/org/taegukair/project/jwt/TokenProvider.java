@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  * */
 @Component
 public class TokenProvider {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 	private static final String AUTHORITIES_KEY = "auth";
 	private static final String BEARER_TYPE = "Bearer";
@@ -82,10 +82,10 @@ public class TokenProvider {
 		byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 	}
-	
+
 	/* 목차. 1. 토큰 생성 메소드 */
 	public TokenDTO generateTokenDTO(Member member) {
-		
+
 		log.info("[TokenProvider] generateTokenDTO() Start");
 
 		List<String> roles = new ArrayList<>();
@@ -94,28 +94,28 @@ public class TokenProvider {
 		}
 		/* 설명. SLF4J에서 제공하는 치환문자 활용(+(덧셈)같은 연산처리 작업 생략) */
 		log.info("[TokenProvider] authorities {}", roles);
-		
+
 		/* 설명. 1. 회원 아이디를 "sub"이라는 클레임으로 토큰에 추가 */
 		Claims claims = Jwts.claims().setSubject(member.getMemberId());
 
 		/* 설명. 2. 회원의 권한들을 "auth"라는 클레임으로 토큰에 추가 */
 		claims.put(AUTHORITIES_KEY, roles);
-		
+
 		long now = System.currentTimeMillis();
-		
-		Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);	// util.Date로 import 
+
+		Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);	// util.Date로 import
 		String accessToken = Jwts.builder()
 								 .setClaims(claims)
 								 /* 설명. 3. 토큰의 만료 기간을 DATE형으로 토큰에 추가("exp"라는 클레임으로 long 형으로 토큰에 추가) */
 								 .setExpiration(accessTokenExpiresIn)
 								 .signWith(key, SignatureAlgorithm.HS512)
 								 .compact();
-		
+
 		log.info("[TokenProvider] generateTokenDTO() End");
-		
+
 		return new TokenDTO(BEARER_TYPE, member.getMemberName(), accessToken, accessTokenExpiresIn.getTime());
 	}
-	
+
 	/* 목차. 2. 토큰에 등록된 클레임의 subject에서 해당 회원의 아이디를 추출 */
 	public String getUserId(String token) {
 		return Jwts.parserBuilder()
@@ -124,19 +124,19 @@ public class TokenProvider {
 				   .getBody()		// 설명. payload의 Claims 추출
 				   .getSubject();	// 설명. Claims 중에 등록 클레임에 해당하는 sub값 추출(회원 아이디)
 	}
-	
+
 	/* 목차. 3. AccessToken으로 인증 객체 추출(이 클래스의 5번과 2번에 해당하는 메소드를 사용) */
 	public Authentication getAuthentication(String token) {
-		
+
 		log.info("[TokenProvider] getAuthentication() Start");
-		
+
 		/* 설명. 토큰에서 claim들 추출(토큰 복호화) */
 		Claims claims = parseClaims(token);		// 아래 5번에서 만든 메소드
-		
+
 		if (claims.get(AUTHORITIES_KEY) == null) {
 			throw new RuntimeException("권한 정보가 없는 토큰입니다.");
 		}
-		
+
 		/* 설명. 클레임에서 권한 정보(auth) 가져오기 */
 		Collection<? extends GrantedAuthority> authorities =
 				/* 설명. ex: "ROLE_ADMIN"이랑 "ROLE_MEMBER"같은 문자열이 들어있는 문자열 배열 */
@@ -149,12 +149,12 @@ public class TokenProvider {
 
 		/* 설명. Spring Security에서 제공하는 UserDetailsService를 그대로 사용할 것이다. */
 		UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserId(token));
-				
+
 		log.info("[TokenProvider] getAuthentication() End");
-		
-		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());		
+
+		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
-	
+
 	/* 목차. 4. 토큰 유효성 검사 */
 	public boolean validateToken(String token) {
 		try {
@@ -174,7 +174,7 @@ public class TokenProvider {
 			throw new TokenException("JWT 토큰이 잘못되었습니다.");
 		}
 	}
-	
+
 	/* 목차. 5. AccessToken에서 클레임을 추출하는 메소드 */
 	private Claims parseClaims(String token) {
 		try {

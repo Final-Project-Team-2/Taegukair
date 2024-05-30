@@ -10,28 +10,29 @@ import java.time.LocalDate;
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "coupon_id")
     private int couponId;
 
     @ManyToOne
     @JoinColumn(name = "member_code", nullable = false)
     private Member member;
 
-    @Column(nullable = false)
+    @Column(name = "coupon_code", nullable = false)
     private String couponCode;
 
-    @Column
+    @Column(name = "discount_amount")
     private int discountAmount;
 
-    @Column
+    @Column(name = "discount_percentage")
     private int discountPercentage;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    @Column(nullable = false)
+    @Column(name = "valid_until", nullable = false)
     private LocalDate validUntil;
 
-    @Column(nullable = false)
+    @Column(name = "is_possible", nullable = false)
     private boolean isPossible;
 
     public Coupon() {
