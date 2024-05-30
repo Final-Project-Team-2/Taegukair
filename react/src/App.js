@@ -14,6 +14,7 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
+import './App.css'; // Add this line to import the CSS file
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

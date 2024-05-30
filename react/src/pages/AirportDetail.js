@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css';  // 경로 수정
 
 function AirportDetail() {
   const { id } = useParams();
@@ -20,14 +21,16 @@ function AirportDetail() {
   }, [id]);
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:8080/api/v1/airports/${id}`)
-      .then(() => {
-        navigate('/main/admin/airports');
-      })
-      .catch(error => {
-        console.error('There was an error deleting the airport!', error);
-        setError(error);
-      });
+    if (window.confirm(`${airport.airportName} 공항을 삭제하시겠습니까?`)) {
+      axios.delete(`http://localhost:8080/api/v1/airports/${id}`)
+        .then(() => {
+          navigate('/main/admin/airports');
+        })
+        .catch(error => {
+          console.error('There was an error deleting the airport!', error);
+          setError(error);
+        });
+    }
   };
 
   const handleEdit = () => {
@@ -39,14 +42,30 @@ function AirportDetail() {
   }
 
   return (
-    <div>
+    <div className="table-container">
       {airport && (
         <>
-          <h1>{airport.airportName}</h1>
-          <p>IATA: {airport.airportIata}</p>
-          <p>Location: {airport.airportLocation}</p>
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          <h1>Airport Details</h1>
+          <table className="table">
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <td>{airport.airportName}</td>
+              </tr>
+              <tr>
+                <th>IATA</th>
+                <td>{airport.airportIata}</td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>{airport.airportLocation}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="button-container">
+            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
         </>
       )}
     </div>
