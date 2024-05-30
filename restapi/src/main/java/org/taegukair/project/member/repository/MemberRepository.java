@@ -5,11 +5,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.taegukair.project.member.entity.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     // 특정 회원 ID로 회원 조회
     Member findByMemberId(String memberId);
+
+    // 특정 회원 번호로 회원 조회
+    Member findByMemberCode(int memberCode);
+
 
     // 특정 회원 이메일로 회원 조회
     Member findByMemberEmail(String memberEmail);
