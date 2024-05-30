@@ -1,7 +1,6 @@
 package org.taegukair.project.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,19 +54,23 @@ public class AuthController {
 
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(HttpStatus.OK, "로그인 성공", authService.login(memberDTO)));
+                .body(new ResponseDTO("로그인 성공", authService.login(memberDTO)));
 
         /* 설명. (React 및 Spring 연계 시, 가장 중요!!!!!!!!!!)
          *  ResponseEntity의 body() 메소드를 사용하면 Response객체의 body에 담기는 ResponseDTO는 JSON문자열이 되고
          *  화면단이 React인 곳으로 가면 결국 Store에 해당 리듀서가 관리하는 state 값이 된다.
          */
     }
+
     @Operation(summary = "회원 가입 요청", description = "회원 가입이 진행됩니다.", tags = {"AuthController"})
     @PostMapping("/signup")
     public ResponseEntity<ResponseDTO> signup(@RequestBody MemberDTO memberDTO) {   // 회원 가입 정보를 받아 냄
+        System.out.println("Received DTO for signup: " + memberDTO); // 로그 추가
+
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(HttpStatus.CREATED, "회원가입 성공", authService.signup(memberDTO)));
+                .body(new ResponseDTO("회원가입 성공", authService.signup(memberDTO)));
     }
+
 
 }

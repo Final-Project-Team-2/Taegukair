@@ -3,7 +3,6 @@ package org.taegukair.project.member.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,7 +29,6 @@ public class Member {
     private String memberGender;
 
     @Column(name = "birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
 
     @Column(name = "member_phone", nullable = false, length = 255)

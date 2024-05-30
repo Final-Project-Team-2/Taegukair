@@ -10,6 +10,7 @@ import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.repository.MemberRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,4 +48,58 @@ public class MemberService {
 
 		return memberDTOs;
 	}
+
+	// 회원가입 로직 추가
+	public MemberDTO signup(MemberDTO memberDTO) {
+		log.info("[MemberService] signup Start =======================");
+		log.info("[MemberService] Converting DTO to Entity: {}", memberDTO);
+
+		Member member = modelMapper.map(memberDTO, Member.class);
+		Member savedMember = memberRepository.save(member);
+
+		log.info("[MemberService] Saved Member: {}", savedMember);
+		log.info("[MemberService] signup End =========================");
+
+		return modelMapper.map(savedMember, MemberDTO.class);
+	}
+
+	// 회원탈퇴 로직 추가
+	public void deleteMember(String memberId) {
+		log.info("[MemberService] deleteMember Start =======================");
+
+		Member member = memberRepository.findByMemberId(memberId);
+		if (member != null) {
+			memberRepository.delete(member);
+			log.info("[MemberService] Member deleted: {}", memberId);
+		} else {
+			log.warn("[MemberService] Member not found: {}", memberId);
+		}
+
+		log.info("[MemberService] deleteMember End =========================");
+	}
+
+	// 회원정보 수정 로직 추가
+	public MemberDTO updateMember(MemberDTO memberDTO) {
+		log.info("[MemberService] updateMember Start =======================");
+
+		Optional<Member> optionalMember = memberRepository.findById(memberDTO.getMemberCode());
+		if (optionalMember.isPresent()) {
+			Member existingMember = optionalMember.get();
+			existingMember.setMemberId(memberDTO.getMemberId());
+			existingMember.setMemberPassword(memberDTO.getPassword());
+			existingMember.setMemberEmail(memberDTO.getMemberEmail());
+			existingMember.setMemberName(memberDTO.getMemberName());
+			existingMember.setBirthDate(memberDTO.getBirthDate());
+
+			Member updatedMember = memberRepository.save(existingMember);
+			log.info("[MemberService] Member updated: {}", updatedMember);
+
+			log.info("[MemberService] updateMember End =========================");
+			return modelMapper.map(updatedMember, MemberDTO.class);
+		} else {
+			log.warn("[MemberService] Member not found: {}", memberDTO.getMemberCode());
+			return null;
+		}
+	}
+
 }
