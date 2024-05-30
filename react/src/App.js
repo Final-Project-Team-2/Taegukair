@@ -8,7 +8,12 @@ import AirportAdd from './pages/AirportAdd';
 import BoardList from './pages/BoardList';
 import BoardDetail from './pages/BoardDetail';
 import Login from './pages/member/Login';
-import Signup from './pages/Signup';
+import Signup from './pages/signup/Signup';
+import Terms from './pages/signup/Terms';
+import Verify from './pages/signup/Verify';
+import Complete from './pages/signup/Complete';
+import Reservations from './pages/reservation/Reservations';
+import ReservationDetail from './pages/reservation/ReservationDetail';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +48,11 @@ function App() {
           <Route path="main/admin/board/:id" element={<BoardDetail />} />
           <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="signup/terms" element={<Terms />} />
+          <Route path="signup/verify" element={<Verify />} />
+          <Route path="signup/complete" element={<Complete />} />
+          <Route path="main/admin/reservations" element={< Reservations />} />
+          <Route path="main/admin/reservation/detail" element={< ReservationDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

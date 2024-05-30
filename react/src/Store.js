@@ -1,18 +1,11 @@
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-
-// 기본 리듀서 설정 (필요에 따라 수정)
-const initialState = {};
-
-function rootReducer(state = initialState, action) {
-  switch (action.type) {
-    // 필요한 경우 리듀서 로직 추가
-    default:
-      return state;
-  }
-}
+import rootReducer from './modules';
+import { applyMiddleware, createStore } from 'redux';
+import { thunk } from 'redux-thunk';
 
 // 스토어 생성
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
 
 export default store;
