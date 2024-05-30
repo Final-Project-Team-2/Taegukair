@@ -1,14 +1,23 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-function Layout() {
+function Layout({ isLoggedIn, memberId, onLogout }) {
   return (
     <div>
       <header style={headerStyle}>
         <h1>Airport Management System</h1>
         <div style={navStyle}>
-          <Link to="/login" style={linkStyle}>Login</Link>
-          <Link to="/signup" style={linkStyle}>Signup</Link>
+          {isLoggedIn ? (
+            <>
+              <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
+              <button onClick={onLogout} style={linkStyle}>Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" style={linkStyle}>Login</Link>
+              <Link to="/signup" style={linkStyle}>Signup</Link>
+            </>
+          )}
         </div>
       </header>
       <main>
@@ -37,7 +46,15 @@ const navStyle = {
 
 const linkStyle = {
   color: 'white',
-  textDecoration: 'none'
+  textDecoration: 'none',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer'
+};
+
+const welcomeStyle = {
+  color: 'white',
+  marginRight: '10px'
 };
 
 const footerStyle = {

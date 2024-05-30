@@ -2,32 +2,31 @@ package org.taegukair.project.member.entity;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "coupon")
 public class Coupon {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coupon_id")
     private int couponId;
 
-    @ManyToOne
-    @JoinColumn(name = "member_code", nullable = false)
-    private Member member;
+    @Column(name = "member_code", nullable = false)
+    private int memberCode;
 
     @Column(name = "coupon_code", nullable = false)
     private String couponCode;
 
     @Column(name = "discount_amount")
-    private int discountAmount;
+    private Integer discountAmount;
 
     @Column(name = "discount_percentage")
-    private int discountPercentage;
+    private Integer discountPercentage;
 
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @Column(name = "valid_until", nullable = false)
     private LocalDate validUntil;
@@ -35,19 +34,12 @@ public class Coupon {
     @Column(name = "is_possible", nullable = false)
     private boolean isPossible;
 
-    public Coupon() {
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 
-    public Coupon(int couponId, Member member, String couponCode, int discountAmount, int discountPercentage, Timestamp createdAt, LocalDate validUntil, boolean isPossible) {
-        this.couponId = couponId;
-        this.member = member;
-        this.couponCode = couponCode;
-        this.discountAmount = discountAmount;
-        this.discountPercentage = discountPercentage;
-        this.createdAt = createdAt;
-        this.validUntil = validUntil;
-        this.isPossible = isPossible;
-    }
+    // Getters and Setters
 
     public int getCouponId() {
         return couponId;
@@ -57,12 +49,12 @@ public class Coupon {
         this.couponId = couponId;
     }
 
-    public Member getMember() {
-        return member;
+    public int getMemberCode() {
+        return memberCode;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 
     public String getCouponCode() {
@@ -73,27 +65,27 @@ public class Coupon {
         this.couponCode = couponCode;
     }
 
-    public int getDiscountAmount() {
+    public Integer getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(int discountAmount) {
+    public void setDiscountAmount(Integer discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public int getDiscountPercentage() {
+    public Integer getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(int discountPercentage) {
+    public void setDiscountPercentage(Integer discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -109,21 +101,7 @@ public class Coupon {
         return isPossible;
     }
 
-    public void setPossible(boolean possible) {
-        isPossible = possible;
-    }
-
-    @Override
-    public String toString() {
-        return "Coupon{" +
-                "couponId=" + couponId +
-                ", member=" + member +
-                ", couponCode='" + couponCode + '\'' +
-                ", discountAmount=" + discountAmount +
-                ", discountPercentage=" + discountPercentage +
-                ", createdAt=" + createdAt +
-                ", validUntil=" + validUntil +
-                ", isPossible=" + isPossible +
-                '}';
+    public void setPossible(boolean isPossible) {
+        this.isPossible = isPossible;
     }
 }
