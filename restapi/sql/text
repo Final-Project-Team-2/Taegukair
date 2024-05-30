@@ -20,3 +20,29 @@ postman 회원가입 데이터 입력 예시
     "memberId": "user77",
     "memberPassword": "1234"
 }
+
+POST http://localhost:8080/api/coupon
+{
+  "memberCode": 11,
+  "couponCode": "C1011",
+  "discountAmount": 5000,
+  "discountPercentage": 10,
+  "validUntil": "2024-12-31",
+  "isPossible": true
+}
+
+GET http://localhost:8080/api/coupon/{id}
+
+PUT http://localhost:8080/api/coupon/{id}
+{
+  "memberCode": 1,
+  "couponCode": "C1001",
+  "discountAmount": 120000,
+  "discountPercentage": 10,
+  "validUntil": "2024-12-31",
+  "isPossible": true
+}
+
+DELETE http://localhost:8080/api/coupon/{id}
+
+GET http://localhost:8080/api/coupon

@@ -9,12 +9,7 @@ function Main() {
         <button>Manage Airports</button>
       </Link>
       {/* 기존 기능 버튼들을 추가합니다. */}
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
-      <Link to="/signup">
-        <button>Signup</button>
-      </Link>
+      
     </div>
   );
 }
