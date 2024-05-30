@@ -25,15 +25,15 @@ function Signup() {
         memberPhone: phone
       });
 
-      navigate('/login'); // 회원가입 성공 시 로그인 페이지로 이동
+      navigate('/signup/complete'); // 회원가입 성공 시 완료 페이지로 이동
     } catch (error) {
-      setError('Failed to sign up');
+      setError('회원가입에 실패했습니다');
     }
   };
 
   return (
     <div>
-      <h2>Signup</h2>
+      <h2>회원 정보 입력</h2>
       <input
         type="text"
         value={username}

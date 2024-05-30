@@ -15,7 +15,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
           ) : (
             <>
               <Link to="/login" style={linkStyle}>Login</Link>
-              <Link to="/signup" style={linkStyle}>Signup</Link>
+              <Link to="/signup/terms" style={linkStyle}>Signup</Link> {/* 수정된 부분 */}
             </>
           )}
         </div>
