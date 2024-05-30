@@ -44,4 +44,22 @@ public class SeatService {
         return seatList.stream().map(seat -> modelMapper.map(seat, Seat.class)).collect(Collectors.toList());
     }
 
+    public Object findAvailableSeatsTotalByFlight(int flightId) {
+
+        log.info("[SeatService] findAvailableSeatsTotalByFlight() Start");
+
+        Flight flight = flightRepository.findById(flightId)
+                .orElseThrow(() -> new RuntimeException("항공편이 존재하지 않습니다"));
+
+        List<Seat> SeatList = seatRepository.findSeatByFlight(flight);
+
+        List<Seat> availableSeatList = SeatList.stream()
+                .filter(seat -> !seat.isReserved())
+                .collect(Collectors.toList());
+
+        int availableSeatTotal = availableSeatList.size();
+
+        return availableSeatTotal;
+    }
+
 }

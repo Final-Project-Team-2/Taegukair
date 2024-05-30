@@ -21,4 +21,10 @@ public class SeatController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 좌석 조회 성공", seatservice.findAllSeatsByFlight(flightId)));
     }
+
+    @GetMapping("/Available")
+    public ResponseEntity<ResponseDTO> getAvailableSeatsInFlight(@RequestParam int flightId) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 좌석 조회 성공", seatservice.findAvailableSeatsTotalByFlight(flightId)));
+    }
 }
