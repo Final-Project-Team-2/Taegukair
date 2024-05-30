@@ -210,6 +210,7 @@ CREATE TABLE reservation (
                              extra_baggage_amount int NOT NULL,
                              baggage_price int NOT NULL,
                              reservation_Date date NOT NULL,
+                             reservation_total_price int NOT NULL,
                              PRIMARY KEY (Reservation_No),
                              FOREIGN KEY (member_code) REFERENCES member (member_code),
                              FOREIGN KEY (flight_ID) REFERENCES flight (flight_ID),

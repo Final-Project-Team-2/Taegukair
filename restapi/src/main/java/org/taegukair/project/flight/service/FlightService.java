@@ -36,17 +36,17 @@ public class FlightService {
     }
 
 
-    public Object findAllFlight() {
+    public Object findAllFlights() {
 
-        log.info("[FlightService] findAllFlight() Start");
+        log.info("[FlightService] findAllFlights() Start");
 
-        List<Flight> flightList = flightRepository.findAll();
+        List<Flight> flightsList = flightRepository.findAll();
 
-        log.info("[FlightService] flightList : {}", flightList);
+        log.info("[FlightService] flightsList : {}", flightsList);
 
         log.info("[FlightService] findAllFlight() End");
 
-        return flightList.stream().map(flight -> modelMapper.map(flight, Flight.class)).collect(Collectors.toList());
+        return flightsList.stream().map(flight -> modelMapper.map(flight, Flight.class)).collect(Collectors.toList());
     }
 
     public Object findFlight(int flightId) {
