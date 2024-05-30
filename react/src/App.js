@@ -12,6 +12,7 @@ import Signup from './pages/signup/Signup';
 import Terms from './pages/signup/Terms';
 import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
+import './App.css'; // Add this line to import the CSS file
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

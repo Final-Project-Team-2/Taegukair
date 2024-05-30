@@ -6,48 +6,52 @@ import org.taegukair.project.flight.entity.Seat;
 import org.taegukair.project.member.entity.Coupon;
 import org.taegukair.project.member.entity.Member;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class Reservation {
+@Table(name = "reservation")
+public class Reservation implements Serializable {
+
     @Id
     @Column(name = "Reservation_No")
     private String reservationNo;
 
-    @ManyToOne
-    @JoinColumn(name = "member_code", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "member_code")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "flight_ID", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "flight_ID")
     private Flight flight;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_No", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    @Column(name = "baggage_amount", nullable = false)
+    @Column(name = "baggage_amount")
     private int baggageAmount;
 
-    @Column(name = "extra_baggage_amount", nullable = false)
+    @Column(name = "extra_baggage_amount")
     private int extraBaggageAmount;
 
-    @Column(name = "baggage_price", nullable = false)
+    @Column(name = "baggage_price")
     private int baggagePrice;
 
-    @Column(name = "reservation_Date", nullable = false)
+    @Column(name = "reservation_Date")
     private LocalDate reservationDate;
 
-    // Constructors, getters and setters
+    @Column(name = "reservation_total_price")
+    private int reservationTotalPrice;
 
     public Reservation() {
     }
 
-    public Reservation(String reservationNo, Member member, Flight flight, Seat seat, Coupon coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate) {
+    public Reservation(String reservationNo, Member member, Flight flight, Seat seat, Coupon coupon, int baggageAmount, int extraBaggageAmount, int baggagePrice, LocalDate reservationDate, int reservationTotalPrice) {
         this.reservationNo = reservationNo;
         this.member = member;
         this.flight = flight;
@@ -57,6 +61,7 @@ public class Reservation {
         this.extraBaggageAmount = extraBaggageAmount;
         this.baggagePrice = baggagePrice;
         this.reservationDate = reservationDate;
+        this.reservationTotalPrice = reservationTotalPrice;
     }
 
     public String getReservationNo() {
@@ -129,5 +134,29 @@ public class Reservation {
 
     public void setReservationDate(LocalDate reservationDate) {
         this.reservationDate = reservationDate;
+    }
+
+    public int getReservationTotalPrice() {
+        return reservationTotalPrice;
+    }
+
+    public void setReservationTotalPrice(int reservationTotalPrice) {
+        this.reservationTotalPrice = reservationTotalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationNo='" + reservationNo + '\'' +
+                ", member=" + member +
+                ", flight=" + flight +
+                ", seat=" + seat +
+                ", coupon=" + coupon +
+                ", baggageAmount=" + baggageAmount +
+                ", extraBaggageAmount=" + extraBaggageAmount +
+                ", baggagePrice=" + baggagePrice +
+                ", reservationDate=" + reservationDate +
+                ", reservationTotalPrice=" + reservationTotalPrice +
+                '}';
     }
 }

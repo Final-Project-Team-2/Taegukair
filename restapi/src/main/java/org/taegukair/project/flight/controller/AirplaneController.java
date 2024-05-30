@@ -11,7 +11,7 @@ import org.taegukair.project.flight.dto.AirplaneDTO;
 import org.taegukair.project.flight.service.AirplaneService;
 
 @RestController
-@RequestMapping("/api/v1/airplane")
+@RequestMapping("/api/v1/admin/airplane")
 public class AirplaneController {
 
         private final AirplaneService airplaneService;
@@ -35,7 +35,7 @@ public class AirplaneController {
     }
 
     @Operation(summary = "항공기 등록 요청", description = "항공기 등록이 진행됩니다.", tags = {"AirplaneController"})
-    @PostMapping("/registairplane")
+    @PostMapping("/register")
     public ResponseEntity<ResponseDTO> saveAirplane(@RequestBody AirplaneDTO airplaneDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공기 등록 성공", airplaneService.saveAirplane(airplaneDTO)));

@@ -54,16 +54,16 @@ INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
 
 -- 비행기(Airplane) 테이블에 대한 더미 데이터
 INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES
-    ('Oeing 172', 'O172-1', 30),
-    ('Airbus A380', 'A380-1', 555),
-    ('Boeing 777', 'B777-1', 396),
-    ('Airbus A350', 'A350-1', 440),
-    ('Boeing 737', 'B737-1', 188),
-    ('Airbus A320', 'A320-1', 150),
-    ('Boeing 787', 'B787-1', 290),
-    ('Airbus A330', 'A330-1', 300),
-    ('Boeing 767', 'B767-1', 261),
-    ('Airbus A220', 'A220-1', 160);
+('Oeing 172', 'O172-1', 40),
+('Airbus A380', 'A380-1', 555),
+('Boeing 777', 'B777-1', 396),
+('Airbus A350', 'A350-1', 440),
+('Boeing 737', 'B737-1', 188),
+('Airbus A320', 'A320-1', 150),
+('Boeing 787', 'B787-1', 290),
+('Airbus A330', 'A330-1', 300),
+('Boeing 767', 'B767-1', 261),
+('Airbus A220', 'A220-1', 160);
 
 -- 좌석 등급(Seat_Class) 테이블에 대한 더미 데이터
 INSERT INTO seat_class (seat_class_name, seat_class_price) VALUES
@@ -149,26 +149,39 @@ INSERT INTO coupon (member_code, coupon_code, discount_amount, discount_percenta
 
 -- 게시판(Board) 테이블에 대한 더미 데이터
 INSERT INTO board (member_code, title, content, submission_date, status, answer) VALUES
-    (1, 'Title 1', 'Content 1', '2024-06-01', 'false', '오늘은 일 하기 싫어요.'),
-    (2, 'Title 2', 'Content 2', '2024-06-02', 'false', '난 오늘도 배고프다.'),
-    (3, 'Title 3', 'Content 3', '2024-06-03', 'true', '이것도 질문이에요?'),
-    (4, 'Title 4', 'Content 4', '2024-06-04', 'false', '할 수 있습니다!'),
-    (5, 'Title 5', 'Content 5', '2024-06-05', 'true', '행복한 하루 보내세요.'),
-    (6, 'Title 6', 'Content 6', '2024-06-06', 'false', '좋은 일이 있을거에요.'),
-    (7, 'Title 7', 'Content 7', '2024-06-07', 'true', '비행기 안타요'),
-    (8, 'Title 8', 'Content 8', '2024-06-08', 'false', '관둘겁니다 저 이제 당신 때문에'),
-    (9, 'Title 9', 'Content 9', '2024-06-09', 'true', '당신 때문에 너무 힘들어요'),
-    (10, 'Title 10', 'Content 10', '2024-06-09', 'true', '월급 받기 힘들다..');
+(1, 'Title 1', 'Content 1', '2024-06-01', 'false', null),
+(2, 'Title 2', 'Content 2', '2024-06-02', 'false', null),
+(3, 'Title 3', 'Content 3', '2024-06-03', 'true', '이것도 질문이에요?'),
+(4, 'Title 4', 'Content 4', '2024-06-04', 'false', null),
+(5, 'Title 5', 'Content 5', '2024-06-05', 'true', '행복한 하루 보내세요.'),
+(6, 'Title 6', 'Content 6', '2024-06-06', 'false', null),
+(7, 'Title 7', 'Content 7', '2024-06-07', 'true', '이것도 질문이라고 남긴 당신, 정말 한심한 인간이네요.'),
+(8, 'Title 8', 'Content 8', '2024-06-08', 'false', null),
+(9, 'Title 9', 'Content 9', '2024-06-09', 'true', '당신 때문에 너무 힘들어요'),
+(10, 'Title 10', 'Content 10', '2024-06-09', 'true', '월급 받기 힘들다..');
 
 -- 예약(Reservation) 테이블에 대한 더미 데이터
-INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date) VALUES
-    ('R1001', 1, 1, '1', 1, 2, 1, 50000, '2024-06-01'),
-    ('R1002', 2, 2, '2', 2, 1, 0, 25000, '2024-06-02'),
-    ('R1003', 3, 3, '3', 3, 3, 2, 75000, '2024-06-03'),
-    ('R1004', 4, 4, '4', 4, 1, 1, 50000, '2024-06-04'),
-    ('R1005', 5, 5, '5', 5, 2, 0, 25000, '2024-06-05'),
-    ('R1006', 6, 6, '6', 6, 3, 2, 75000, '2024-06-06'),
-    ('R1007', 7, 7, '7', 7, 1, 1, 50000, '2024-06-07'),
-    ('R1008', 8, 8, '8', 8, 2, 0, 25000, '2024-06-08'),
-    ('R1009', 9, 9, '9', 9, 3, 2, 75000, '2024-06-09'),
-    ('R1010', 10, 10, '10', 10, 1, 1, 50000, '2024-06-10');
+-- INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date, reservation_total_price) VALUES
+-- ('8D8E1A7B', 1, 1, '1', 1, 2, 1, 50000, '2024-06-01'),
+-- ('9C2A4B1F', 2, 2, '2', 2, 1, 0, 25000, '2024-06-02'),
+-- ('1E7A9D3C', 3, 3, '3', 3, 3, 2, 75000, '2024-06-03'),
+-- ('4B2C7E9F', 4, 4, '4', 4, 1, 1, 50000, '2024-06-04'),
+-- ('6A1D3B2E', 5, 5, '5', 5, 2, 0, 25000, '2024-06-05'),
+-- ('7C4E2A1F', 6, 6, '6', 6, 3, 2, 75000, '2024-06-06'),
+-- ('3D7A1B2C', 7, 7, '7', 7, 1, 1, 50000, '2024-06-07'),
+-- ('2E9B4A7D', 8, 8, '8', 8, 2, 0, 25000, '2024-06-08'),
+-- ('5C1E3A7B', 9, 9, '9', 9, 3, 2, 75000, '2024-06-09'),
+-- ('7A9D3C2E', 10, 10, '10', 10, 1, 1, 50000, '2024-06-10');
+
+-- 예약(Reservation) 테이블에 대한 더미 데이터
+INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon_id, baggage_amount, extra_baggage_amount, baggage_price, reservation_Date, reservation_total_price) VALUES
+('8D8E1A7B', 1, 1, 1, NULL, 1, 1, 50000, '2024-06-01', 260000),
+('9C2A4B1F', 2, 2, 2, NULL, 1, 0, 25000, '2024-06-02', 255000),
+('1E7A9D3C', 3, 3, 3, NULL, 0, 2, 75000, '2024-06-03', 285000),
+('4B2C7E9F', 4, 4, 4, NULL, 1, 1, 50000, '2024-06-04', 300000),
+('6A1D3B2E', 5, 5, 5, NULL, 0, 0, 25000, '2024-06-05', 300000),
+('7C4E2A1F', 6, 6, 6, NULL, 1, 2, 75000, '2024-06-06', 320000),
+('3D7A1B2C', 7, 7, 7, NULL, 0, 1, 50000, '2024-06-07', 290000),
+('2E9B4A7D', 8, 8, 8, NULL, 0, 0, 25000, '2024-06-08', 285000),
+('5C1E3A7B', 9, 9, 9, NULL, 1, 2, 75000, '2024-06-09', 305000),
+('7A9D3C2E', 10, 10, 10, NULL, 1, 1, 50000, '2024-06-10', 290000);
