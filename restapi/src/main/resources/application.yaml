@@ -1,15 +1,12 @@
 server:
   port: 8080
 
-
 spring:
-# DB config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/taegukair
     username: taegukair
     password: taegukair
-  # Fileupload
   servlet:
     multipart:
       enabled: true
@@ -18,7 +15,6 @@ spring:
   web:
     resources:
       static-locations: classpath:/imgs/
-  # JPA config
   jpa:
     generate-ddl: false
     show-sql: true
@@ -32,30 +28,24 @@ spring:
     serialization:
       INDENT_OUTPUT: true
 
-
-## HS512 ????? ??? ??? ??? 512bit, ? 64byte ??? secret key? ???? ??.
-## Secret ?? ?? ???? Base64 ? ???? ? ??
 jwt:
   secret: q+hXD1LywTnxIvzJNXVlMVvms/PylZZgDTGlexM8BF2rRewM6QbkAdQUyOa1DiXzjui5wLitTd+2u9EjKzbRjg==
 
-
-# swagger-ui custom path
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-
-## ???? ??? ??? ??? ? ??? ?? ??
 image:
-  ## WebConfig ??
   add-resource-locations: classpath:/static/imgs/
   add-resource-handler: /imgs/**
-  ## ProductService ??
   image-dir: src/main/resources/static/imgs
   image-url: http://localhost:8080/imgs/
 
-
-# Logging Level
 logging:
   level:
     root: info
+
+coolsms:
+  apiKey: NCSQ7KW4SSREA2EC
+  apiSecret: ROQITMW5VFELUVB9O3XVPZYS7DMVPZGT
+
