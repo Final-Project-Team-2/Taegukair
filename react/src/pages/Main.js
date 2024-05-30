@@ -9,6 +9,9 @@ function Main() {
       <Link to="/main/admin/airports" className="header-button">
         Manage Airports
       </Link>
+      <Link to="/main/admin/board" className="header-button">
+        Manage Boards
+      </Link>
       {/* 기존 기능 버튼들을 추가합니다. */}
     </div>
   );
