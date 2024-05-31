@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callGetAllReservationsAPI } from '../../apis/ReservationAPICalls'; // API 호출 함수를 가져옵니다.
+import { useNavigate } from 'react-router-dom';
+import "./Reservations.css";
 
 const Reservations = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const reservations = useSelector(state => state.reservationReducer);
 
     useEffect(() => {
@@ -11,26 +14,49 @@ const Reservations = () => {
         dispatch(callGetAllReservationsAPI());
     }, [dispatch]);
 
+    const onClickHandler = (e) => {
+        const reservationNo = e.currentTarget.getAttribute('data-reservationno');
+        console.log(reservationNo);
+        navigate(`detail?reservationNo=${reservationNo}`);
+    }
+
+    console.log(reservations);
+
     return (
         <div>
             <h2>전체 예약 목록</h2>
-            <ul>
-                {reservations.map(reservation => (
-                    <li key={reservation.reservationNo}>
-                        <p>예약 번호: {reservation.reservationNo}</p>
-                        <p>예약자 정보: {reservation.member.memberName}</p>
-                        <p>항공편 정보: {reservation.flight.flightId}</p>
-                        <p>좌석 정보: {reservation.seat.seatNo}</p>
-                        <p>쿠폰 정보: {reservation.coupon ? reservation.coupon.couponId : "없음"}</p>
-                        <p>기본 수하물 갯수: {reservation.baggageAmount}</p>
-                        <p>추가 수하물 갯수: {reservation.extraBaggageAmount}</p>
-                        <p>수하물 금액: {reservation.baggagePrice}</p>
-                        <p>예약 일자: {reservation.reservationDate}</p>
-                        <p>예약 총 금액: {reservation.reservationTotalPrice}</p>
-                        <br/>
-                    </li>
-                ))}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>예약 번호</th>
+                        <th>예약자 정보</th>
+                        <th>항공편 정보</th>
+                        <th>좌석 정보</th>
+                        <th>쿠폰 정보</th>
+                        <th>기본 수하물 갯수</th>
+                        <th>추가 수하물 갯수</th>
+                        <th>수하물 금액</th>
+                        <th>예약 일자</th>
+                        <th>예약 총 금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Array.isArray(reservations) && reservations.length > 0 && reservations.map(reservation => (
+                        <tr className='reservationList' onClick={onClickHandler} key={reservation.reservationNo} data-reservationno={reservation.reservationNo}>
+                            <td>{reservation.reservationNo}</td>
+                            <td>{reservation.member.memberName}</td>
+                            <td>{reservation.flight.flightId}</td>
+                            <td>{reservation.seat.seatNo}</td>
+                            <td>{reservation.coupon ? reservation.coupon.couponId : "없음"}</td>
+                            <td>{reservation.baggageAmount}</td>
+                            <td>{reservation.extraBaggageAmount}</td>
+                            <td>{reservation.baggagePrice}</td>
+                            <td>{reservation.reservationDate}</td>
+                            <td>{reservation.reservationTotalPrice}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
