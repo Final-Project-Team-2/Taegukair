@@ -5,14 +5,16 @@ import '../App.css';  // Add this line to import the CSS file
 function Main() {
   return (
     <div>
-      <h1>Welcome to Airport Management</h1>
+      <h1>공항 관리</h1>
       <Link to="/main/admin/airports" className="header-button">
         Manage Airports
-      </Link>
+      </Link> <br/>
+      <h1>고객의 말씀 관리</h1>
       <Link to="/main/admin/board" className="header-button">
         Manage Boards
       </Link>
-      {/* 기존 기능 버튼들을 추가합니다. */}
+      <h1>항공기 관리</h1>
+      <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link> {/* 추가된 버튼 */}
     </div>
   );
 }

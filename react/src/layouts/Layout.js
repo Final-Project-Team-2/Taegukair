@@ -13,7 +13,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
     <div>
       <header style={headerStyle}>
         <Link to="/" style={logoStyle}>
-          <h1>Airport Management System</h1>
+          <h1>관리자 페이지</h1>
         </Link>
         <div style={navStyle}>
           {isLoggedIn ? (

@@ -42,7 +42,7 @@ public class AirplaneController {
     }
 
     @Operation(summary = "항공기 수정 요청", description = "항공기 수정이 진행됩니다.", tags = {"AirplaneController"})
-    @PostMapping("/{airplaneId}")
+    @PutMapping("/{airplaneId}")
     public ResponseEntity<ResponseDTO> updateAirplane(@PathVariable int airplaneId, @RequestBody AirplaneDTO airplaneDTO) {
         // airplaneId를 사용하여 어떤 항공기를 수정할 것인지 결정.
         // airplaneDTO를 사용하여 수정할 항공기의 정보를 제공.
