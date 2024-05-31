@@ -15,13 +15,13 @@ public class MemberDTO implements UserDetails {
     private String memberName;
     private String memberEmail;
     private String memberGender;
-    private LocalDate birthDate;
+    private String birthDate;
     private String memberPhone;
     private List<MemberRoleDTO> memberRole;
 
     public MemberDTO() {}
 
-    public MemberDTO(int memberCode, String memberId, String memberPassword, String memberName, String memberEmail, String memberGender, LocalDate birthDate, String memberPhone, List<MemberRoleDTO> memberRole) {
+    public MemberDTO(int memberCode, String memberId, String memberPassword, String memberName, String memberEmail, String memberGender, String birthDate, String memberPhone, List<MemberRoleDTO> memberRole) {
         this.memberCode = memberCode;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
@@ -81,11 +81,11 @@ public class MemberDTO implements UserDetails {
         this.memberGender = memberGender;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
