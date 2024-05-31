@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import FindIdModal from './FindIdModal'; // FindIdModal 컴포넌트를 임포트합니다.
 
 function Login({ setIsLoggedIn, setMemberId }) {
     const [loginMethod, setLoginMethod] = useState('memberId'); // 기본값은 memberId
@@ -10,7 +9,6 @@ function Login({ setIsLoggedIn, setMemberId }) {
     const [memberCode, setMemberCode] = useState('');
     const [error, setError] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
-    const [showFindIdModal, setShowFindIdModal] = useState(false);
     const [showHelpModal, setShowHelpModal] = useState(false);
     const navigate = useNavigate();
 
@@ -44,16 +42,23 @@ function Login({ setIsLoggedIn, setMemberId }) {
     };
 
     const toggleHelpModal = () => setShowHelpModal(!showHelpModal);
-    const toggleFindIdModal = () => setShowFindIdModal(!showFindIdModal);
 
     return (
-        <div>
+        <div className="login-container">
             <h2>Login</h2>
-            <div>
-                <button onClick={() => setLoginMethod('memberId')} disabled={loginMethod === 'memberId'}>
+            <div className="login-method-buttons">
+                <button 
+                    className={loginMethod === 'memberId' ? 'active' : ''}
+                    onClick={() => setLoginMethod('memberId')} 
+                    disabled={loginMethod === 'memberId'}
+                >
                     아이디 로그인
                 </button>
-                <button onClick={() => setLoginMethod('memberCode')} disabled={loginMethod === 'memberCode'}>
+                <button 
+                    className={loginMethod === 'memberCode' ? 'active' : ''}
+                    onClick={() => setLoginMethod('memberCode')} 
+                    disabled={loginMethod === 'memberCode'}
+                >
                     회원번호 로그인
                 </button>
             </div>
@@ -86,7 +91,7 @@ function Login({ setIsLoggedIn, setMemberId }) {
             <button onClick={handleLogin}>
                 {loginMethod === 'memberId' ? '아이디로 로그인' : '회원 번호로 로그인'}
             </button>
-            <div>
+            <div className="remember-me">
                 <input
                     type="checkbox"
                     checked={rememberMe}
@@ -95,12 +100,12 @@ function Login({ setIsLoggedIn, setMemberId }) {
                 <label>아이디 저장</label>
             </div>
 
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
             <br/>
 
-            <div>
+            <div className="additional-actions">
                 <button onClick={() => navigate('/signup/terms')}>회원가입</button>
-                <button onClick={toggleFindIdModal}>아이디 찾기</button>
+                <button onClick={() => navigate('/findID')}>아이디 찾기</button>
                 <button onClick={() => navigate('/findPassword')}>비밀번호 찾기</button>
                 <br/>
                 <button onClick={toggleHelpModal}>도움이 필요하신가요?</button>
@@ -123,10 +128,6 @@ function Login({ setIsLoggedIn, setMemberId }) {
                         </p>
                     </div>
                 </div>
-            )}
-
-            {showFindIdModal && (
-                <FindIdModal show={showFindIdModal} handleClose={toggleFindIdModal} />
             )}
         </div>
     );
