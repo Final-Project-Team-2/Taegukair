@@ -104,3 +104,15 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* App.css */
+.modal-content {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
