@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import store from './Store';
 import Main from './pages/Main';
 import Layout from './layouts/Layout';
@@ -44,9 +45,26 @@ function App() {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={handleLogout} />}>
+      <Router>
+        <RoutesWithAnimation 
+          isLoggedIn={isLoggedIn}
+          memberId={memberId}
+          setIsLoggedIn={setIsLoggedIn}
+          setMemberId={setMemberId}
+          onLogout={handleLogout}
+        />
+      </Router>
+    </Provider>
+  );
+}
+
+function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId, onLogout }) {
+  const location = useLocation();
+  return (
+    <TransitionGroup>
+      <CSSTransition key={location.key} classNames="fade" timeout={300}>
+        <Routes location={location}>
+          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
             <Route path="main/admin/airports" element={<AirportList />} />
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
@@ -63,12 +81,12 @@ function App() {
             <Route path="signup/terms" element={<Terms />} />
             <Route path="signup/verify" element={<Verify />} />
             <Route path="signup/complete" element={<Complete />} />
-            <Route path="main/admin/reservations" element={< Reservations />} />
-          <Route path="main/admin/reservations/detail" element={< ReservationDetail />} />
+            <Route path="main/admin/reservations" element={<Reservations />} />
+            <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </Provider>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 

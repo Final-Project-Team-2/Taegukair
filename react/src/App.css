@@ -1,5 +1,22 @@
 /* App.css */
 
+/* Fade transition styles */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.7s;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.7s;
+}
+
+/* 기존 스타일 */
 .table-container {
   width: 80%;
   margin: 20px auto;
