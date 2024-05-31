@@ -23,9 +23,9 @@ const Reservations = () => {
     console.log(reservations);
 
     return (
-        <div>
+        <div className="table-container">
             <h2>전체 예약 목록</h2>
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th>예약 번호</th>
