@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS seat_type;
 DROP TABLE IF EXISTS seat_class;
 
 show tables;
-
+    
 
 create table if not exists member
 (

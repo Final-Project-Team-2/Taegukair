@@ -36,7 +36,7 @@ FROM
     member m,
     authority a
 WHERE
-        m.member_id = 'wade'
+        m.member_id = 'user77'
     AND a.authority_name = 'ROLE_USER';
 
 -- 공항(Airport) 테이블에 대한 더미 데이터
