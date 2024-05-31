@@ -25,8 +25,8 @@ import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
 
 import FindPassword from './pages/member/FindPassword';
-import FindIdModal from './pages/member/FindIdModal';
 import './App.css'; 
+import FindID from './pages/member/FindId';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -87,6 +87,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airplanes/:id/edit" element={<AirplaneEdit />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
             <Route path="findPassword" element={<FindPassword />} />
+            <Route path="findId" element={<FindID />} />
             <Route path="signup" element={<Signup />} />
             <Route path="signup/terms" element={<Terms />} />
             <Route path="signup/verify" element={<Verify />} />
