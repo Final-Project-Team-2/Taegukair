@@ -1,11 +1,11 @@
-import rootReducer from './modules';
-import { applyMiddleware, createStore } from 'redux';
-import { thunk } from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import rootReducer from './modules/index'; // airplaneReducer가 포함된 루트 리듀서를 가져옵니다.
 
-// 스토어 생성
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk)
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;

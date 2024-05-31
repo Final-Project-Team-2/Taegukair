@@ -2,6 +2,18 @@ import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 function Layout({ isLoggedIn, memberId, onLogout }) {
+
+  const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        console.log(temp);
+        decoded = temp.auth[0];
+    }
+
+    console.log('decoded ', decoded);
+
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
@@ -13,9 +25,10 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
     <div>
       <header style={headerStyle}>
         <Link to="/" style={logoStyle}>
-          <h1>Airport Management System</h1>
+          <h1>관리자 페이지</h1>
         </Link>
         <div style={navStyle}>
+        { decoded ==="ROLE_ADMIN" && <li><NavLink to="/product-management">상품관리</NavLink></li>}
           {isLoggedIn ? (
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>

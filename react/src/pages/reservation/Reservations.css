@@ -1,0 +1,8 @@
+.reservationList {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.reservationList :hover {
+    color: red;
+}

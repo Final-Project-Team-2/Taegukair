@@ -16,7 +16,8 @@ function AirportAdd() {
     if (id) {
       axios.get(`http://localhost:8080/api/v1/airports/${id}`)
         .then(response => {
-          setForm(response.data.data); // ResponseDTO의 data 필드에 접근
+          const { airportName, airportIata, airportLocation } = response.data.data;
+          setForm({ airportName, airportIata, airportLocation });
         })
         .catch(error => {
           console.error('There was an error fetching the airport data!', error);
@@ -57,14 +58,14 @@ function AirportAdd() {
   };
 
   return (
-    <div className="table-container">
+    <div className="form-container">
       <h1>{id ? 'Edit Airport' : 'Add Airport'}</h1>
       <form onSubmit={handleSubmit}>
         <table className="table">
           <tbody>
             <tr>
               <th>
-                <label>Airport Name</label>
+                <label>Name</label>
               </th>
               <td>
                 <input
@@ -73,12 +74,13 @@ function AirportAdd() {
                   value={form.airportName}
                   onChange={handleChange}
                   placeholder="Airport Name"
+                  required
                 />
               </td>
             </tr>
             <tr>
               <th>
-                <label>IATA</label>
+                <label>IATA Code</label>
               </th>
               <td>
                 <input
@@ -86,7 +88,8 @@ function AirportAdd() {
                   name="airportIata"
                   value={form.airportIata}
                   onChange={handleChange}
-                  placeholder="IATA"
+                  placeholder="IATA Code"
+                  required
                 />
               </td>
             </tr>
@@ -101,6 +104,7 @@ function AirportAdd() {
                   value={form.airportLocation}
                   onChange={handleChange}
                   placeholder="Location"
+                  required
                 />
               </td>
             </tr>

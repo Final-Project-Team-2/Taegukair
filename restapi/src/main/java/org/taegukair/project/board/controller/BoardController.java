@@ -55,4 +55,6 @@ public class BoardController {
         boardService.deleteBoard(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
