@@ -9,6 +9,8 @@ import org.taegukair.project.member.dto.MemberDTO;
 import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.repository.MemberRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,7 +91,11 @@ public class MemberService {
 			existingMember.setMemberPassword(memberDTO.getPassword());
 			existingMember.setMemberEmail(memberDTO.getMemberEmail());
 			existingMember.setMemberName(memberDTO.getMemberName());
-			existingMember.setBirthDate(memberDTO.getBirthDate());
+
+			// String을 LocalDate로 변환하여 설정
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+			LocalDate birthDate = LocalDate.parse(memberDTO.getBirthDate(), formatter);
+			existingMember.setBirthDate(birthDate);
 
 			Member updatedMember = memberRepository.save(existingMember);
 			log.info("[MemberService] Member updated: {}", updatedMember);
@@ -100,6 +106,19 @@ public class MemberService {
 			log.warn("[MemberService] Member not found: {}", memberDTO.getMemberCode());
 			return null;
 		}
+	}
+
+	public String findIdByEmailAndBirthDateAndName(String email, String birthDateStr, String name) {
+		log.info("[AuthService] findIdByEmailAndBirthDateAndName() START");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate birthDate = LocalDate.parse(birthDateStr, formatter);
+		Member member = memberRepository.findByMemberEmailAndBirthDateAndMemberName(email, birthDate, name);
+		log.info("[AuthService] Member found: {}", member);
+		if (member != null) {
+			return member.getMemberId();
+		}
+		log.info("[AuthService] Member not found");
+		return null;
 	}
 
 }

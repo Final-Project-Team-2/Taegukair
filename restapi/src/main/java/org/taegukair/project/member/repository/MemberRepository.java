@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.taegukair.project.member.entity.Member;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     // 특정 회원 이메일로 회원 조회
     Member findByMemberEmail(String memberEmail);
-
+    Member findByMemberEmailAndBirthDateAndMemberName(String memberEmail, LocalDate birthDate, String memberName);
     void deleteByMemberId(String memberId);  // 멤버 삭제(탈퇴)
 
     /* 설명. JPQL과 @Query를 활용한 구문 */

@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -21,11 +23,15 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
-import './App.css';
+
+import FindPassword from './pages/member/FindPassword';
+import FindIdModal from './pages/member/FindIdModal';
+import './App.css'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [memberId, setMemberId] = useState('');
+  const [showFindIdModal, setShowFindIdModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,6 +48,9 @@ function App() {
     setIsLoggedIn(false);
     setMemberId('');
   };
+
+  const handleFindIdModalShow = () => setShowFindIdModal(true);
+  const handleFindIdModalClose = () => setShowFindIdModal(false);
 
   return (
     <Provider store={store}>
@@ -77,6 +86,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airplanes/add" element={<AirplaneAdd />} />
             <Route path="main/admin/airplanes/:id/edit" element={<AirplaneEdit />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
+            <Route path="findPassword" element={<FindPassword />} />
             <Route path="signup" element={<Signup />} />
             <Route path="signup/terms" element={<Terms />} />
             <Route path="signup/verify" element={<Verify />} />

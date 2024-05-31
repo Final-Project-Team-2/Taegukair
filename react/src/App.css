@@ -225,3 +225,15 @@ form button:hover {
   margin-bottom: 10px;
   margin-left: 20px; /* 테이블과 동일한 좌우 여백 */
 }
+
+/* App.css */
+.modal-content {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
