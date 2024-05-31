@@ -19,7 +19,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/admin/reservation")
+    @GetMapping("/admin/reservations")
     public ResponseEntity<ResponseDTO> getAllReservations() {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 예약 조회 성공", reservationService.findAllReservations()));
