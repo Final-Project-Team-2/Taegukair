@@ -3,38 +3,38 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';  // 경로 수정
 
-function AirportDetail() {
+function AirplaneDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [airport, setAirport] = useState(null);
+  const [airplane, setAirplane] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/airports/${id}`)
+    axios.get(`http://localhost:8080/api/v1/admin/airplane/${id}`)
       .then(response => {
-        setAirport(response.data.data); // ResponseDTO의 data 필드에 접근
+        setAirplane(response.data.data); // ResponseDTO의 data 필드에 접근
       })
       .catch(error => {
-        console.error('There was an error fetching the airport data!', error);
+        console.error('There was an error fetching the airplane data!', error);
         setError(error);
       });
   }, [id]);
 
   const handleDelete = () => {
-    if (window.confirm(`${airport.airportName} 공항을 삭제하시겠습니까?`)) {
-      axios.delete(`http://localhost:8080/api/v1/airports/${id}`)
+    if (window.confirm(`${airplane.airplaneType} 항공기를 삭제하시겠습니까?`)) {
+      axios.delete(`http://localhost:8080/api/v1/admin/airplane/${id}`)
         .then(() => {
-          navigate('/main/admin/airports');
+          navigate('/main/admin/airplanes');
         })
         .catch(error => {
-          console.error('There was an error deleting the airport!', error);
+          console.error('There was an error deleting the airplane!', error);
           setError(error);
         });
     }
   };
 
   const handleEdit = () => {
-    navigate(`/main/admin/airports/${id}/edit`);
+    navigate(`/main/admin/airplanes/${id}/edit`);
   };
 
   if (error) {
@@ -43,22 +43,22 @@ function AirportDetail() {
 
   return (
     <div className="table-container">
-      {airport && (
+      {airplane && (
         <>
-          <h1>Airport Details</h1>
+          <h1>Airplane Details</h1>
           <table className="table">
             <tbody>
               <tr>
-                <th>Name</th>
-                <td>{airport.airportName}</td>
+                <th>Type</th>
+                <td>{airplane.airplaneType}</td>
               </tr>
               <tr>
-                <th>IATA</th>
-                <td>{airport.airportIata}</td>
+                <th>Number</th>
+                <td>{airplane.airplaneNo}</td>
               </tr>
               <tr>
-                <th>Location</th>
-                <td>{airport.airportLocation}</td>
+                <th>Seat</th>
+                <td>{airplane.airplaneSeat}</td>
               </tr>
             </tbody>
           </table>
@@ -72,4 +72,4 @@ function AirportDetail() {
   );
 }
 
-export default AirportDetail;
+export default AirplaneDetail;

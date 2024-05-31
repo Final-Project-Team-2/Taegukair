@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css';  // 경로 수정
 
 function AirportList() {
   const [airports, setAirports] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/v1/airports')
@@ -17,25 +19,38 @@ function AirportList() {
       });
   }, []);
 
+  const handleRowClick = (airportId) => {
+    navigate(`/main/admin/airports/${airportId}`);
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
   return (
-    <div>
+    <div className="table-container">
       <h1>Airports</h1>
-      <ul>
-        {airports.map(airport => (
-          <li key={airport.airportId}>
-            <Link to={`/main/admin/airports/${airport.airportId}`}>
-              {airport.airportName}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Link to="/main/admin/airports/registAirPort">
-        <button>Add Airport</button>
-      </Link>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>IATA</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {airports.map(airport => (
+            <tr key={airport.airportId} onClick={() => handleRowClick(airport.airportId)} style={{ cursor: 'pointer' }}>
+              <td>{airport.airportName}</td>
+              <td>{airport.airportIata}</td>
+              <td>{airport.airportLocation}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="button-container">
+        <button onClick={() => navigate('/main/admin/airports/registAirPort')}>Add Airport</button>
+      </div>
     </div>
   );
 }

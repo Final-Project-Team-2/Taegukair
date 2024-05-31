@@ -1,6 +1,7 @@
 package org.taegukair.project.board.dto;
 
 import java.time.LocalDate;
+import org.taegukair.project.board.entity.Board;
 
 public class BoardDTO {
     private Long boardId;
@@ -10,11 +11,9 @@ public class BoardDTO {
     private LocalDate submissionDate;
     private String status;
     private String answer;
+    private String author; // member_id 추가
 
-    // Constructors, getters and setters
-
-    public BoardDTO() {}
-
+    // 기존 생성자
     public BoardDTO(Long boardId, int memberCode, String title, String content, LocalDate submissionDate, String status, String answer) {
         this.boardId = boardId;
         this.memberCode = memberCode;
@@ -24,6 +23,20 @@ public class BoardDTO {
         this.status = status;
         this.answer = answer;
     }
+
+    // Board 엔터티를 사용한 생성자 추가
+    public BoardDTO(Board board) {
+        this.boardId = board.getBoardId();
+        this.memberCode = board.getMember().getMemberCode();
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        this.submissionDate = board.getSubmissionDate();
+        this.status = board.getAnswer() != null ? "true" : "false"; // answer가 null인 경우 false, 아닌 경우 true
+        this.answer = board.getAnswer();
+        this.author = board.getMember().getMemberId(); // member_id 추가
+    }
+
+    // Getters and setters
 
     public Long getBoardId() {
         return boardId;
@@ -79,5 +92,13 @@ public class BoardDTO {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

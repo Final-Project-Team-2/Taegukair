@@ -1,21 +1,30 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 function Layout({ isLoggedIn, memberId, onLogout }) {
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    onLogout();
+    navigate('/');
+  };
+
   return (
     <div>
       <header style={headerStyle}>
-        <h1>Airport Management System</h1>
+        <Link to="/" style={logoStyle}>
+          <h1>관리자 페이지</h1>
+        </Link>
         <div style={navStyle}>
           {isLoggedIn ? (
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
-              <button onClick={onLogout} style={linkStyle}>Logout</button>
+              <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (
             <>
               <Link to="/login" style={linkStyle}>Login</Link>
-              <Link to="/signup" style={linkStyle}>Signup</Link>
+              <Link to="/signup/terms" style={linkStyle}>Signup</Link>
             </>
           )}
         </div>
@@ -50,6 +59,11 @@ const linkStyle = {
   background: 'none',
   border: 'none',
   cursor: 'pointer'
+};
+
+const logoStyle = {
+  color: 'white',
+  textDecoration: 'none'
 };
 
 const welcomeStyle = {

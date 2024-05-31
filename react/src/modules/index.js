@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import memberReducer from './MemberModule';
-import reservationReducer from './ReservationModule';
+import airplaneReducer from './AirplaneModule';
 
 const rootReducer = combineReducers({
     memberReducer,
-    reservationReducer
+    airplaneReducer
+    
 });
 
 export default rootReducer;
