@@ -3,8 +3,8 @@ package org.taegukair.project.member.dto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 public class MemberDTO implements UserDetails {
@@ -15,13 +15,13 @@ public class MemberDTO implements UserDetails {
     private String memberName;
     private String memberEmail;
     private String memberGender;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String memberPhone;
     private List<MemberRoleDTO> memberRole;
 
     public MemberDTO() {}
 
-    public MemberDTO(int memberCode, String memberId, String memberPassword, String memberName, String memberEmail, String memberGender, Date birthDate, String memberPhone, List<MemberRoleDTO> memberRole) {
+    public MemberDTO(int memberCode, String memberId, String memberPassword, String memberName, String memberEmail, String memberGender, LocalDate birthDate, String memberPhone, List<MemberRoleDTO> memberRole) {
         this.memberCode = memberCode;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
@@ -81,11 +81,11 @@ public class MemberDTO implements UserDetails {
         this.memberGender = memberGender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
