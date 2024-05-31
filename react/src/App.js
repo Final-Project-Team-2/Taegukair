@@ -20,6 +20,7 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
+import RegistReservation from './pages/reservation/RegistReservation'
 import './App.css';
 
 function App() {
@@ -64,7 +65,8 @@ function App() {
             <Route path="signup/verify" element={<Verify />} />
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={< Reservations />} />
-          <Route path="main/admin/reservations/detail" element={< ReservationDetail />} />
+            <Route path="main/admin/reservations/detail" element={< ReservationDetail />} />
+            <Route path="main/registReservation" element={< RegistReservation />} />
           </Route>
         </Routes>
       </BrowserRouter>
