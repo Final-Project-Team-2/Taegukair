@@ -1,10 +1,11 @@
 package org.taegukair.project.member.controller;
 
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.entity.VerificationCode;
+import org.taegukair.project.member.repository.MemberRepository;
 import org.taegukair.project.member.repository.VerificationCodeRepository;
 import org.taegukair.project.member.service.CoolSMSService;
 
@@ -23,6 +24,12 @@ public class VerificationController {
     @Autowired
     private CoolSMSService coolSMSService;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;  // PasswordEncoder 주입
+
     @PostMapping("/send-code")
     public String sendCode(@RequestParam String phoneNumber) {
         if (!phoneNumber.startsWith("+")) {
@@ -40,7 +47,7 @@ public class VerificationController {
             coolSMSService.sendSms(phoneNumber, "Your verification code is " + code);
             logger.info("Verification code sent to: " + phoneNumber);
             return "Verification code sent";
-        } catch (CoolsmsException e) {
+        } catch (Exception e) {
             logger.severe("Failed to send verification code to: " + phoneNumber + " Error: " + e.getMessage());
             return "Failed to send verification code: " + e.getMessage();
         }
@@ -65,6 +72,23 @@ public class VerificationController {
         } else {
             logger.info("Invalid verification code for: " + phoneNumber);
             return "Invalid verification code";
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam String memberId, @RequestParam String memberEmail, @RequestParam String newPassword) {
+        Optional<Member> member = memberRepository.findByMemberIdAndMemberEmail(memberId, memberEmail);
+
+        if (member.isPresent()) {
+            Member m = member.get();
+            String encodedPassword = passwordEncoder.encode(newPassword);  // 비밀번호 인코딩
+            m.setMemberPassword(encodedPassword);
+            memberRepository.save(m);
+            logger.info("Password reset successful for member: " + memberId);
+            return "Password reset successful";
+        } else {
+            logger.info("Member not found with ID and Email: " + memberId + ", " + memberEmail);
+            return "Member not found";
         }
     }
 }
