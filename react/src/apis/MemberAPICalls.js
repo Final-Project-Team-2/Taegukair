@@ -5,12 +5,10 @@ import {
 } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({memberId}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members/${memberId}`;
+    const requestURL = `http://localhost:8080/api/v1/members/${memberId}`;
 
     return async (dispatch, getState) => {
-
-        // 클라이언트 fetch mode : no-cors 사용시 application/json 방식으로 요청이 불가능
-        // 서버에서 cors 허용을 해주어야 함
+        console.log('Request URL:', requestURL);
         const result = await fetch(requestURL, {
             method: "GET",
             headers: {
@@ -24,12 +22,11 @@ export const callGetMemberAPI = ({memberId}) => {
         console.log('[MemberAPICalls] callGetMemberAPI RESULT : ', result);
 
         dispatch({ type: GET_MEMBER,  payload: result });
-        
     };
 }
 
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/login`;
+    const requestURL = `http://localhost:8080/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -69,7 +66,7 @@ export const callLogoutAPI = () => {
 }
 
 export const callRegisterAPI = ({form}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/signup`;
+    const requestURL = `http://localhost:8080/auth/signup`;
 
     return async (dispatch, getState) => {
 

@@ -22,8 +22,9 @@ function Login({ setIsLoggedIn, setMemberId }) {
 
             console.log('Parsed response data:', responseData);
 
-            if (responseData.data.token.accessToken) {
-                localStorage.setItem('token', responseData.data.token.accessToken);
+            if (responseData.data && responseData.data.token && responseData.data.token.accessToken) {
+                localStorage.setItem('accessToken', responseData.data.token.accessToken);
+                console.log('Access Token saved:', responseData.data.token.accessToken);
                 if (rememberMe) {
                     localStorage.setItem('memberId', responseData.data.memberId);
                 } else {
