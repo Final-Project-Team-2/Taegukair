@@ -2,6 +2,7 @@ package org.taegukair.project.member.controller;
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.taegukair.project.member.entity.VerificationCode;
 import org.taegukair.project.member.repository.VerificationCodeRepository;
