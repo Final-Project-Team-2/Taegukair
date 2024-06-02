@@ -80,7 +80,6 @@ public class MemberService {
 		log.info("[MemberService] deleteMember End =========================");
 	}
 
-	// 회원정보 수정 로직 추가
 	public MemberDTO updateMember(MemberDTO memberDTO) {
 		log.info("[MemberService] updateMember Start =======================");
 
@@ -88,14 +87,18 @@ public class MemberService {
 		if (optionalMember.isPresent()) {
 			Member existingMember = optionalMember.get();
 			existingMember.setMemberId(memberDTO.getMemberId());
-			existingMember.setMemberPassword(memberDTO.getPassword());
+			// 비밀번호가 null이 아닐 때만 업데이트
+			if (memberDTO.getMemberPassword() != null && !memberDTO.getMemberPassword().isEmpty()) {
+				existingMember.setMemberPassword(memberDTO.getMemberPassword());
+			}
 			existingMember.setMemberEmail(memberDTO.getMemberEmail());
 			existingMember.setMemberName(memberDTO.getMemberName());
 
 			// String을 LocalDate로 변환하여 설정
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate birthDate = LocalDate.parse(memberDTO.getBirthDate(), formatter);
 			existingMember.setBirthDate(birthDate);
+			existingMember.setMemberPhone(memberDTO.getMemberPhone());
 
 			Member updatedMember = memberRepository.save(existingMember);
 			log.info("[MemberService] Member updated: {}", updatedMember);

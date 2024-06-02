@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -23,15 +21,14 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
-
 import FindPassword from './pages/member/FindPassword';
-import './App.css'; 
 import FindID from './pages/member/FindId';
+import Profile from './pages/mypage/Profile'; // Profile 컴포넌트 추가
+import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [memberId, setMemberId] = useState('');
-  const [showFindIdModal, setShowFindIdModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -48,9 +45,6 @@ function App() {
     setIsLoggedIn(false);
     setMemberId('');
   };
-
-  const handleFindIdModalShow = () => setShowFindIdModal(true);
-  const handleFindIdModalClose = () => setShowFindIdModal(false);
 
   return (
     <Provider store={store}>
@@ -94,6 +88,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
+            <Route path="profile" element={<Profile />} /> {/* Profile 라우트 추가 */}
           </Route>
         </Routes>
       </CSSTransition>
