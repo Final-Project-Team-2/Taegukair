@@ -1,15 +1,15 @@
--- CREATE DATABASE taegukair;
+CREATE DATABASE taegukair;
 
--- CREATE USER 'taegukair'@'%' IDENTIFIED BY  'taegukair';
+CREATE USER 'taegukair'@'%' IDENTIFIED BY  'taegukair';
 
--- GRANT ALL PRIVILEGES ON *.* TO 'taegukair'@'%' WITH GRANT OPTION;
--- GRANT ALL PRIVILEGES ON taegukair.* TO 'taegukair'@'%';
--- USE taegukair;
--- SHOW grants;
---  
--- SELECT user, host FROM mysql.user WHERE user = 'taegukair';
+GRANT ALL PRIVILEGES ON *.* TO 'taegukair'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON taegukair.* TO 'taegukair'@'%';
+USE taegukair;
+SHOW grants;
+  
+SELECT user, host FROM mysql.user WHERE user = 'taegukair';
 
--- show databases;
+show databases;
 
 -- 순서대로 테이블 삭제
 

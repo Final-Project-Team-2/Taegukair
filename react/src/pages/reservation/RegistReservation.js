@@ -7,22 +7,26 @@ import {
 
 const RegistReservation = () => {
 
+    const member = useSelector(state => state.memberReducer);
+
     const dispatch = useDispatch();
 
     const [form, setForm] = useState({
 
         reservationNo: "",
-        member: 0,
         flight: 0,
         seat: 0,
         coupon: 0,
         baggageAmount: 0,
-        extraBaggageAmount: 0,
         baggagePrice: 0,
         reservationDate: null,
         reservationTotalPrice: 0
 
     });
+
+    const [extraBaggageAmount, setExtraBaggageAmount] = useState(0);
+
+    const [baggagePrice, setBaggagePrice] = useState(null);
 
     useEffect(
     () => {},
@@ -34,6 +38,13 @@ const RegistReservation = () => {
             ...form,
             [e.target.name]: e.target.value
         });
+    };
+
+    const onExtraBaggageChangeHandler = (e) => {
+        /* setBaggagePrice가 잘 적용되는지 확인할 것 */
+        const amount = e.target.value;
+    setExtraBaggageAmount(amount);
+    setBaggagePrice(amount * 10000);
     };
 
     const onClickHandler = () => {
@@ -48,7 +59,12 @@ const RegistReservation = () => {
                     <div>
                         <div>
                             <label>승객명</label>
-                            <input/>
+                            <input
+                                type="text"
+                                value={member.memberName}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
+                            />
                         </div>
                         <div>
                             <label>성별</label>
@@ -61,38 +77,54 @@ const RegistReservation = () => {
                         </div>
                         <div>
                             <label>생년월일</label>
-                            <input></input>
+                            <input
+                                type="date"
+                                value={member.birthDate}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
+                            />
                         </div>
                         <div>
                             <label>회원번호</label>
                             <input 
-                                name='member'
-                                placeholder='회원번호'
-                                onChange={ onChangeHandler }
+                                type="text"
+                                value={member.memberCode}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
                             />
                         </div>
                         <div>
                             <label>연락처</label>
-                            <input></input>
+                            <input
+                                type="tel"
+                                value={member.memberPhone}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
+                            />
                         </div>
                         <div>
                             <label>이메일</label>
-                            <input></input>
+                            <input
+                                type="email"
+                                value={member.memberPhone}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
+                            />
                         </div>
                         <div>
                             <label>좌석선택</label>
-                            <input></input>
+                            <input/>
                         </div>
                         <div>
                             <label>기본 수하물 선택</label>
-                            <select>
+                            <select value={baggageAmount} onChange={onChangeHandler}>
                                 <option value="0">0개</option>
                                 <option value="1">1개</option>
                             </select>
                         </div>
                         <div>
                             <label>추가 수하물 선택</label>
-                            <select>
+                            <select value={extraBaggageAmount} onChange={onExtraBaggageChangeHandler}>
                                 <option value="0">0개</option>
                                 <option value="1">1개</option>
                                 <option value="2">2개</option>
