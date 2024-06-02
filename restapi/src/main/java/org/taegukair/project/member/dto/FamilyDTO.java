@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class FamilyDTO {
     private String familyUserId;
-    private String userId;
-    private LocalDate familyBirthDate;
+    private int memberCode; // memberCode 필드 추가
+    private String familyBirthDate;
     private int familyKey;
     private String familyRelation;
     private String familyPhone;
@@ -16,9 +16,9 @@ public class FamilyDTO {
     public FamilyDTO() {
     }
 
-    public FamilyDTO(String familyUserId, String userId, LocalDate familyBirthDate, int familyKey, String familyRelation, String familyPhone, String familyName, byte[] image) {
+    public FamilyDTO(String familyUserId, int memberCode, String familyBirthDate, int familyKey, String familyRelation, String familyPhone, String familyName, byte[] image) {
         this.familyUserId = familyUserId;
-        this.userId = userId;
+        this.memberCode = memberCode;
         this.familyBirthDate = familyBirthDate;
         this.familyKey = familyKey;
         this.familyRelation = familyRelation;
@@ -35,19 +35,19 @@ public class FamilyDTO {
         this.familyUserId = familyUserId;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getMemberCode() {
+        return memberCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 
-    public LocalDate getFamilyBirthDate() {
+    public String getFamilyBirthDate() {
         return familyBirthDate;
     }
 
-    public void setFamilyBirthDate(LocalDate familyBirthDate) {
+    public void setFamilyBirthDate(String familyBirthDate) {
         this.familyBirthDate = familyBirthDate;
     }
 
@@ -95,7 +95,7 @@ public class FamilyDTO {
     public String toString() {
         return "FamilyDTO{" +
                 "familyUserId='" + familyUserId + '\'' +
-                ", userId='" + userId + '\'' +
+                ", memberCode=" + memberCode +
                 ", familyBirthDate=" + familyBirthDate +
                 ", familyKey=" + familyKey +
                 ", familyRelation='" + familyRelation + '\'' +

@@ -5,10 +5,12 @@ import org.taegukair.project.member.dto.TokenDTO;
 public class LoginResponse {
     private TokenDTO token;
     private String memberId;
+    private int memberCode; // memberCode 추가
 
-    public LoginResponse(TokenDTO token, String memberId) {
+    public LoginResponse(TokenDTO token, String memberId, int memberCode) {
         this.token = token;
         this.memberId = memberId;
+        this.memberCode = memberCode; // 초기화
     }
 
     public TokenDTO getToken() {
@@ -25,5 +27,13 @@ public class LoginResponse {
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
+    }
+
+    public int getMemberCode() {
+        return memberCode;
+    }
+
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 }
