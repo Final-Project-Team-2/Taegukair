@@ -1,0 +1,30 @@
+.results-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .results-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  .results-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .results-container li {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .results-container li p {
+    margin: 5px 0;
+  }
+  
