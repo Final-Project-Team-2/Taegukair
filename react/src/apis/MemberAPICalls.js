@@ -1,7 +1,8 @@
 import { 
     GET_MEMBER,
     POST_LOGIN,
-    POST_REGISTER
+    POST_REGISTER,
+    UPDATE_MEMBER // 추가된 부분
 } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({memberId}) => {
@@ -22,6 +23,33 @@ export const callGetMemberAPI = ({memberId}) => {
         console.log('[MemberAPICalls] callGetMemberAPI RESULT : ', result);
 
         dispatch({ type: GET_MEMBER,  payload: result });
+    };
+}
+
+export const callUpdateMemberAPI = ({ form }) => {
+    const requestURL = `http://localhost:8080/api/v1/members`;
+
+    return async (dispatch, getState) => {
+        console.log('Update Request URL:', requestURL);
+        console.log('Update Form Data:', form);
+        try {
+            const response = await fetch(requestURL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*",
+                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                },
+                body: JSON.stringify(form)
+            });
+
+            const result = await response.json();
+            console.log('[MemberAPICalls] callUpdateMemberAPI RESULT : ', result);
+
+            dispatch({ type: UPDATE_MEMBER,  payload: result });
+        } catch (error) {
+            console.error('Failed to update member details:', error);
+        }
     };
 }
 
