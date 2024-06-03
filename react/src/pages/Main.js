@@ -14,11 +14,12 @@ function Main() {
         Manage Boards
       </Link>
       <h1>항공기 관리</h1>
-      <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link> {/* 추가된 버튼 */}
+      <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link>
       <h1>예약 관리</h1>
-      <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link> {/* 추가된 버튼 */}
-      <h1>예약 테스트용</h1>
-      <Link to="main/reservations/regist" className="header-button">new Reservations</Link> {/* 추가된 버튼 */}
+      <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link>
+      <h1>예약하기</h1>
+      <Link to="/reservation/new" className="header-button">Book a One-way Flight</Link> {/* 편도 예약 버튼 */}
+      <Link to="/reservation/round-trip" className="header-button">Book a Round-trip Flight</Link> {/* 왕복 예약 버튼 */}
     </div>
   );
 }

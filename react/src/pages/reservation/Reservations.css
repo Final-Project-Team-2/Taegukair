@@ -3,6 +3,7 @@
     cursor: pointer;
 }
 
-.reservationList :hover {
+/* tr에 hover시 모든 td에 스타일 적용 */
+.reservationList:hover td {
     color: red;
 }

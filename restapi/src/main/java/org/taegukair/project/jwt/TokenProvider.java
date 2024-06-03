@@ -97,6 +97,7 @@ public class TokenProvider {
 
 		/* 설명. 1. 회원 아이디를 "sub"이라는 클레임으로 토큰에 추가 */
 		Claims claims = Jwts.claims().setSubject(member.getMemberId());
+		claims.put("memberCode", member.getMemberCode()); // memberCode 추가
 
 		/* 설명. 2. 회원의 권한들을 "auth"라는 클레임으로 토큰에 추가 */
 		claims.put(AUTHORITIES_KEY, roles);

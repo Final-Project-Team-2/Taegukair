@@ -21,13 +21,19 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
-import RegistReservation from './pages/reservation/RegistReservation';
 import FindPassword from './pages/member/FindPassword';
 import FindID from './pages/member/FindId';
+
+import ReservationForm from './pages/reservation/ReservationForm';
+import FlightResults from './pages/reservation/FlightResults';
+import RoundTripReservationForm from './pages/reservation/RoundTripReservationForm';
+import RoundTripFlightResults from './pages/reservation/RoundTripFlightResults';
+
 import Profile from './pages/mypage/Profile';
 import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
 import './App.css';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -91,11 +97,16 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
-            <Route path="main/reservations/regist" element={<RegistReservation />} />
+
+            <Route path="reservation/new" element={<ReservationForm />} />
+            <Route path="reservation/results" element={<FlightResults />} />
+            <Route path="reservation/round-trip" element={<RoundTripReservationForm />} />
+            <Route path="reservation/round-trip-results" element={<RoundTripFlightResults />} />
+
             <Route path="profile" element={<Profile />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
-            
+
           </Route>
         </Routes>
       </CSSTransition>
