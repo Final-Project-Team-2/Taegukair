@@ -1,5 +1,4 @@
-// src/utils/tokenUtils.js
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // 중괄호를 사용하여 named import
 
 export function decodeJwt(token) {
   if (!token) {
