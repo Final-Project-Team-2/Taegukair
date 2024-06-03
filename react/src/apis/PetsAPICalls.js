@@ -25,6 +25,11 @@ export const callGetPetsAPI = ({ memberId }) => {
 export const callUpdatePetAPI = ({ form }) => {
     const requestURL = `http://localhost:8080/api/pet/${form.petId}`;
 
+    const updatedForm = {
+        ...form,
+        image: form.image ? btoa(String.fromCharCode(...new Uint8Array(form.image))) : null
+    };
+
     return async (dispatch, getState) => {
         try {
             const response = await fetch(requestURL, {
@@ -34,10 +39,15 @@ export const callUpdatePetAPI = ({ form }) => {
                     "Accept": "*/*",
                     "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 },
-                body: JSON.stringify(form)
+                body: JSON.stringify(updatedForm)
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const result = await response.json();
+            console.log('Update Pet Response:', result);
             dispatch({ type: UPDATE_PET, payload: result });
         } catch (error) {
             console.error('Failed to update pet details:', error);
@@ -45,11 +55,14 @@ export const callUpdatePetAPI = ({ form }) => {
     };
 }
 
+
 export const callAddPetAPI = ({ form }) => {
     const requestURL = `http://localhost:8080/api/pet`;
 
     return async (dispatch, getState) => {
         try {
+            const memberCode = localStorage.getItem('memberCode'); // memberCode 가져오기
+            console.log('Adding pet with memberCode:', memberCode); // 디버깅용 로그 추가
             const response = await fetch(requestURL, {
                 method: "POST",
                 headers: {
@@ -57,8 +70,12 @@ export const callAddPetAPI = ({ form }) => {
                     "Accept": "*/*",
                     "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 },
-                body: JSON.stringify(form)
+                body: JSON.stringify({ ...form, memberCode }) // memberCode 추가
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             const result = await response.json();
             console.log('Add Pet Response:', result);

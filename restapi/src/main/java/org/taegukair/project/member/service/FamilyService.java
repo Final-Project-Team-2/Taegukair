@@ -1,5 +1,9 @@
 package org.taegukair.project.member.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.taegukair.project.member.dto.FamilyDTO;
@@ -8,9 +12,6 @@ import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.repository.FamilyRepository;
 import org.taegukair.project.member.repository.MemberRepository;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.List;
 
 @Service
@@ -22,10 +23,6 @@ public class FamilyService {
     @Autowired
     private MemberRepository memberRepository;
 
-    // 날짜 형식을 'yyMMdd'로 설정
-    private DateTimeFormatter shortDateFormatter = DateTimeFormatter.ofPattern("yyMMdd");
-    private DateTimeFormatter fullDateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
     public List<Family> getFamiliesByMemberId(String memberId) {
         Member member = memberRepository.findByMemberId(memberId);
         return familyRepository.findByMember(member);
@@ -36,12 +33,16 @@ public class FamilyService {
     }
 
     public Family saveFamily(FamilyDTO familyDTO) {
-        Member member = memberRepository.findById(familyDTO.getMemberCode()).orElseThrow(() -> new RuntimeException("Member not found"));
+        System.out.println("Saving Family with FamilyDTO: " + familyDTO); // 디버깅용 로그 추가
+        Member member = memberRepository.findByMemberCode(familyDTO.getMemberCode());
+        if (member == null) {
+            throw new RuntimeException("Member not found with memberCode: " + familyDTO.getMemberCode());
+        }
+
         Family family = new Family();
         family.setFamilyUserId(familyDTO.getFamilyUserId());
         family.setMember(member);
 
-        // String을 LocalDate로 변환
         LocalDate birthDate = parseDate(familyDTO.getFamilyBirthDate());
         family.setFamilyBirthDate(birthDate);
 
@@ -53,15 +54,39 @@ public class FamilyService {
         return familyRepository.save(family);
     }
 
-    private LocalDate parseDate(String dateStr) {
-        LocalDate date = LocalDate.parse(dateStr, shortDateFormatter);
-        int year = date.getYear();
-        if (year < 100) {
-            year += (year < 70 ? 2000 : 1900);
-            date = date.withYear(year);
+    public Family updateFamily(String familyUserId, FamilyDTO familyDTO) {
+        Family existingFamily = familyRepository.findById(familyUserId)
+                .orElseThrow(() -> new RuntimeException("Family member not found"));
+
+        Member member = memberRepository.findByMemberCode(familyDTO.getMemberCode());
+        if (member == null) {
+            throw new RuntimeException("Member not found with memberCode: " + familyDTO.getMemberCode());
         }
-        return date;
+
+        existingFamily.setMember(member);
+
+        LocalDate birthDate = parseDate(familyDTO.getFamilyBirthDate());
+        existingFamily.setFamilyBirthDate(birthDate);
+
+        existingFamily.setFamilyKey(familyDTO.getFamilyKey());
+        existingFamily.setFamilyRelation(familyDTO.getFamilyRelation());
+        existingFamily.setFamilyPhone(familyDTO.getFamilyPhone());
+        existingFamily.setFamilyName(familyDTO.getFamilyName());
+        existingFamily.setImage(familyDTO.getImage());
+
+        return familyRepository.save(existingFamily);
     }
+
+
+    private LocalDate parseDate(String dateStr) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            return LocalDate.parse(dateStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new RuntimeException("Invalid date format: " + dateStr);
+        }
+    }
+
 
     public void deleteFamily(String id) {
         familyRepository.deleteById(id);

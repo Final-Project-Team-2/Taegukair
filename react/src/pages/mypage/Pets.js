@@ -11,6 +11,12 @@ function Pets() {
     const [formData, setFormData] = useState({});
     const accessToken = window.localStorage.getItem("accessToken");
     const token = decodeJwt(accessToken);
+    const memberCode = token && token.memberCode ? token.memberCode : localStorage.getItem("memberCode");
+
+    useEffect(() => {
+        console.log("Decoded token:", token);
+        console.log("Member code from token:", memberCode);
+    }, [token]);
 
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
@@ -19,13 +25,23 @@ function Pets() {
 
     const onClickSaveHandler = () => {
         if (isEditing !== null) {
-            dispatch(callUpdatePetAPI({ form: formData })).then(() => {
+            const updatedPet = { 
+                ...formData, 
+                petId: parseInt(formData.petId),
+                memberCode 
+            };
+            console.log("Updating pet with data:", updatedPet);
+            dispatch(callUpdatePetAPI({ form: updatedPet })).then(() => {
                 dispatch(callGetPetsAPI({ memberId: token.sub }));
                 setIsEditing(null);
                 setFormData({});
             });
         } else if (isAdding) {
-            const newPet = { ...formData, memberCode: token.memberCode }; // memberCode 추가
+            const newPet = { 
+                ...formData,
+                memberCode 
+            };
+            console.log("Adding new pet with data:", newPet);
             dispatch(callAddPetAPI({ form: newPet })).then(() => {
                 dispatch(callGetPetsAPI({ memberId: token.sub }));
                 setIsAdding(false);
@@ -35,14 +51,21 @@ function Pets() {
     };
 
     const onClickDeleteHandler = (id) => {
-        dispatch(callDeletePetAPI({ id })).then(() => {
-            dispatch(callGetPetsAPI({ memberId: token.sub }));
-        });
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+            dispatch(callDeletePetAPI({ id })).then(() => {
+                dispatch(callGetPetsAPI({ memberId: token.sub }));
+            });
+        }
     };
 
     const onClickEditHandler = (pet) => {
         setIsEditing(pet.petId);
         setFormData(pet);
+    };
+
+    const onClickCancelHandler = () => {
+        setIsAdding(false);
+        setFormData({});
     };
 
     useEffect(() => {
@@ -57,7 +80,7 @@ function Pets() {
             {pets && pets.length > 0 && (
                 <div>
                     {pets.map(pet => (
-                        <div key={pet.petId}>
+                        <div key={pet.petId} style={{ marginBottom: '10px' }}>
                             <input 
                                 type="text" 
                                 placeholder="반려동물 이름" 
@@ -65,6 +88,7 @@ function Pets() {
                                 name="petName"
                                 value={isEditing === pet.petId ? formData.petName : pet.petName}
                                 onChange={onChangeHandler}
+                                style={{ display: 'block', marginBottom: '5px' }}
                             />
                             <input 
                                 type="text" 
@@ -73,6 +97,7 @@ function Pets() {
                                 name="species"
                                 value={isEditing === pet.petId ? formData.species : pet.species}
                                 onChange={onChangeHandler}
+                                style={{ display: 'block', marginBottom: '5px' }}
                             />
                             <input 
                                 type="text" 
@@ -81,6 +106,7 @@ function Pets() {
                                 name="breed"
                                 value={isEditing === pet.petId ? formData.breed : pet.breed}
                                 onChange={onChangeHandler}
+                                style={{ display: 'block', marginBottom: '5px' }}
                             />
                             {isEditing === pet.petId ? (
                                 <button onClick={onClickSaveHandler}>저장</button>
@@ -92,14 +118,15 @@ function Pets() {
                     ))}
                 </div>
             )}
-            {(isAdding || isEditing === null) && (
-                <div>
+            {isAdding && (
+                <div style={{ marginTop: '10px' }}>
                     <input 
                         type="text" 
                         placeholder="반려동물 이름" 
                         name="petName"
                         value={formData.petName || ''}
                         onChange={onChangeHandler}
+                        style={{ display: 'block', marginBottom: '5px' }}
                     />
                     <input 
                         type="text" 
@@ -107,6 +134,7 @@ function Pets() {
                         name="species"
                         value={formData.species || ''}
                         onChange={onChangeHandler}
+                        style={{ display: 'block', marginBottom: '5px' }}
                     />
                     <input 
                         type="text" 
@@ -114,17 +142,21 @@ function Pets() {
                         name="breed"
                         value={formData.breed || ''}
                         onChange={onChangeHandler}
+                        style={{ display: 'block', marginBottom: '5px' }}
                     />
                     <button onClick={onClickSaveHandler}>추가</button>
+                    <button onClick={onClickCancelHandler} style={{ marginLeft: '10px' }}>취소</button>
                 </div>
             )}
-            <button onClick={() => {
-                setFormData({});
-                setIsAdding(true);
-                setIsEditing(null);
-            }}>
-                반려동물 추가
-            </button>
+            {!isAdding && (
+                <button onClick={() => {
+                    setFormData({});
+                    setIsAdding(true);
+                    setIsEditing(null);
+                }} style={{ marginTop: '10px' }}>
+                    반려동물 추가
+                </button>
+            )}
         </div>
     );
 }

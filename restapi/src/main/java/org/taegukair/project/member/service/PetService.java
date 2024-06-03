@@ -29,6 +29,7 @@ public class PetService {
     }
 
     public Pet savePet(PetDTO petDTO) {
+        System.out.println("Received memberCode: " + petDTO.getMemberCode()); // 디버깅용 로그 추가
         Member member = memberRepository.findByMemberCode(petDTO.getMemberCode());
         if (member == null) {
             throw new RuntimeException("Member not found");
@@ -42,6 +43,27 @@ public class PetService {
         pet.setImage(petDTO.getImage());
         return petRepository.save(pet);
     }
+
+    public Pet updatePet(int petId, PetDTO petDTO) {
+        Pet existingPet = petRepository.findById(petId)
+                .orElseThrow(() -> new RuntimeException("Pet not found"));
+
+        Member member = memberRepository.findByMemberCode(petDTO.getMemberCode());
+        if (member == null) {
+            throw new RuntimeException("Member not found");
+        }
+
+        existingPet.setPetName(petDTO.getPetName());
+        existingPet.setSpecies(petDTO.getSpecies());
+        existingPet.setBreed(petDTO.getBreed());
+        existingPet.setImage(petDTO.getImage());
+        existingPet.setMember(member);
+
+        return petRepository.save(existingPet);
+    }
+
+
+
 
     public void deletePet(int id) {
         petRepository.deleteById(id);
