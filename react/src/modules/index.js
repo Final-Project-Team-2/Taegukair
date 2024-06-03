@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     reservation: reservationReducer,
     family: familyReducer,
     pets: petsReducer,
-    // coupon: couponReducer
+    coupon: couponReducer
 });
 
 export default rootReducer;

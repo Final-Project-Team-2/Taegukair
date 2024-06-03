@@ -6,13 +6,15 @@ import {
     callPostReservationAPI
 } from '../../apis/ReservationAPICalls';
 import {
-    callGetAllCouponsAPI
+    callGetCouponByMemberCodeAPI
 } from '../../apis/CouponAPICalls';
 import {
     callGetMemberAPI
 } from '../../apis/MemberAPICalls';
 
 const RegistReservation = () => {
+
+    const navigate = useNavigate();
 
     const coupon = useSelector(state => state.coupon);
 
@@ -28,6 +30,7 @@ const RegistReservation = () => {
         reservationNo: "",
         flight: 0,
         seat: 0,
+        coupon: 0,
         baggageAmount: 0,
         baggagePrice: 0,
         reservationDate: null,
@@ -39,21 +42,23 @@ const RegistReservation = () => {
         memberCode: '',
         memberId: '',
         memberName: '',
+        memberGender: '',
         memberEmail: '',
         birthDate: '',
         memberPhone: ''
     });
 
+    const [loading, setLoading] = useState(true);
+
     const [extraBaggageAmount, setExtraBaggageAmount] = useState(0);
 
     const [baggagePrice, setBaggagePrice] = useState(0);
 
-    useEffect(
-    () => {
-        dispatch(callGetAllCouponsAPI());
-    },
-    [dispatch]
-    );
+    const [selectedCouponId, setSelectedCouponId] = useState('');
+
+    const onChangeCouponHandler = (e) => {
+        setSelectedCouponId(e.target.value);
+    };
 
     useEffect(() => {
         if (token && token.sub) {
@@ -71,12 +76,25 @@ const RegistReservation = () => {
                 memberCode: member.data.memberCode,
                 memberId: member.data.memberId,
                 memberName: member.data.memberName,
+                memberGender: member.data.memberGender,
                 memberEmail: member.data.memberEmail,
                 birthDate: member.data.birthDate,
                 memberPhone: member.data.memberPhone
             });
+            setLoading(false);
         }
     }, [member]);
+
+    useEffect(
+        () => {
+            if(!loading && memberData.memberCode) {
+            console.log(memberData.memberCode);
+            const memberCode = memberData.memberCode;
+            dispatch(callGetCouponByMemberCodeAPI({memberCode}));
+            }
+        },
+        [dispatch, loading, memberData.memberCode]
+    );
 
     const onChangeHandler = (e) => {
         setForm({
@@ -116,13 +134,13 @@ const RegistReservation = () => {
                             />
                         </div>
                         <div>
-                            <label>성별</label>
-                            <div>
-                                <label>남자</label>
-                            </div>
-                            <div>
-                                <label>여자</label>
-                            </div>
+                        <label>성별</label>
+                            <input
+                                type="text"
+                                value={memberData.memberGender}
+                                // onChange={(e) => setMemberIdInput(e.target.value)}
+                                // placeholder="Member ID"
+                            />
                         </div>
                         <div>
                             <label>생년월일</label>
@@ -163,6 +181,7 @@ const RegistReservation = () => {
                         <div>
                             <label>좌석선택</label>
                             <input/>
+                            <button onClick={() => navigate('chooseSeat')}>좌석 선택</button>
                         </div>
                         <div>
                             <label>기본 수하물 선택</label>
@@ -182,8 +201,13 @@ const RegistReservation = () => {
                         </div>
                         <div>
                             <label>쿠폰 선택</label>
-                            <select>
-                                
+                            <select value={selectedCouponId} onChange={onChangeCouponHandler}>
+                            <option value="">쿠폰을 선택하세요</option>
+                            {Array.isArray(coupon) && coupon.length > 0 && coupon.map(couponItem => (
+                                <option key={couponItem.couponId} value={couponItem.couponId}>
+                                    쿠폰코드 : {couponItem.couponCode}, 할인금액 : {couponItem.discountAmount}, 할인율 : {couponItem.discountPercentage}%
+                                </option>
+                            ))}
                             </select>
                         </div>
                     </div>

@@ -17,6 +17,8 @@ function Main() {
       <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link>
       <h1>예약 관리</h1>
       <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link>
+      <h1>신규 예약</h1>
+      <Link to="/main/registReservation" className="header-button">New Reservation</Link>
       <h1>예약하기</h1>
       <Link to="/reservation/new" className="header-button">Book a One-way Flight</Link> {/* 편도 예약 버튼 */}
       <Link to="/reservation/round-trip" className="header-button">Book a Round-trip Flight</Link> {/* 왕복 예약 버튼 */}

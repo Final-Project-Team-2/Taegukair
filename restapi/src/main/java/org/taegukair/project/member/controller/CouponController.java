@@ -24,6 +24,9 @@ public class CouponController {
         return couponService.getCouponById(id);
     }
 
+    @GetMapping("/membercode")
+    public List<Coupon> getCouponByMemberCode(@RequestParam int memberCode) { return couponService.getCouponByMemberCode(memberCode); }
+
     @PostMapping
     public Coupon createCoupon(@RequestBody Coupon coupon) {
         return couponService.saveCoupon(coupon);
