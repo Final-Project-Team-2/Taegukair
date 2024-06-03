@@ -7,7 +7,7 @@ import { callGetMemberAPI, callUpdateMemberAPI } from '../../apis/MemberAPICalls
 function Profile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const member = useSelector(state => state.memberReducer);
+    const member = useSelector(state => state.member.memberData); // 여기서 state.member로 접근
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         memberCode: '',
@@ -19,7 +19,6 @@ function Profile() {
     });
     const accessToken = window.localStorage.getItem("accessToken");
     const token = decodeJwt(accessToken);
-    const memberDetail = member?.memberData;
 
     const onClickBackHandler = () => {
         navigate(-1);
@@ -51,23 +50,24 @@ function Profile() {
     }, [dispatch, token.sub]);
 
     useEffect(() => {
-        if (memberDetail && memberDetail.data) {
+        if (member && member.data) {
+            console.log('Member data:', member.data); // member.data 로그 추가
             setFormData({
-                memberCode: memberDetail.data.memberCode, // memberCode 추가
-                memberId: memberDetail.data.memberId,
-                memberName: memberDetail.data.memberName,
-                memberEmail: memberDetail.data.memberEmail,
-                birthDate: memberDetail.data.birthDate, // 올바른 형식으로 설정
-                memberPhone: memberDetail.data.memberPhone
+                memberCode: member.data.memberCode,
+                memberId: member.data.memberId,
+                memberName: member.data.memberName,
+                memberEmail: member.data.memberEmail,
+                birthDate: member.data.birthDate,
+                memberPhone: member.data.memberPhone
             });
         }
-    }, [memberDetail]);
+    }, [member]);
 
-    if (!memberDetail || !memberDetail.data) {
+    if (!member || !member.data) {
         return <p>Loading...</p>;
     }
 
-    const { memberCode, memberId, memberName, memberEmail, birthDate, memberPhone } = formData;
+    const { memberId, memberName, memberEmail, birthDate, memberPhone } = formData;
 
     return (
         <div style={{ backgroundColor: 'white', padding: '20px' }}>
@@ -138,6 +138,18 @@ function Profile() {
                     style={{ border: 'none', padding: '10px', fontSize: '14px', cursor: 'pointer', backgroundColor: '#282c34', color: 'white', marginTop: '10px' }}
                 >
                     돌아가기
+                </button>
+                <button
+                    onClick={() => navigate('/family')}
+                    style={{ border: 'none', padding: '10px', fontSize: '14px', cursor: 'pointer', backgroundColor: '#282c34', color: 'white', marginTop: '10px' }}
+                >
+                    가족 관리
+                </button>
+                <button
+                    onClick={() => navigate('/pets')}
+                    style={{ border: 'none', padding: '10px', fontSize: '14px', cursor: 'pointer', backgroundColor: '#282c34', color: 'white', marginTop: '10px' }}
+                >
+                    반려동물 관리
                 </button>
             </div>
         </div>

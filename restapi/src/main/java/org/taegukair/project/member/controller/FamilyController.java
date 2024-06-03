@@ -2,6 +2,7 @@ package org.taegukair.project.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.taegukair.project.member.dto.FamilyDTO;
 import org.taegukair.project.member.entity.Family;
 import org.taegukair.project.member.service.FamilyService;
 
@@ -14,9 +15,9 @@ public class FamilyController {
     @Autowired
     private FamilyService familyService;
 
-    @GetMapping
-    public List<Family> getAllFamilies() {
-        return familyService.getAllFamilies();
+    @GetMapping("/member/{memberId}")
+    public List<Family> getFamiliesByMemberId(@PathVariable String memberId) {
+        return familyService.getFamiliesByMemberId(memberId);
     }
 
     @GetMapping("/{id}")
@@ -25,14 +26,14 @@ public class FamilyController {
     }
 
     @PostMapping
-    public Family createFamily(@RequestBody Family family) {
-        return familyService.saveFamily(family);
+    public Family createFamily(@RequestBody FamilyDTO familyDTO) {
+        return familyService.saveFamily(familyDTO);
     }
 
     @PutMapping("/{id}")
-    public Family updateFamily(@PathVariable String id, @RequestBody Family family) {
-        family.setFamilyUserId(id);
-        return familyService.saveFamily(family);
+    public Family updateFamily(@PathVariable String id, @RequestBody FamilyDTO familyDTO) {
+        familyDTO.setFamilyUserId(id);
+        return familyService.saveFamily(familyDTO);
     }
 
     @DeleteMapping("/{id}")

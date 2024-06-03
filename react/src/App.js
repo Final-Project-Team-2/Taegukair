@@ -23,7 +23,9 @@ import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
 import FindPassword from './pages/member/FindPassword';
 import FindID from './pages/member/FindId';
-import Profile from './pages/mypage/Profile'; // Profile 컴포넌트 추가
+import Profile from './pages/mypage/Profile';
+import Family from './pages/mypage/Family';
+import Pets from './pages/mypage/Pets';
 import './App.css';
 
 function App() {
@@ -88,7 +90,9 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
-            <Route path="profile" element={<Profile />} /> {/* Profile 라우트 추가 */}
+            <Route path="profile" element={<Profile />} />
+            <Route path="family" element={<Family />} />
+            <Route path="pets" element={<Pets />} />
           </Route>
         </Routes>
       </CSSTransition>
