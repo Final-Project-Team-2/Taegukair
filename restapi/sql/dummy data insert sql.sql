@@ -41,16 +41,16 @@ INSERT INTO member_role (member_code, authority_code)
 
 -- 공항(Airport) 테이블에 대한 더미 데이터
 INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
-    ('Incheon International Airport', 'ICN', 'Incheon'),
-    ('Gimpo International Airport', 'GMP', 'Seoul'),
-    ('Gimhae International Airport', 'PUS', 'Busan'),
-    ('Jeju International Airport', 'CJU', 'Jeju'),
-    ('Daegu International Airport', 'TAE', 'Daegu'),
-    ('Cheongju International Airport', 'CJJ', 'Cheongju'),
-    ('Muan International Airport', 'MWX', 'Muan'),
-    ('Yangyang International Airport', 'YNY', 'Yangyang'),
-    ('Gwangju Airport', 'KWJ', 'Gwangju'),
-    ('Ulsan Airport', 'USN', 'Ulsan');
+    ('인천 국제공항', 'ICN', 'Incheon'),
+    ('김포 국제공항', 'GMP', 'Seoul'),
+    ('김해 국제공항', 'PUS', 'Busan'),
+    ('제주 국제공항', 'CJU', 'Jeju'),
+    ('대구 국제공항', 'TAE', 'Daegu'),
+    ('청주 국제공항', 'CJJ', 'Cheongju'),
+    ('무안 국제공항', 'MWX', 'Muan'),
+    ('양양 국제공항', 'YNY', 'Yangyang'),
+    ('광주 국제공항', 'KWJ', 'Gwangju'),
+    ('울산 국제공항', 'USN', 'Ulsan');
 
 -- 비행기(Airplane) 테이블에 대한 더미 데이터
 INSERT INTO airplane (airplane_Type, airplane_No, airplane_Seat) VALUES
@@ -89,7 +89,19 @@ INSERT INTO flight (start_Time, end_Time, airplane_ID, departure_airport_ID, arr
     ('2024-06-02 11:00:00', '2024-06-02 13:00:00', 7, 7, 8, 200000),
     ('2024-06-02 14:00:00', '2024-06-02 16:00:00', 8, 8, 9, 180000),
     ('2024-06-02 17:00:00', '2024-06-02 19:00:00', 9, 9, 10, 220000),
-    ('2024-06-02 20:00:00', '2024-06-02 22:00:00', 10, 10, 1, 250000);
+    ('2024-06-02 20:00:00', '2024-06-02 22:00:00', 10, 10, 1, 250000),
+    ('2024-06-02 21:00:00', '2024-06-02 23:50:00', 10, 10, 1, 250000),
+    ('2024-06-01 08:00:00', '2024-06-01 10:00:00', 1, 1, 2, 150000),
+    ('2024-06-01 11:00:00', '2024-06-01 13:00:00', 2, 2, 3, 200000),
+    ('2024-06-01 14:00:00', '2024-06-01 16:00:00', 3, 3, 4, 180000),
+    ('2024-06-01 17:00:00', '2024-06-01 19:00:00', 4, 4, 5, 220000),
+    ('2024-06-01 20:00:00', '2024-06-01 22:00:00', 5, 5, 6, 250000),
+    ('2024-06-02 08:00:00', '2024-06-02 10:00:00', 6, 6, 7, 150000),
+    ('2024-06-02 11:00:00', '2024-06-02 13:00:00', 7, 7, 8, 200000),
+    ('2024-06-02 14:00:00', '2024-06-02 16:00:00', 8, 8, 9, 180000),
+    ('2024-06-02 17:00:00', '2024-06-02 19:00:00', 9, 9, 10, 220000),
+    ('2024-06-02 20:00:00', '2024-06-02 22:00:00', 10, 10, 1, 250000),
+    ('2024-06-02 21:00:00', '2024-06-02 23:50:00', 10, 10, 1, 250000);
 
 -- 좌석(Seat) 테이블에 대한 더미 데이터
 INSERT INTO seat (flight_ID, seat_no, seat_type_id, seat_class_id, is_reserved) VALUES
@@ -185,3 +197,4 @@ INSERT INTO reservation (Reservation_No, member_code, flight_ID, seat_id, coupon
     ('2E9B4A7D', 20231122, 8, 8, NULL, 0, 0, 25000, '2024-06-08', 285000),
     ('5C1E3A7B', 20231123, 9, 9, NULL, 1, 2, 75000, '2024-06-09', 305000),
     ('7A9D3C2E', 20231124, 10, 10, NULL, 1, 1, 50000, '2024-06-10', 290000);
+

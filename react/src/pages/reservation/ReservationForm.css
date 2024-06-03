@@ -1,0 +1,82 @@
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+.form-container td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-container label {
+  font-weight: bold;
+}
+
+.form-container select,
+.form-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.form-container button:hover {
+  background-color: #45a049;
+}
+
+.custom-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 40px;
+}
+
+.current-month {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.custom-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.previous-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}

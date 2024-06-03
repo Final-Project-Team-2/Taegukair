@@ -4,7 +4,7 @@
 
 -- GRANT ALL PRIVILEGES ON *.* TO 'taegukair'@'%' WITH GRANT OPTION;
 -- GRANT ALL PRIVILEGES ON taegukair.* TO 'taegukair'@'%';
--- USE taegukair;
+USE taegukair;
 -- SHOW grants;
 --  
 -- SELECT user, host FROM mysql.user WHERE user = 'taegukair';
