@@ -28,8 +28,17 @@ DROP TABLE IF EXISTS authority;
 DROP TABLE IF EXISTS member;
 DROP TABLE IF EXISTS seat_type;
 DROP TABLE IF EXISTS seat_class;
+DROP TABLE IF EXISTS verification_code;
 
 show tables;
+
+CREATE TABLE verification_code (
+       id BIGINT AUTO_INCREMENT PRIMARY KEY,
+       phone_number VARCHAR(255) NOT NULL,
+       code VARCHAR(255) NOT NULL,
+       created_at DATETIME NOT NULL,
+       verified BOOLEAN NOT NULL
+);
 
 
 create table if not exists member

@@ -19,6 +19,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
           {isLoggedIn ? (
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
+              <Link to="/profile" style={linkStyle}>마이페이지</Link>
               <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.taegukair.project.flight.dto.ResponseDTO;
 import org.taegukair.project.member.dto.MemberDTO;
+import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.service.MemberService;
 
 import java.util.List;
@@ -56,5 +57,12 @@ public class MemberController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(new ResponseDTO("회원정보 수정 실패: " + e.getMessage(), false), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@PostMapping("/find-id")
+	public MemberDTO findIdByEmailAndBirthDateAndName(@RequestBody MemberDTO memberDTO) {
+		String id = memberService.findIdByEmailAndBirthDateAndName(memberDTO.getMemberEmail(), memberDTO.getBirthDate(), memberDTO.getMemberName());
+		memberDTO.setMemberId(id);
+		return memberDTO;
 	}
 }

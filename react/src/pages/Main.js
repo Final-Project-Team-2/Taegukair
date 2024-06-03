@@ -15,6 +15,8 @@ function Main() {
       </Link>
       <h1>항공기 관리</h1>
       <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link> {/* 추가된 버튼 */}
+      <h1>예약 관리</h1>
+      <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link> {/* 추가된 버튼 */}
     </div>
   );
 }
