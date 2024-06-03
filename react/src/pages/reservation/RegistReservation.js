@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { decodeJwt } from '../../utils/tokenUtils';
 import {
     callPostReservationAPI
-} from '../../apis/ReservationAPICalls'
+} from '../../apis/ReservationAPICalls';
+import {
+    callGetAllCouponsAPI
+} from '../../apis/CouponAPICalls';
+import {
+    callGetMemberAPI
+} from '../../apis/MemberAPICalls';
 
 const RegistReservation = () => {
 
-    const member = useSelector(state => state.memberReducer);
+    const coupon = useSelector(state => state.coupon);
+
+    const member = useSelector(state => state.member.memberData);
+
+    const accessToken = window.localStorage.getItem("accessToken");
+    const token = decodeJwt(accessToken);
 
     const dispatch = useDispatch();
 
@@ -16,7 +28,6 @@ const RegistReservation = () => {
         reservationNo: "",
         flight: 0,
         seat: 0,
-        coupon: 0,
         baggageAmount: 0,
         baggagePrice: 0,
         reservationDate: null,
@@ -24,14 +35,48 @@ const RegistReservation = () => {
 
     });
 
+    const [memberData, setMemberData] = useState({
+        memberCode: '',
+        memberId: '',
+        memberName: '',
+        memberEmail: '',
+        birthDate: '',
+        memberPhone: ''
+    });
+
     const [extraBaggageAmount, setExtraBaggageAmount] = useState(0);
 
-    const [baggagePrice, setBaggagePrice] = useState(null);
+    const [baggagePrice, setBaggagePrice] = useState(0);
 
     useEffect(
-    () => {},
-    []
+    () => {
+        dispatch(callGetAllCouponsAPI());
+    },
+    [dispatch]
     );
+
+    useEffect(() => {
+        if (token && token.sub) {
+            console.log('Dispatching callGetMemberAPI with memberId:', token.sub);
+            dispatch(callGetMemberAPI({ memberId: token.sub }));
+        } else {
+            console.error("Token is null or invalid");
+        }
+    }, [dispatch, token.sub]);
+
+    useEffect(() => {
+        if (member && member.data) {
+            console.log('Member data:', member.data); // member.data 로그 추가
+            setMemberData({
+                memberCode: member.data.memberCode,
+                memberId: member.data.memberId,
+                memberName: member.data.memberName,
+                memberEmail: member.data.memberEmail,
+                birthDate: member.data.birthDate,
+                memberPhone: member.data.memberPhone
+            });
+        }
+    }, [member]);
 
     const onChangeHandler = (e) => {
         setForm({
@@ -51,6 +96,10 @@ const RegistReservation = () => {
         dispatch(callPostReservationAPI(form));
     }
 
+    if (!member || !member.data) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div>
             <br/>
@@ -61,7 +110,7 @@ const RegistReservation = () => {
                             <label>승객명</label>
                             <input
                                 type="text"
-                                value={member.memberName}
+                                value={memberData.memberName}
                                 // onChange={(e) => setMemberIdInput(e.target.value)}
                                 // placeholder="Member ID"
                             />
@@ -79,7 +128,7 @@ const RegistReservation = () => {
                             <label>생년월일</label>
                             <input
                                 type="date"
-                                value={member.birthDate}
+                                value={memberData.birthDate}
                                 // onChange={(e) => setMemberIdInput(e.target.value)}
                                 // placeholder="Member ID"
                             />
@@ -88,7 +137,7 @@ const RegistReservation = () => {
                             <label>회원번호</label>
                             <input 
                                 type="text"
-                                value={member.memberCode}
+                                value={memberData.memberCode}
                                 // onChange={(e) => setMemberIdInput(e.target.value)}
                                 // placeholder="Member ID"
                             />
@@ -97,7 +146,7 @@ const RegistReservation = () => {
                             <label>연락처</label>
                             <input
                                 type="tel"
-                                value={member.memberPhone}
+                                value={memberData.memberPhone}
                                 // onChange={(e) => setMemberIdInput(e.target.value)}
                                 // placeholder="Member ID"
                             />
@@ -106,7 +155,7 @@ const RegistReservation = () => {
                             <label>이메일</label>
                             <input
                                 type="email"
-                                value={member.memberPhone}
+                                value={memberData.memberEmail}
                                 // onChange={(e) => setMemberIdInput(e.target.value)}
                                 // placeholder="Member ID"
                             />
@@ -117,7 +166,7 @@ const RegistReservation = () => {
                         </div>
                         <div>
                             <label>기본 수하물 선택</label>
-                            <select value={baggageAmount} onChange={onChangeHandler}>
+                            <select name='baggageAmount' onChange={onChangeHandler}>
                                 <option value="0">0개</option>
                                 <option value="1">1개</option>
                             </select>
@@ -133,7 +182,9 @@ const RegistReservation = () => {
                         </div>
                         <div>
                             <label>쿠폰 선택</label>
-                            <input></input>
+                            <select>
+                                
+                            </select>
                         </div>
                     </div>
                 </div>

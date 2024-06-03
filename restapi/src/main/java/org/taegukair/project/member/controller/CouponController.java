@@ -8,7 +8,7 @@ import org.taegukair.project.member.service.CouponService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/coupon")
+@RequestMapping("/api/v1/coupon")
 public class CouponController {
 
     @Autowired

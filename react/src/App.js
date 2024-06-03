@@ -21,6 +21,7 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
+import RegistReservation from './pages/reservation/RegistReservation';
 import FindPassword from './pages/member/FindPassword';
 import FindID from './pages/member/FindId';
 import Profile from './pages/mypage/Profile';
@@ -90,9 +91,11 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
+            <Route path="main/reservations/regist" element={<RegistReservation />} />
             <Route path="profile" element={<Profile />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
+            
           </Route>
         </Routes>
       </CSSTransition>
