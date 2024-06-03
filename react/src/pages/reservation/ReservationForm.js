@@ -1,90 +1,115 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import './ReservationForm.css';
 import { useNavigate } from 'react-router-dom';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
+import ko from 'date-fns/locale/ko';
+import './ReservationForm.css';
+
+// 한국어 로케일을 등록합니다
+registerLocale('ko', ko);
 
 const ReservationForm = () => {
+  const [date, setDate] = useState(null);
+  const [departureAirport, setDepartureAirport] = useState('');
+  const [arrivalAirport, setArrivalAirport] = useState('');
   const [airports, setAirports] = useState([]);
-  const [selectedDeparture, setSelectedDeparture] = useState('');
-  const [selectedArrival, setSelectedArrival] = useState('');
-  const [seatClass, setSeatClass] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [seatClassError, setSeatClassError] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/airports')
-      .then(response => {
+    const fetchAirports = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/airports');
         setAirports(response.data.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the airport data!', error);
-      });
+      } catch (error) {
+        console.error('Error fetching airports:', error);
+      }
+    };
+
+    fetchAirports();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!seatClass) {
-      setSeatClassError(true);
+  const handleSearch = () => {
+    if (!departureAirport || !arrivalAirport || !date) {
+      alert('모든 필드를 입력해주세요.');
       return;
     }
-    setSeatClassError(false);
 
-    const reservationDetails = {
-      departureAirport: selectedDeparture,
-      arrivalAirport: selectedArrival,
-      seatClass: seatClass,
-      date: selectedDate,
-    };
-    console.log('Reservation Details:', reservationDetails);
-
-    navigate('/reservation/results', { state: reservationDetails });
+    navigate('/reservation/results', {
+      state: {
+        departureAirport,
+        arrivalAirport,
+        date: date.toISOString().split('T')[0],
+      },
+    });
   };
 
   return (
     <div className="form-container">
-      <h1>Book a Flight</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Departure Airport:
-          <select value={selectedDeparture} onChange={(e) => setSelectedDeparture(e.target.value)} required>
-            <option value="">Select Departure Airport</option>
-            {airports.map(airport => (
-              <option key={airport.airportId} value={airport.airportId}>
-                {airport.airportName} ({airport.airportIata})
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Arrival Airport:
-          <select value={selectedArrival} onChange={(e) => setSelectedArrival(e.target.value)} required>
-            <option value="">Select Arrival Airport</option>
-            {airports.map(airport => (
-              <option key={airport.airportId} value={airport.airportId}>
-                {airport.airportName} ({airport.airportIata})
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Date:
-          <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} dateFormat="yyyy-MM-dd" required />
-        </label>
-        <label>
-          Seat Class:
-          <select value={seatClass} onChange={(e) => setSeatClass(e.target.value)} required>
-            <option value="">Select Seat Class</option>
-            <option value="Economy">Economy</option>
-            <option value="Business">Business</option>
-            <option value="First">First Class</option>
-          </select>
-        </label>
-        {seatClassError && <p className="error">* 반드시 선택하셔야합니다.</p>}
-        <button type="submit">Search Flights</button>
-      </form>
+      <h1>편도 항공편 조회</h1>
+      <table>
+        <tbody>
+          <tr>
+            <td><label>출발 날짜:</label></td>
+            <td>
+              <DatePicker
+                selected={date}
+                onChange={(date) => setDate(date)}
+                dateFormat="yyyy-MM-dd"
+                locale="ko"
+                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span>
+                      {date.getFullYear()}년 {date.toLocaleString('default', { month: 'long' })}
+                    </span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      <button
+                        type="button"
+                        onClick={decreaseMonth}
+                      >
+                        &lt;
+                      </button>
+                      <button
+                        type="button"
+                        onClick={increaseMonth}
+                      >
+                        &gt;
+                      </button>
+                    </div>
+                  </div>
+                )}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label>출발 공항:</label></td>
+            <td>
+              <select value={departureAirport} onChange={(e) => setDepartureAirport(e.target.value)}>
+                <option value="">공항 선택</option>
+                {airports.map((airport) => (
+                  <option key={airport.airportId} value={airport.airportId}>
+                    {airport.airportName}
+                  </option>
+                ))}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>도착 공항:</label></td>
+            <td>
+              <select value={arrivalAirport} onChange={(e) => setArrivalAirport(e.target.value)}>
+                <option value="">공항 선택</option>
+                {airports.map((airport) => (
+                  <option key={airport.airportId} value={airport.airportId}>
+                    {airport.airportName}
+                  </option>
+                ))}
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button onClick={handleSearch}>항공편 검색</button>
     </div>
   );
 };

@@ -5,54 +5,73 @@ import './FlightResults.css';
 
 const RoundTripFlightResults = () => {
   const location = useLocation();
-  const { departureDetails, returnDetails } = location.state;
+  const { departureStartAirport, departureEndAirport, returnStartAirport, returnEndAirport, departureDate, returnDate } = location.state;
   const [departureFlights, setDepartureFlights] = useState([]);
   const [returnFlights, setReturnFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [airports, setAirports] = useState({});
+
+  useEffect(() => {
+    const fetchAirports = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/airports');
+        const airportsMap = response.data.data.reduce((map, airport) => {
+          map[airport.airportId] = airport.airportName;
+          return map;
+        }, {});
+        setAirports(airportsMap);
+      } catch (error) {
+        console.error('Error fetching airports:', error);
+      }
+    };
+
+    fetchAirports();
+  }, []);
 
   useEffect(() => {
     const fetchFlights = async () => {
       try {
-        // 출발 항공편 검색
-        console.log('출발 항공편 검색 요청:', departureDetails);
-        const departureResponse = await axios.get('http://localhost:8080/api/v1/flights/search', {
-          params: {
-            departureAirport: departureDetails.departureAirport,
-            arrivalAirport: departureDetails.arrivalAirport,
-            seatClass: departureDetails.seatClass,
-            date: departureDetails.date,
-          },
-        });
-        console.log('출발 항공편 검색 결과:', departureResponse.data);
-        setDepartureFlights(departureResponse.data);
+        const [departureResponse, returnResponse] = await Promise.all([
+          axios.get('http://localhost:8080/api/v1/flights/bothairport', {
+            params: {
+              startAirport: departureStartAirport,
+              endAirport: departureEndAirport,
+              selectedDate: `${departureDate}T00:00:00`,
+            },
+          }),
+          axios.get('http://localhost:8080/api/v1/flights/bothairport', {
+            params: {
+              startAirport: returnStartAirport,
+              endAirport: returnEndAirport,
+              selectedDate: `${returnDate}T00:00:00`,
+            },
+          }),
+        ]);
 
-        // 귀국 항공편 검색
-        console.log('귀국 항공편 검색 요청:', returnDetails);
-        const returnResponse = await axios.get('http://localhost:8080/api/v1/flights/search', {
-          params: {
-            departureAirport: returnDetails.departureAirport,
-            arrivalAirport: returnDetails.arrivalAirport,
-            seatClass: returnDetails.seatClass,
-            date: returnDetails.date,
-          },
-        });
-        console.log('귀국 항공편 검색 결과:', returnResponse.data);
-        setReturnFlights(returnResponse.data);
-
+        setDepartureFlights(Array.isArray(departureResponse.data.data) ? departureResponse.data.data : []);
+        setReturnFlights(Array.isArray(returnResponse.data.data) ? returnResponse.data.data : []);
         setLoading(false);
       } catch (error) {
-        console.error('항공편 데이터 검색 오류:', error);
-        setError('항공편 데이터 검색 오류');
+        console.error('Error fetching flight data:', error);
+        setError('Error fetching flight data');
         setLoading(false);
       }
     };
 
     fetchFlights();
-  }, [departureDetails, returnDetails]);
+  }, [departureStartAirport, departureEndAirport, returnStartAirport, returnEndAirport, departureDate, returnDate]);
+
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      const formattedPrice = new Intl.NumberFormat('ko-KR').format(price);
+      return `${formattedPrice}원`;
+    }
+    return '가격 정보 없음';
+  };
 
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -61,33 +80,39 @@ const RoundTripFlightResults = () => {
 
   return (
     <div className="results-container">
-      <h1>항공편 검색 결과</h1>
-      <h2>출발 항공편</h2>
+      <h1>출발 항공편 조회 결과</h1>
+      <p>출발 공항: {airports[departureStartAirport]}</p>
+      <p>도착 공항: {airports[departureEndAirport]}</p>
+      <p>출발 날짜: {departureDate}</p>
       {departureFlights.length === 0 ? (
-        <p>항공편을 찾을 수 없습니다</p>
+        <p>출발 항공편이 없습니다</p>
       ) : (
         <ul>
           {departureFlights.map((flight) => (
-            <li key={flight.id}>
-              <p>항공편 번호: {flight.flightNumber}</p>
-              <p>출발 시간: {flight.departureTime}</p>
-              <p>도착 시간: {flight.arrivalTime}</p>
-              <p>가격: ${flight.price}</p>
+            <li key={flight.flightId}>
+              <p>Flight Number: {flight.flightId}</p>
+              <p>Departure Time: {flight.startTime}</p>
+              <p>Arrival Time: {flight.endTime}</p>
+              <p>Price: {formatPrice(flight.flightPrice)}</p>
             </li>
           ))}
         </ul>
       )}
-      <h2>귀국 항공편</h2>
+
+      <h1>도착 항공편 조회 결과</h1>
+      <p>출발 공항: {airports[returnStartAirport]}</p>
+      <p>도착 공항: {airports[returnEndAirport]}</p>
+      <p>도착 날짜: {returnDate}</p>
       {returnFlights.length === 0 ? (
-        <p>항공편을 찾을 수 없습니다</p>
+        <p>도착 항공편이 없습니다</p>
       ) : (
         <ul>
           {returnFlights.map((flight) => (
-            <li key={flight.id}>
-              <p>항공편 번호: {flight.flightNumber}</p>
-              <p>출발 시간: {flight.departureTime}</p>
-              <p>도착 시간: {flight.arrivalTime}</p>
-              <p>가격: ${flight.price}</p>
+            <li key={flight.flightId}>
+              <p>Flight Number: {flight.flightId}</p>
+              <p>Departure Time: {flight.startTime}</p>
+              <p>Arrival Time: {flight.endTime}</p>
+              <p>Price: {formatPrice(flight.flightPrice)}</p>
             </li>
           ))}
         </ul>
@@ -95,5 +120,7 @@ const RoundTripFlightResults = () => {
     </div>
   );
 };
+
+
 
 export default RoundTripFlightResults;
