@@ -62,7 +62,7 @@ public class AuthService {
         log.info("[AuthService] tokenDTO {}", tokenDTO);
 
         log.info("[AuthService] login() END");
-        return new LoginResponse(tokenDTO, member.getMemberId());
+        return new LoginResponse(tokenDTO, member.getMemberId(), member.getMemberCode()); // memberCode 추가
     }
 
 

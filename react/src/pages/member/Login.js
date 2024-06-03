@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ setIsLoggedIn, setMemberId }) {
-    const [loginMethod, setLoginMethod] = useState('memberId'); // 기본값은 memberId
+    const [loginMethod, setLoginMethod] = useState('memberId');
     const [memberId, setMemberIdInput] = useState('');
     const [memberPassword, setMemberPassword] = useState('');
     const [memberCode, setMemberCode] = useState('');
@@ -22,15 +22,18 @@ function Login({ setIsLoggedIn, setMemberId }) {
 
             console.log('Parsed response data:', responseData);
 
-            if (responseData.data.token.accessToken) {
-                localStorage.setItem('token', responseData.data.token.accessToken);
+            if (responseData.data && responseData.data.token && responseData.data.token.accessToken) {
+                localStorage.setItem('accessToken', responseData.data.token.accessToken);
+                localStorage.setItem('memberCode', responseData.data.memberCode); // memberCode 저장
+                console.log('Access Token saved:', responseData.data.token.accessToken);
                 if (rememberMe) {
                     localStorage.setItem('memberId', responseData.data.memberId);
                 } else {
                     localStorage.removeItem('memberId');
                 }
                 setIsLoggedIn(true);
-                setMemberId(responseData.data.memberId); // 항상 memberId로 설정
+                setMemberId(responseData.data.memberId);
+
                 navigate('/');
             } else {
                 setError('Invalid credentials');

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class PetDTO {
     private int petId;
-    private String userId;
+    private int memberCode; // memberCode 필드 추가
     private String petName;
     private String species;
     private String breed;
@@ -13,9 +13,9 @@ public class PetDTO {
     public PetDTO() {
     }
 
-    public PetDTO(int petId, String userId, String petName, String species, String breed, byte[] image) {
+    public PetDTO(int petId, int memberCode, String petName, String species, String breed, byte[] image) {
         this.petId = petId;
-        this.userId = userId;
+        this.memberCode = memberCode;
         this.petName = petName;
         this.species = species;
         this.breed = breed;
@@ -30,12 +30,12 @@ public class PetDTO {
         this.petId = petId;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getMemberCode() {
+        return memberCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
     }
 
     public String getPetName() {
@@ -74,7 +74,7 @@ public class PetDTO {
     public String toString() {
         return "PetDTO{" +
                 "petId=" + petId +
-                ", userId='" + userId + '\'' +
+                ", memberCode=" + memberCode +
                 ", petName='" + petName + '\'' +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
