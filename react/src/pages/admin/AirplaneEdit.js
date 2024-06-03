@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';  // 경로 수정
+import '../../App.css';
 
 function AirplaneEdit() {
   const { id } = useParams();

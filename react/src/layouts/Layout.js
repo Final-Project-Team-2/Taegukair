@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { decodeJwt } from '../utils/tokenUtils';
+import { NavLink } from 'react-router-dom';
 
 function Layout({ isLoggedIn, memberId, onLogout }) {
   const navigate = useNavigate();
@@ -9,17 +11,28 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
     navigate('/');
   };
 
+  const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        console.log(temp);
+        decoded = temp.auth[0];
+    }
+
   return (
     <div>
       <header style={headerStyle}>
+        
         <Link to="/" style={logoStyle}>
-          <h1>관리자 페이지</h1>
+          <h1>태극항공</h1>
         </Link>
         <div style={navStyle}>
           {isLoggedIn ? (
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
               <Link to="/profile" style={linkStyle}>마이페이지</Link>
+              {decoded === "ROLE_ADMIN" && <li><NavLink to="/main/admin">홈페이지 관리</NavLink></li>}
               <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (
@@ -28,6 +41,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
               <Link to="/signup/terms" style={linkStyle}>Signup</Link>
             </>
           )}
+          
         </div>
       </header>
       <main>
