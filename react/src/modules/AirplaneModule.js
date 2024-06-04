@@ -25,10 +25,10 @@ export const { getAirplanes, getAirplane, postAirplane, putAirplane, deleteAirpl
 const airplaneReducer = handleActions(
     {
         [GET_AIRPLANES]: (state, { payload }) => {
-            console.log('Reducer GET_AIRPLANES payload:', payload); // 디버깅 로그 추가
+            console.log('Reducer GET_AIRPLANES payload:', payload); 
             return {
                 ...state,
-                airplanes: payload
+                airplanes: payload  
             };
         },
         [GET_AIRPLANE]: (state, { payload }) => ({
