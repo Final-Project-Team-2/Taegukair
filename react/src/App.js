@@ -25,6 +25,8 @@ import Verify from './pages/signup/Verify';
 import Complete from './pages/signup/Complete';
 import Reservations from './pages/reservation/Reservations';
 import ReservationDetail from './pages/reservation/ReservationDetail';
+import RegistReservation from './pages/reservation/RegistReservation';
+import ChooseSeats from './pages/reservation/Seats';
 import FindPassword from './pages/member/FindPassword';
 import FindID from './pages/member/FindId';
 
@@ -101,7 +103,8 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
-
+            <Route path="main/registReservation" element={<RegistReservation />} />
+            <Route path="main/registReservation/chooseSeat" element={<ChooseSeats />} />
             <Route path="reservation/new" element={<ReservationForm />} />
             <Route path="reservation/results" element={<FlightResults />} />
             <Route path="reservation/round-trip" element={<RoundTripReservationForm />} />
