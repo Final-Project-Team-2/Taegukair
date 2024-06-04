@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './FlightResults.css';
+import { callGetFlightsByAirportsAndTimeAPI } from '../../apis/FlightAPICalls';
+import { useDispatch, useSelector } from 'react-redux';
 
 const FlightResults = () => {
+
   const location = useLocation();
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const { departureAirport, arrivalAirport, date } = location.state;
+
+  const searchFlight = useSelector(state => state.flight);
+
   const [flights, setFlights] = useState([]);
+
+  const [selectedFlight, setSelectedFlight] = useState({});
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState(null);
+
   const [airports, setAirports] = useState({});
 
   useEffect(() => {
-    const fetchAirports = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/v1/airports');
-        const airportsMap = response.data.data.reduce((map, airport) => {
-          map[airport.airportId] = airport.airportName;
-          return map;
-        }, {});
-        setAirports(airportsMap);
-      } catch (error) {
-        console.error('Error fetching airports:', error);
-      }
-    };
-
-    fetchAirports();
-  }, []);
+    if(departureAirport && arrivalAirport && date ) {
+      console.log({ departureAirport, arrivalAirport, date });
+      dispatch(callGetFlightsByAirportsAndTimeAPI({ departureAirport, arrivalAirport, date }));
+    }
+  },
+  [dispatch, loading, departureAirport, arrivalAirport, date ]);
 
   useEffect(() => {
-    const fetchFlights = async () => {
-      try {
-        console.log('Fetching flights with params:', { departureAirport, arrivalAirport, date });
-        const response = await axios.get('http://localhost:8080/api/v1/flights/bothairport', {
-          params: {
-            startAirport: departureAirport,
-            endAirport: arrivalAirport,
-            selectedDate: `${date}T00:00:00`, // 날짜의 시작 시간으로 설정
-          },
-        });
-        console.log('Fetched flights:', response.data);
-        setFlights(Array.isArray(response.data.data) ? response.data.data : []); // 배열인지 확인 후 설정
+    if (searchFlight.length > 0) {
+        console.log('searchFlight:', searchFlight);
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching flight data:', error);
-        setError('Error fetching flight data');
-        setLoading(false);
-      }
-    };
-
-    fetchFlights();
-  }, [departureAirport, arrivalAirport, date]);
+        setFlights(searchFlight);
+    }
+  }, [searchFlight]);
 
   const formatPrice = (price) => {
     if (typeof price === 'number') {
@@ -60,27 +50,38 @@ const FlightResults = () => {
     return '가격 정보 없음';
   };
 
+  const selectFlightHandler = (e) => {
+    const flightData = JSON.parse(e.currentTarget.getAttribute('data-flight'));
+    console.log("flightData :", flightData);
+    if (flightData.flightId) {
+      setSelectedFlight(flightData);
+      console.log(selectedFlight);
+    }
+    };
+
+  const toReservationHandler = () => {
+    navigate('/reservation/searchresults/registreservation',
+      {state : selectedFlight }
+    )
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
 
-  
   return (
     <div className="results-container">
       <h1>편도 예약</h1>
-      <p>Departure Airport: {airports[departureAirport]}</p>
-      <p>Arrival Airport: {airports[arrivalAirport]}</p>
+      <p>Departure Airport: {(JSON.parse(departureAirport)).airportName}</p>
+      <p>Arrival Airport: {(JSON.parse(arrivalAirport)).airportName}</p>
       <p>Date: {date}</p>
       {flights.length === 0 ? (
         <p>조회하신 날짜에 해당 항공편이 없습니다.</p>
       ) : (
         <ul>
-          {flights.map((flight) => (
-            <li key={flight.flightId}>
+          {flights && flights.length > 0 && flights.map((flight) => (
+            <li key={flight.flightId} data-flight={JSON.stringify(flight)} onClick={selectFlightHandler}>
               <p>Flight Number: {flight.flightId}</p>
               <p>Departure Time: {flight.startTime}</p>
               <p>Arrival Time: {flight.endTime}</p>
@@ -89,7 +90,8 @@ const FlightResults = () => {
           ))}
         </ul>
       )}
-    <button> 결제하기 </button>
+      {/* 항공편을 선택하지 않고 눌렀을 때는 이동하지 못하도록 할 것 */}
+    <button onClick={toReservationHandler}> 예약하기 </button>
     </div>
   );
 };

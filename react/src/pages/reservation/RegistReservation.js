@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { decodeJwt } from '../../utils/tokenUtils';
 import {
@@ -15,6 +15,10 @@ import {
 const RegistReservation = () => {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const flight = location.state;
 
     const coupon = useSelector(state => state.coupon);
 
@@ -125,6 +129,26 @@ const RegistReservation = () => {
                 <div>
                     <div>
                         <div>
+                            <label>항공편 번호</label>
+                            <p>{flight.flightId}</p>
+                        </div>
+                        <div>
+                            <label>출발공항</label>
+                            <p>{flight.startAirPort.airportName}</p>
+                        </div>
+                        <div>
+                            <label>도착공항</label>
+                            <p>{flight.endAirPort.airportName}</p>
+                        </div>
+                        <div>
+                            <label>출발시간</label>
+                            <p>{flight.startTime}</p>
+                        </div>
+                        <div>
+                            <label>도착시간</label>
+                            <p>{flight.endTime}</p>
+                        </div>
+                        <div>
                             <label>승객명</label>
                             <input
                                 type="text"
@@ -174,8 +198,9 @@ const RegistReservation = () => {
                         </div>
                         <div>
                             <label>좌석선택</label>
-                            <input/>
-                            <button onClick={() => navigate('chooseSeat')}>좌석 선택</button>
+                            
+                            {/* <input/>
+                            <button onClick={() => navigate('chooseSeat')}>좌석 선택</button> */}
                         </div>
                         <div>
                             <label>기본 수하물 선택</label>
@@ -204,6 +229,7 @@ const RegistReservation = () => {
                             ))}
                             </select>
                         </div>
+                        <button>항공편 예약</button>
                     </div>
                 </div>
             </form>

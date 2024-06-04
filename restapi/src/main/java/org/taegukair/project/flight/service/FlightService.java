@@ -111,12 +111,6 @@ public class FlightService {
 
         Flight flight = flightRepository.findById(flightId).get();
 
-        Airplane airplane = flight.getAirplane();
-
-        AirPort startAirPort = flight.getStartAirPort();
-
-        AirPort endAirPort = flight.getEndAirPort();
-
         Airplane newAirplane = airplaneRepository.findById(flightDTO.getAirplane())
                 .orElseThrow(() -> new RuntimeException("항공기를 찾을 수 없습니다"));
 

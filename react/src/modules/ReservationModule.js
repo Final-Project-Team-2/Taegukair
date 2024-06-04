@@ -30,6 +30,3 @@ const reservationReducer = handleActions(
 );
 
 export default reservationReducer;
-
-
-
