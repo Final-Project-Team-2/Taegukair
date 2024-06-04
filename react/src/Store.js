@@ -6,6 +6,7 @@ import rootReducer from './modules/index'; // airplaneReducer가 포함된 루�
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
+  // applyMiddleware()
 );
 
 export default store;

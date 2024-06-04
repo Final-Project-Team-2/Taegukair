@@ -8,7 +8,7 @@ import org.taegukair.project.member.service.CouponService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/coupon")
+@RequestMapping("/api/v1/coupon")
 public class CouponController {
 
     @Autowired
@@ -23,6 +23,9 @@ public class CouponController {
     public Coupon getCouponById(@PathVariable int id) {
         return couponService.getCouponById(id);
     }
+
+    @GetMapping("/membercode")
+    public List<Coupon> getCouponByMemberCode(@RequestParam int memberCode) { return couponService.getCouponByMemberCode(memberCode); }
 
     @PostMapping
     public Coupon createCoupon(@RequestBody Coupon coupon) {

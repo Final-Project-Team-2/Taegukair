@@ -39,8 +39,8 @@ public class ReservationController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "예약 상세 조회 성공", reservationService.findReservation(reservationNo)));
     }
 
-    @PostMapping("/reservationSuccess")
-    public ResponseEntity<ResponseDTO> addReservation(@RequestBody ReservationDTO reservationDTO) {
+    @PostMapping("/registReservation")
+    public ResponseEntity<ResponseDTO> registReservation(@RequestBody ReservationDTO reservationDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "예약 성공", reservationService.saveReservation(reservationDTO)));
     }
