@@ -5,15 +5,19 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import store from './Store';
 import Main from './pages/Main';
 import Layout from './layouts/Layout';
-import AirportList from './pages/AirportList';
-import AirportDetail from './pages/AirportDetail';
-import AirportAdd from './pages/AirportAdd';
-import BoardList from './pages/BoardList';
-import BoardDetail from './pages/BoardDetail';
-import AirplaneList from './pages/AirplaneList';
-import AirplaneDetail from './pages/AirplaneDetail';
-import AirplaneAdd from './pages/AirplaneAdd';
-import AirplaneEdit from './pages/AirplaneEdit';
+
+// 올바른 경로로 수정
+import AirportList from './pages/admin/AirportList';
+import AirportDetail from './pages/admin/AirportDetail';
+import AirportAdd from './pages/admin/AirportAdd';
+import BoardList from './pages/admin/BoardList';
+import BoardDetail from './pages/admin/BoardDetail';
+import AirplaneList from './pages/admin/AirplaneList';
+import AirplaneDetail from './pages/admin/AirplaneDetail';
+import AirplaneAdd from './pages/admin/AirplaneAdd';
+import AirplaneEdit from './pages/admin/AirplaneEdit';
+import Admin from './pages/admin/Admin';  // 추가
+
 import Login from './pages/member/Login';
 import Signup from './pages/signup/Signup';
 import Terms from './pages/signup/Terms';
@@ -35,7 +39,6 @@ import Profile from './pages/mypage/Profile';
 import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
 import './App.css';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -80,6 +83,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
         <Routes location={location}>
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
+            <Route path="main/admin" element={<Admin />} />  {/* 추가 */}
             <Route path="main/admin/airports" element={<AirportList />} />
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
             <Route path="main/admin/airports/:id/edit" element={<AirportAdd />} />
@@ -109,7 +113,6 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="profile" element={<Profile />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
-
           </Route>
         </Routes>
       </CSSTransition>

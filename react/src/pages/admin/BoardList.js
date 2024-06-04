@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';  // Add this line to import the CSS file
+import '../../App.css';  // Add this line to import the CSS file
 
 function BoardList() {
   const [boards, setBoards] = useState([]);

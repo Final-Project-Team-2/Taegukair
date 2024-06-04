@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';  // 경로 수정
+import '../../App.css';  // 경로 수정
 
 function AirportAdd() {
   const { id } = useParams();
