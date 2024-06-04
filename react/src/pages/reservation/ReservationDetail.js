@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import './Reservations.css';
 
 const ReservationDetail = () => {
-    const reservation = useSelector(state => state.reservationReducer);
+    const reservation = useSelector(state => state.reservation);
     const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
     

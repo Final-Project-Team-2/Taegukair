@@ -129,8 +129,7 @@ const RegistReservation = () => {
                             <input
                                 type="text"
                                 value={memberData.memberName}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>
@@ -138,8 +137,7 @@ const RegistReservation = () => {
                             <input
                                 type="text"
                                 value={memberData.memberGender}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>
@@ -147,8 +145,7 @@ const RegistReservation = () => {
                             <input
                                 type="date"
                                 value={memberData.birthDate}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>
@@ -156,8 +153,7 @@ const RegistReservation = () => {
                             <input 
                                 type="text"
                                 value={memberData.memberCode}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>
@@ -165,8 +161,7 @@ const RegistReservation = () => {
                             <input
                                 type="tel"
                                 value={memberData.memberPhone}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>
@@ -174,8 +169,7 @@ const RegistReservation = () => {
                             <input
                                 type="email"
                                 value={memberData.memberEmail}
-                                // onChange={(e) => setMemberIdInput(e.target.value)}
-                                // placeholder="Member ID"
+                                readOnly
                             />
                         </div>
                         <div>

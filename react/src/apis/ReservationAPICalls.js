@@ -18,7 +18,7 @@ export const callGetAllReservationsAPI = () => {
                     headers: {
                     "Content-Type": "application/json",
                     "Accept": "*/*",
-                    // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 }
             })
             .then(result => result.data)
@@ -49,7 +49,7 @@ export const callGetReservationAPI = ({reservationNo}) => {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "*/*",
-                //     "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 }
             })
             .then(result => result.data)
@@ -79,8 +79,8 @@ export const callPostReservationAPI = ({form}) => {
                 data: form,
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "*/*"
-                //     "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    "Accept": "*/*",
+                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 }
             })
             .then(result => result.data)

@@ -48,7 +48,7 @@ export const callGetCouponByMemberCodeAPI = ({memberCode}) => {
                     headers: {
                     "Content-Type": "application/json",
                     "Accept": "*/*",
-                    // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 }
             })
             .then(result => {

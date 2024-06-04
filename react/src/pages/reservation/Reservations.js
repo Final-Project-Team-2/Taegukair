@@ -7,7 +7,7 @@ import "./Reservations.css";
 const Reservations = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const reservations = useSelector(state => state.reservationReducer);
+    const reservations = useSelector(state => state.reservation);
 
     useEffect(() => {
         // 페이지가 로드될 때 전체 예약 정보를 가져오도록 액션을 디스패치합니다.
