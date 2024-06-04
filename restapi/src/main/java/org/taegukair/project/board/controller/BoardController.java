@@ -45,8 +45,8 @@ public class BoardController {
     // 아래는 예시 엔드포인트입니다. 실제로 있는 엔드포인트인지 확인 후 사용하세요.
 
     @PostMapping
-    public ResponseEntity<Board> createBoard(@RequestBody Board board) {
-        Board savedBoard = boardService.saveBoard(board);
+    public ResponseEntity<Board> createBoard(@RequestBody BoardDTO boardDTO) {
+        Board savedBoard = boardService.saveBoard(boardDTO);
         return ResponseEntity.ok(savedBoard);
     }
 

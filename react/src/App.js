@@ -5,8 +5,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import store from './Store';
 import Main from './pages/Main';
 import Layout from './layouts/Layout';
-import BoardForm from './pages/mypage/BoardForm';
+import BoardForm from './pages/mypage/BoardForm'; // 추가된 부분
 
+// 올바른 경로로 수정
 import AirportList from './pages/admin/AirportList';
 import AirportDetail from './pages/admin/AirportDetail';
 import AirportAdd from './pages/admin/AirportAdd';
