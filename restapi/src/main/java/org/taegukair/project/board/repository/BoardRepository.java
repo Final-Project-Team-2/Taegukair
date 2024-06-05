@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByTitleContainingIgnoreCase(String title);
+
+    List<Board> findByMember_MemberCode(int memberCode);
 }

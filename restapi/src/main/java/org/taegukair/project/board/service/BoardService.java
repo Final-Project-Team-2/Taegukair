@@ -49,9 +49,6 @@ public class BoardService {
         return new BoardDTO(board);
     }
 
-    // 기존 기능들 추가
-    // 예를 들어 Board 추가, 삭제 등의 메서드가 있을 경우 그대로 유지
-    // 아래는 예시 메서드입니다. 실제로 있는 메서드인지 확인 후 사용하세요.
 
     @Transactional
     public Board saveBoard(BoardDTO boardDTO) {
@@ -86,5 +83,13 @@ public class BoardService {
     @Transactional
     public void deleteBoard(Long boardId) {
         boardRepository.deleteById(boardId);
+    }
+
+    @Transactional
+    public List<BoardDTO> getUserBoards(int memberCode) {
+        List<Board> boards = boardRepository.findByMember_MemberCode(memberCode);
+        return boards.stream()
+                .map(board -> modelMapper.map(board, BoardDTO.class))
+                .collect(Collectors.toList());
     }
 }

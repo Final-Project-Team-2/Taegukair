@@ -5,7 +5,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import store from './Store';
 import Main from './pages/Main';
 import Layout from './layouts/Layout';
-import BoardForm from './pages/mypage/BoardForm'; // 추가된 부분
+import BoardForm from './pages/mypage/BoardForm';
+import UserBoardList from './pages/user/UserBoardList';
+import UserBoardDetail from './pages/user/UserBoardDetail'; // 올바른 경로로 수정
 
 // 올바른 경로로 수정
 import AirportList from './pages/admin/AirportList';
@@ -114,6 +116,8 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
             <Route path="main/user/board" element={<BoardForm />} /> {/* 추가된 부분 */}
+            <Route path="main/user/boards" element={<UserBoardList />} /> {/* 추가된 부분 */}
+            <Route path="main/user/board/:boardId" element={<UserBoardDetail />} /> {/* 추가된 부분 */}
           </Route>
         </Routes>
       </CSSTransition>
