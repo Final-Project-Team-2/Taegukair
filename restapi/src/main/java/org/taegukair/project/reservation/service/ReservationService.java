@@ -19,6 +19,7 @@ import org.taegukair.project.reservation.dto.ReservationDTO;
 import org.taegukair.project.reservation.entity.Reservation;
 import org.taegukair.project.reservation.repository.ReservationRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -130,7 +131,7 @@ public class ReservationService {
             newReservation.setBaggageAmount(reservationDTO.getBaggageAmount());
             newReservation.setExtraBaggageAmount(reservationDTO.getExtraBaggageAmount());
             newReservation.setBaggagePrice(reservationDTO.getBaggagePrice());
-            newReservation.setReservationDate(reservationDTO.getReservationDate());
+            newReservation.setReservationDate(LocalDate.now());
             newReservation.setReservationTotalPrice(reservationDTO.getReservationTotalPrice());
 
             log.info("newReservation : {}", newReservation);

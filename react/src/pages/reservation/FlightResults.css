@@ -23,8 +23,17 @@
     border-radius: 5px;
     background-color: #fff;
   }
+
+  .results-container li:hover {
+    background-color: #ccc;
+  }
+
+  .results-container .selected {
+    background-color: #ccc;
+  }
   
   .results-container li p {
     margin: 5px 0;
   }
+
   

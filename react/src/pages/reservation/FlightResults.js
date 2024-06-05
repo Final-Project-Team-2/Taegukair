@@ -60,9 +60,15 @@ const FlightResults = () => {
     };
 
   const toReservationHandler = () => {
-    navigate('/reservation/searchresults/registreservation',
-      {state : selectedFlight }
-    )
+    if (selectedFlight.flightId) {
+      navigate('/reservation/searchresults/registreservation',
+        {state : 
+          {flight: selectedFlight}
+        }
+      )
+    } else {
+      alert("항공편을 선택해주세요!");
+    }
   }
 
   if (loading) {
@@ -81,7 +87,12 @@ const FlightResults = () => {
       ) : (
         <ul>
           {flights && flights.length > 0 && flights.map((flight) => (
-            <li key={flight.flightId} data-flight={JSON.stringify(flight)} onClick={selectFlightHandler}>
+            <li
+              key={flight.flightId}
+              data-flight={JSON.stringify(flight)}
+              onClick={selectFlightHandler}
+              className={selectedFlight.flightId === flight.flightId ? 'selected' : ''}
+              >
               <p>Flight Number: {flight.flightId}</p>
               <p>Departure Time: {flight.startTime}</p>
               <p>Arrival Time: {flight.endTime}</p>
@@ -90,7 +101,6 @@ const FlightResults = () => {
           ))}
         </ul>
       )}
-      {/* 항공편을 선택하지 않고 눌렀을 때는 이동하지 못하도록 할 것 */}
     <button onClick={toReservationHandler}> 예약하기 </button>
     </div>
   );

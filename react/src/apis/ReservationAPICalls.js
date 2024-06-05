@@ -64,7 +64,7 @@ export const callGetReservationAPI = ({reservationNo}) => {
     };
 }
 
-export const callPostReservationAPI = ({form}) => {
+export const callPostReservationAPI = (form) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/registReservation`;
 
     return async (dispatch, getState) => {
