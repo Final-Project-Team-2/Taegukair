@@ -30,17 +30,22 @@ const BoardForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="board-form">
-            <div className="form-group">
-                <label>제목</label>
-                <input type="text" name="title" value={form.title} onChange={handleChange} required className="form-control" />
-            </div>
-            <div className="form-group">
-                <label>내용</label>
-                <textarea name="content" value={form.content} onChange={handleChange} required className="form-control textarea-content" />
-            </div>
-            <button type="submit" className="submit-button">전송</button>
-        </form>
+        <div className='boardDiv'>
+            <form onSubmit={handleSubmit} className="board-form">
+                <h2>고객의 말씀 작성</h2>
+                <div className="form-group">
+                    <label>제목</label>
+                    <input type="text" name="title" value={form.title} onChange={handleChange} required className="form-control" />
+                </div>
+                <div className="form-group">
+                    <label>내용</label>
+                    <textarea name="content" value={form.content} onChange={handleChange} required className="form-control textarea-content" />
+                </div>
+                <button type="submit" className="submit-button">전송</button>
+            </form>
+            <span className='boardDivSpan'>오늘이 행복한 건 대화가 아름다운 당신 때문입니다!</span>
+        </div>
+        
     );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 
 function Login({ setIsLoggedIn, setMemberId }) {
     const [loginMethod, setLoginMethod] = useState('memberId');
@@ -111,8 +112,8 @@ function Login({ setIsLoggedIn, setMemberId }) {
                 <button onClick={() => navigate('/findID')}>아이디 찾기</button>
                 <button onClick={() => navigate('/findPassword')}>비밀번호 찾기</button>
                 <br/>
-                <button onClick={toggleHelpModal}>도움이 필요하신가요?</button>
             </div>
+            <button onClick={toggleHelpModal} className="help-button">도움이 필요하신가요?</button>
 
             {showHelpModal && (
                 <div className="modal">
