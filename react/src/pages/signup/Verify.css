@@ -1,17 +1,17 @@
-.signup-container {
+.verify-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
 }
 
-.signup-container h2 {
+.verify-container h2 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-.signup-container input {
-    width: 300px;
+.verify-container input {
+    width: 320px;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -19,10 +19,10 @@
     box-sizing: border-box;
 }
 
-.signup-container button {
+.verify-container button {
     width: 320px;
     padding: 10px;
-    margin: 20px 0;
+    margin: 10px 0;
     background-color: #007bff;
     color: white;
     border: none;
@@ -31,11 +31,11 @@
     font-size: 1rem;
 }
 
-.signup-container button:hover {
+.verify-container button:hover {
     background-color: #0056b3;
 }
 
-.signup-container p {
+.verify-container p {
     margin: 10px 0;
     color: #ff0000;
 }

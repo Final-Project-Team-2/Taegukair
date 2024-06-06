@@ -38,7 +38,8 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className="signup-container">
+      
       <h2>회원 정보 입력</h2>
       <input
         type="text"
