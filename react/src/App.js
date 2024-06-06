@@ -38,6 +38,7 @@ import RoundTripFlightResults from './pages/reservation/RoundTripFlightResults';
 import Profile from './pages/mypage/Profile';
 import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
+import CouponRegister from './pages/mypage/CouponRegister';
 import './App.css';
 
 function App() {
@@ -111,6 +112,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="reservation/round-trip-results" element={<RoundTripFlightResults />} />
 
             <Route path="profile" element={<Profile />} />
+            <Route path="/coupon-register" element={<CouponRegister />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
           </Route>

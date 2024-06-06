@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.taegukair.project.member.entity.Coupon;
 import org.taegukair.project.member.repository.CouponRepository;
-import org.taegukair.project.reservation.entity.Reservation;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CouponService {
@@ -24,15 +22,26 @@ public class CouponService {
     }
 
     public List<Coupon> getCouponByMemberCode(int memberCode) {
-
-        List<Coupon> coupon = couponRepository.findByMemberCode(memberCode);
-
-        if (coupon.isEmpty()) {
-            throw new RuntimeException("해당 회원 코드에 대한 쿠폰을 찾을 수 없습니다.");
-        }
-
-        return coupon;
+        return couponRepository.findByMemberCode(memberCode);
     }
+
+    public boolean isCouponValid(String couponCode) {
+        List<Coupon> coupons = couponRepository.findByCouponCode(couponCode);
+        return coupons.stream().anyMatch(Coupon::isPossible);
+    }
+
+    public Coupon assignCouponToMember(String couponCode, int memberCode) {
+        List<Coupon> coupons = couponRepository.findByCouponCode(couponCode);
+        for (Coupon coupon : coupons) {
+            if (!coupon.isPossible()) {
+                coupon.setMemberCode(memberCode);
+                coupon.setPossible(true);
+                return couponRepository.save(coupon);
+            }
+        }
+        return null;
+    }
+
 
     public Coupon saveCoupon(Coupon coupon) {
         return couponRepository.save(coupon);
