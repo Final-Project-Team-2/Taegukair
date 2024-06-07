@@ -34,9 +34,9 @@ public class ReservationController {
     // 주소 부분 마이 페이지 완료될 시 수정할 것
     // 남의 예약 정보를 어떻게 조회하지 못하게 할 지 생각할 것
     @GetMapping("/mypage/reservation")
-    public ResponseEntity<ResponseDTO> getMyReservation(@RequestParam String reservationNo) {
+    public ResponseEntity<ResponseDTO> getMyReservation(@RequestParam int memberCode) {
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "예약 상세 조회 성공", reservationService.findReservation(reservationNo)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 예약 조회 성공", reservationService.findReservationByMemberCode(memberCode)));
     }
 
     @PostMapping("/registReservation")

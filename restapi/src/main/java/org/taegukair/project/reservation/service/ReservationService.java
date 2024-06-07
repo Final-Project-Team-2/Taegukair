@@ -78,6 +78,23 @@ public class ReservationService {
         return modelMapper.map(reservation, Reservation.class);
     }
 
+    public List<Reservation> findReservationByMemberCode(int memberCode) {
+
+        log.info("[ReservationService] findReservation() Start");
+
+        List<Reservation> reservations = reservationRepository.findByMember_MemberCode(memberCode);
+
+        if (reservations.isEmpty()) {
+            throw new RuntimeException("예약이 존재하지 않습니다.");
+        }
+
+        log.info("[ReservationService] findReservationsByMemberCode() end");
+
+        return reservations.stream()
+                .map(reservation -> modelMapper.map(reservation, Reservation.class))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Object saveReservation(ReservationDTO reservationDTO) {
 
