@@ -21,9 +21,9 @@ const Members = () => {
     }
 
     return (
-        <div className="members-container">
+        <div className="table-container">
         <h1>전체 회원 조회</h1>
-        <table className="members-table">
+        <table className="table">
             <thead>
             <tr>
                 <th>회원 코드</th>
