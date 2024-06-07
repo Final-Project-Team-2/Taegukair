@@ -1,0 +1,32 @@
+.board-detail-container {
+    padding: 20px;
+}
+
+.board-detail {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.detail-field {
+    margin-bottom: 15px;
+}
+
+.detail-field label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.detail-field span {
+    display: block;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.detail-field.large-field span {
+    min-height: 150px; /* 답변 필드의 크기를 키움 */
+}

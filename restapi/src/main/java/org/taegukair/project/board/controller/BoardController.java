@@ -20,7 +20,7 @@ public class BoardController {
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
-
+    // 전체조회
     @GetMapping("/all")
     public ResponseEntity<List<BoardDTO>> getAllBoards() {
         List<BoardDTO> boards = boardService.getAllBoards();
@@ -33,6 +33,12 @@ public class BoardController {
         return ResponseEntity.ok(board);
     }
 
+    @GetMapping("/user/{memberCode}")
+    public ResponseEntity<List<BoardDTO>> getUserBoards(@PathVariable int memberCode) {
+        List<BoardDTO> userBoards = boardService.getUserBoards(memberCode);
+        return ResponseEntity.ok(userBoards);
+    }
+
     @PutMapping("/{id}/answer")
     public ResponseEntity<BoardDTO> updateBoardAnswer(@PathVariable Long id, @RequestBody Map<String, String> answerMap) {
         String answer = answerMap.get("answer");
@@ -40,13 +46,9 @@ public class BoardController {
         return ResponseEntity.ok(updatedBoard);
     }
 
-    // 기존 기능들 추가
-    // 예를 들어 Board 추가, 삭제 등의 엔드포인트가 있을 경우 그대로 유지
-    // 아래는 예시 엔드포인트입니다. 실제로 있는 엔드포인트인지 확인 후 사용하세요.
-
     @PostMapping
-    public ResponseEntity<Board> createBoard(@RequestBody Board board) {
-        Board savedBoard = boardService.saveBoard(board);
+    public ResponseEntity<Board> createBoard(@RequestBody BoardDTO boardDTO) {
+        Board savedBoard = boardService.saveBoard(boardDTO);
         return ResponseEntity.ok(savedBoard);
     }
 

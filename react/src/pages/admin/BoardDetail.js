@@ -48,31 +48,32 @@ function BoardDetail() {
     <div className="table-container">
       {board && (
         <>
-          <h1>{board.title}</h1>
+          {/* <h1>{board.title}</h1> */}
+          <h1>고객의 말씀 답변</h1>
           <table className="table">
             <tbody>
               <tr>
-                <th>Title</th>
+                <th>제목</th>
                 <td>{board.title}</td>
               </tr>
               <tr>
-                <th>Content</th>
+                <th>내용</th>
                 <td>{board.content}</td>
               </tr>
               <tr>
-                <th>Author</th>
+                <th>작성자</th>
                 <td>{board.author}</td> {/* member_id 표시 */}
               </tr>
               <tr>
-                <th>Submission Date</th>
+                <th>등록 일자</th>
                 <td>{board.submissionDate}</td>
               </tr>
               <tr>
-                <th>Status</th>
+                <th>답변 여부</th>
                 <td>{board.status === 'true' ? '답변 완료' : '미답변'}</td> {/* answer가 null인 경우 false, 아닌 경우 true */}
               </tr>
               <tr>
-                <th>Answer</th>
+                <th>답변</th>
                 <td>
                   {board.status === 'true' ? (
                     <div style={{ width: '100%', height: '200px', overflowY: 'auto', border: '1px solid #ddd', padding: '8px' }}>{answer}</div>

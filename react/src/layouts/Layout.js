@@ -8,6 +8,8 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
 
   const handleLogoutClick = () => {
     onLogout();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("memberCode");
     navigate('/');
   };
 
@@ -32,7 +34,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
               <Link to="/profile" style={linkStyle}>마이페이지</Link>
-              {decoded === "ROLE_ADMIN" && <li><NavLink to="/main/admin">홈페이지 관리</NavLink></li>}
+              {decoded === "ROLE_ADMIN" && <span style={spanNav}><NavLink to="/main/admin">홈페이지 관리</NavLink></span>}
               <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (
@@ -53,6 +55,11 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
     </div>
   );
 }
+
+const spanNav = {
+  color : 'white',
+  textDecoration : 'line'
+};
 
 const headerStyle = {
   display: 'flex',

@@ -1,0 +1,72 @@
+/* BoardForm.css */
+
+.boardDiv{
+    text-align: center;
+    font-size: 1.2em;
+}
+
+
+.boardDivSpan{
+    font-size: 0.7em;;
+}
+
+.board-form h2{
+    font-size: 1.2em;
+}
+
+.board-form {
+    max-width: 600px;
+    margin: 50px auto 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1.2em;
+}
+
+.submit-button{
+    font-size: 1.4em;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-group textarea{
+    resize: none;
+    font : 30px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.textarea-content {
+    height: 200px; /* 넉넉한 높이 설정 */
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
