@@ -203,7 +203,10 @@ const RegistReservation = () => {
             console.log("Updated form: ", updatedForm);
             dispatch(callPostReservationAPI(updatedForm));
             alert("예약이 완료되었습니다");
-            // navigate("/");
+            navigate("/");
+        } else {
+            alert("예약 정보를 저장하던 중 오류가 발생했습니다");
+            navigate("/");
         }
     };
 
@@ -321,7 +324,7 @@ const RegistReservation = () => {
                             <select value={selectedCouponId} onChange={onChangeCouponHandler}>
                             <option value="">쿠폰을 선택하세요</option>
                             {Array.isArray(coupon) && coupon.length > 0 && coupon
-                            .filter(couponItem => couponItem.isPossible)
+                            .filter(couponItem => couponItem.possible === true)
                             .map(couponItem => (
                                 <option key={couponItem.couponId} value={couponItem.couponId}>
                                     쿠폰코드 : {couponItem.couponCode}, 할인금액 : {couponItem.discountAmount}, 할인율 : {couponItem.discountPercentage}%

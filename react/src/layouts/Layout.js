@@ -8,6 +8,8 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
 
   const handleLogoutClick = () => {
     onLogout();
+    localStorage.removeItem('memberCode');
+    localStorage.removeItem('accessToken')
     navigate('/');
   };
 

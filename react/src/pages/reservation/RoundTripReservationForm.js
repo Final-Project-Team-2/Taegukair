@@ -48,18 +48,26 @@ const RoundTripReservationForm = () => {
       returnDate: returnDate.toISOString().split('T')[0],
     });
 
+    const departureOffset = departureDate.getTimezoneOffset() * 60000;
+  
+    const departureDateOffset = new Date(departureDate.getTime() - departureOffset);
+  
+    const returnOffset = returnDate.getTimezoneOffset() * 60000;
+  
+    const returnDateOffset = new Date(returnDate.getTime() - returnOffset);
+
     navigate('/reservation/round-trip-results', {
       state: {
         departureStartAirport,
         departureEndAirport,
         returnStartAirport,
         returnEndAirport,
-        departureDate: departureDate.toISOString().split('T')[0],
-        returnDate: returnDate.toISOString().split('T')[0],
+        departureDate: departureDateOffset.toISOString().split('T')[0],
+        returnDate: returnDateOffset.toISOString().split('T')[0],
       },
     });
   };
-
+  
   return (
     <div className="form-container">
       <h1>왕복 항공편 조회</h1>
@@ -103,7 +111,7 @@ const RoundTripReservationForm = () => {
               <select value={departureStartAirport} onChange={(e) => setDepartureStartAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
@@ -116,7 +124,7 @@ const RoundTripReservationForm = () => {
               <select value={departureEndAirport} onChange={(e) => setDepartureEndAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
@@ -161,7 +169,7 @@ const RoundTripReservationForm = () => {
               <select value={returnStartAirport} onChange={(e) => setReturnStartAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
@@ -174,7 +182,7 @@ const RoundTripReservationForm = () => {
               <select value={returnEndAirport} onChange={(e) => setReturnEndAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
