@@ -184,7 +184,7 @@ const RegistReservation = () => {
     };
 
     const onsubmitHandler = () => {
-        setForm({
+        const updatedForm = {
             reservationNo: "",
             member: Number(member.data.memberCode),
             flight: Number(flight.flightId),
@@ -195,11 +195,16 @@ const RegistReservation = () => {
             baggagePrice: Number(baggagePrice),
             reservationDate: "",
             reservationTotalPrice: Number(totalPrice)
-        });
-        console.log("form : ", form)
-        dispatch(callPostReservationAPI(form));
-        alert("예약이 완료되었습니다");
-        // navigate("/");
+        };
+
+        setForm(updatedForm);
+
+        if (updatedForm.member && updatedForm.flight && updatedForm.seat) {
+            console.log("Updated form: ", updatedForm);
+            dispatch(callPostReservationAPI(updatedForm));
+            alert("예약이 완료되었습니다");
+            // navigate("/");
+        }
     };
 
     if (!member || !member.data) {
@@ -315,7 +320,9 @@ const RegistReservation = () => {
                             <label>쿠폰 선택</label>
                             <select value={selectedCouponId} onChange={onChangeCouponHandler}>
                             <option value="">쿠폰을 선택하세요</option>
-                            {Array.isArray(coupon) && coupon.length > 0 && coupon.map(couponItem => (
+                            {Array.isArray(coupon) && coupon.length > 0 && coupon
+                            .filter(couponItem => couponItem.isPossible)
+                            .map(couponItem => (
                                 <option key={couponItem.couponId} value={couponItem.couponId}>
                                     쿠폰코드 : {couponItem.couponCode}, 할인금액 : {couponItem.discountAmount}, 할인율 : {couponItem.discountPercentage}%
                                 </option>
