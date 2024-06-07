@@ -1,29 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../App.css';  // Add this line to import the CSS file
+import { Link, useNavigate } from 'react-router-dom';
+import '../App.css';
 
 function Main() {
+  const navigate = useNavigate();
+  
+  const handleLinkClick = (e) => {
+    const memberCode = localStorage.getItem('memberCode');
+    if (!memberCode) {
+      e.preventDefault(); 
+      navigate('/login');
+    }
+  };
+
   return (
     <div>
-      {/* <h1>공항 관리</h1>
-      <Link to="/main/admin/airports" className="header-button">
-        Manage Airports
-      </Link> <br/>
-      <h1>고객의 말씀 관리</h1>
-      <Link to="/main/admin/board" className="header-button">
-        Manage Boards
-      </Link>
-      <h1>항공기 관리</h1>
-      <Link to="/main/admin/airplanes" className="header-button">Manage Airplanes</Link>
-      <h1>예약 관리</h1>
-
-      <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link>
-      <h1>신규 예약</h1>
-      <Link to="/main/registReservation" className="header-button">New Reservation</Link>
-      <Link to="/main/admin/reservations" className="header-button">Manage Reservations</Link> */}
       <h1>예약하기</h1>
       <Link to="/reservation/new" className="header-button">Book a One-way Flight</Link> {/* 편도 예약 버튼 */}
       <Link to="/reservation/round-trip" className="header-button">Book a Round-trip Flight</Link> {/* 왕복 예약 버튼 */}
+      <Link to="/main/user/board" className="header-button" onClick={handleLinkClick}>고객의 말씀 작성하기</Link> {/* 수정된 부분 */}
+      <Link to="/main/user/boards" className="header-button">내가 작성한 고객의 말씀</Link> {/* 내가 작성한 고객의 말씀 버튼 추가 */}
     </div>
   );
 }

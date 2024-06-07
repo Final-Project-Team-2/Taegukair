@@ -13,4 +13,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     boolean existsByReservationNo(String uniqueReservationId);
 
     void deleteByReservationNo(String reservationNo);
+
+    List<Reservation> findByMember_MemberCode(int memberCode);
 }

@@ -1,0 +1,100 @@
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boldtext{
+    font-weight: bold;
+}
+
+.smalltext{
+    font-size: 13px;
+}
+
+.modalcolor{
+    color: #0064DE;
+}
+
+.textunderline{
+    text-decoration: underline;
+}
+
+.modal-content {
+    text-align: left;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-text {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-text p {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left; /* 여기서 텍스트를 왼쪽 정렬로 변경 */
+}
+
+.close-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #0056b3;
+}
+
+.view-more-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-more-button:hover {
+    background-color: #0056b3;
+}
+
+.nextbutton {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+.nextbutton:hover {
+    background-color: #0056b3;
+}
+
+.fontleft{
+    text-align: left;
+}

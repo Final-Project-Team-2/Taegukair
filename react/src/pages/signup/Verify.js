@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Verify.css'
 
 function Verify() {
     const [phone, setPhone] = useState('');
@@ -55,7 +56,7 @@ function Verify() {
     };
 
     return (
-        <div>
+        <div className="verify-container">
             <h2>본인 인증</h2>
             <input
                 type="text"
@@ -71,7 +72,7 @@ function Verify() {
                 placeholder="인증번호를 입력하세요"
             />
             <button onClick={verifyCode}>인증</button>
-            <button onClick={handleNextPage}>다음 페이지로</button>
+            <button className="nextbutton" onClick={handleNextPage}>다음 페이지로</button>
             {message && <p>{message}</p>}
             {error && <p>{error}</p>}
         </div>

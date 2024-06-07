@@ -14,14 +14,7 @@ public class BoardDTO {
     private String author; // member_id 추가
 
     // 기존 생성자
-    public BoardDTO(Long boardId, int memberCode, String title, String content, LocalDate submissionDate, String status, String answer) {
-        this.boardId = boardId;
-        this.memberCode = memberCode;
-        this.title = title;
-        this.content = content;
-        this.submissionDate = submissionDate;
-        this.status = status;
-        this.answer = answer;
+    public BoardDTO() {
     }
 
     // Board 엔터티를 사용한 생성자 추가
@@ -100,5 +93,19 @@ public class BoardDTO {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "BoardDTO{" +
+                "boardId=" + boardId +
+                ", memberCode=" + memberCode +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", submissionDate=" + submissionDate +
+                ", status='" + status + '\'' +
+                ", answer='" + answer + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }

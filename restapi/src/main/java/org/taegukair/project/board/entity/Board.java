@@ -31,17 +31,23 @@ public class Board {
     @Column(name = "answer")
     private String answer;
 
+    @Column(name = "author")
+    private String author;
+
     // Constructors, getters and setters
 
-    public Board() {}
+    public Board() {
+    }
 
-    public Board(Member member, String title, String content, LocalDate submissionDate, String status, String answer) {
+    public Board(Long boardId, Member member, String title, String content, LocalDate submissionDate, String status, String answer, String author) {
+        this.boardId = boardId;
         this.member = member;
         this.title = title;
         this.content = content;
         this.submissionDate = submissionDate;
         this.status = status;
         this.answer = answer;
+        this.author = author;
     }
 
     public Long getBoardId() {
@@ -98,5 +104,27 @@ public class Board {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "boardId=" + boardId +
+                ", member=" + member +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", submissionDate=" + submissionDate +
+                ", status='" + status + '\'' +
+                ", answer='" + answer + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }
