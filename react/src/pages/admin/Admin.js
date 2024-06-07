@@ -23,6 +23,11 @@ const Admin = () => {
       <Link to="/main/admin/reservations" className="header-button">
         Manage Reservations
       </Link>
+      <br/>
+      <h1>회원 관리</h1>
+      <Link to="/main/admin/members" className="header-button">
+        Manage Members
+      </Link>
     </div>
   );
 }
