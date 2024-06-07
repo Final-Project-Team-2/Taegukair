@@ -63,7 +63,10 @@ const FlightResults = () => {
     if (selectedFlight.flightId) {
       navigate('/reservation/searchresults/registreservation',
         {state : 
-          {flight: selectedFlight}
+          {
+            flight: selectedFlight,
+            flightType: "OneWay"
+          }
         }
       )
     } else {

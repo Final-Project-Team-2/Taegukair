@@ -18,7 +18,7 @@ const RegistReservation = () => {
 
     const location = useLocation();
 
-    const flight = location.state.flight || {};
+    const departureFlight = location.state.departureFlight || {};
 
     const initialSeat = location.state.seat || {};
 
@@ -31,7 +31,7 @@ const RegistReservation = () => {
 
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState({
+    const [departureForm, setDepartureForm] = useState({
 
         reservationNo: "",
         member: 0,
@@ -75,8 +75,8 @@ const RegistReservation = () => {
     const [seat, setSeat] = useState(initialSeat);
 
     const calculateSumPrice = () => {
-        if (flight.flightPrice) {
-            let price = flight.flightPrice;
+        if (departureFlight.flightPrice) {
+            let price = departureFlight.flightPrice;
             if (baggagePrice) {
                 price += baggagePrice;
             }
@@ -105,7 +105,7 @@ const RegistReservation = () => {
 
     useEffect(() => {
         calculateSumPrice();
-    }, [flight.flightPrice, seat, baggagePrice]);
+    }, [departureFlight.flightPrice, seat, baggagePrice]);
     
     useEffect(() => {
         calculateTotalPrice();
@@ -179,15 +179,15 @@ const RegistReservation = () => {
 
     const onChooseSeatHandler = () => {
         navigate('chooseSeat', {
-            state: { flight : flight }
+            state: { flight : departureFlight }
         });
     };
 
     const onsubmitHandler = () => {
-        const updatedForm = {
+        const updatedDepartureForm = {
             reservationNo: "",
             member: Number(member.data.memberCode),
-            flight: Number(flight.flightId),
+            flight: Number(departureFlight.flightId),
             seat: Number(seat.seatId),
             coupon: Number(selectedCouponId) || null,
             baggageAmount: Number(baggageAmount),
@@ -197,11 +197,11 @@ const RegistReservation = () => {
             reservationTotalPrice: Number(totalPrice)
         };
 
-        setForm(updatedForm);
+        setForm(updatedDepartureForm);
 
-        if (updatedForm.member && updatedForm.flight && updatedForm.seat) {
-            console.log("Updated form: ", updatedForm);
-            dispatch(callPostReservationAPI(updatedForm));
+        if (updatedDepartureForm.member && updatedDepartureForm.flight && updatedDepartureForm.seat) {
+            console.log("Updated form: ", updatedDepartureForm);
+            dispatch(callPostReservationAPI(updatedDepartureForm));
             alert("예약이 완료되었습니다");
             navigate("/");
         } else {
@@ -221,28 +221,27 @@ const RegistReservation = () => {
     return (
         <div>
             <br/>
-            <form>
                 <div>
                     <div>
                         <div>
                             <label>항공편 번호</label>
-                            <p>{flight.flightId}</p>
+                            <p>{departureFlight.flightId}</p>
                         </div>
                         <div>
                             <label>출발공항</label>
-                            <p>{flight.startAirPort.airportName}</p>
+                            <p>{departureFlight.startAirPort.airportName}</p>
                         </div>
                         <div>
                             <label>도착공항</label>
-                            <p>{flight.endAirPort.airportName}</p>
+                            <p>{departureFlight.endAirPort.airportName}</p>
                         </div>
                         <div>
                             <label>출발시간</label>
-                            <p>{flight.startTime}</p>
+                            <p>{departureFlight.startTime}</p>
                         </div>
                         <div>
                             <label>도착시간</label>
-                            <p>{flight.endTime}</p>
+                            <p>{departureFlight.endTime}</p>
                         </div>
                         <div>
                             <label>승객명</label>
@@ -344,7 +343,6 @@ const RegistReservation = () => {
                         <button type='button' onClick={onsubmitHandler}>항공편 예약</button>
                     </div>
                 </div>
-            </form>
         </div>
     );
 }
