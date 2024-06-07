@@ -18,7 +18,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
 
     if(isLogin !== undefined && isLogin !== null) {
         const temp = decodeJwt(window.localStorage.getItem("accessToken"));
-        console.log(temp);
+        // console.log(temp);
         decoded = temp.auth[0];
     }
 

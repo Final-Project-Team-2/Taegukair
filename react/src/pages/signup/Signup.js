@@ -16,23 +16,25 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
+      const formattedBirthDate = birthDate ? new Date(birthDate).toISOString().split('T')[0] : '';
+
       const signupData = {
         memberId: username,
         memberPassword: password,
         memberEmail: email,
         memberName: name,
         memberGender: gender,
-        birthDate: birthDate,
+        birthDate: formattedBirthDate,
         memberPhone: phone
       };
-      
-      console.log('Sending signup data:', signupData);  // 로그 추가
+
+      console.log('Sending signup data:', signupData);
 
       await axios.post('http://localhost:8080/auth/signup', signupData);
 
-      navigate('/signup/complete'); // 회원가입 성공 시 완료 페이지로 이동
+      navigate('/signup/complete');
     } catch (error) {
-      console.error('Signup error:', error.response.data);  // 로그 추가
+      console.error('Signup error:', error.response ? error.response.data : error.message);
       setError('회원가입에 실패했습니다');
     }
   };

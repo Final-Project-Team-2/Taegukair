@@ -41,6 +41,7 @@ import RoundTripFlightResults from './pages/reservation/RoundTripFlightResults';
 import Profile from './pages/mypage/Profile';
 import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
+import CouponRegister from './pages/mypage/CouponRegister';
 import './App.css';
 
 function App() {
@@ -106,13 +107,14 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
-            <Route path="main/registReservation" element={<RegistReservation />} />
-            <Route path="main/registReservation/chooseSeat" element={<ChooseSeats />} />
+            <Route path="reservation/searchresults/registreservation" element={<RegistReservation />} />
+            <Route path="reservation/searchresults/registreservation/chooseSeat" element={<ChooseSeats />} />
             <Route path="reservation/new" element={<ReservationForm />} />
-            <Route path="reservation/results" element={<FlightResults />} />
+            <Route path="reservation/searchresults" element={<FlightResults />} />
             <Route path="reservation/round-trip" element={<RoundTripReservationForm />} />
             <Route path="reservation/round-trip-results" element={<RoundTripFlightResults />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="/coupon-register" element={<CouponRegister />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
             <Route path="main/user/board" element={<BoardForm />} /> {/* 추가된 부분 */}

@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     List<Coupon> findByMemberCode(int memberCode);
+    List<Coupon> findByCouponCode(String couponCode);
 }

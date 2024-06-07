@@ -1,3 +1,7 @@
+.boldtext{
+    font-weight: bold;
+}
+
 .login-container {
     max-width: 400px;
     margin: 50px auto;
@@ -143,6 +147,10 @@
     max-width: 500px;
     width: 100%;
     text-align: center;
+}
+
+.modal-content p{
+    text-align: left;
 }
 
 .close {

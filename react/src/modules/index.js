@@ -6,6 +6,8 @@ import familyReducer from './FamilyModule'; // FamilyModule을 추가합니다.
 import petsReducer from './PetsModule'; // PetsModule을 추가합니다.
 import couponReducer from './CouponModule';
 import boardReducer from './BoardModule';
+import flightReducer from './FlightModule';
+import seatReducer from './SeatModule';
 
 const rootReducer = combineReducers({
     member: memberReducer,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     family: familyReducer,
     pets: petsReducer,
     coupon: couponReducer,
-    board : boardReducer
+    board : boardReducer,
+    flight: flightReducer,
+    seat: seatReducer
 });
 
 export default rootReducer;

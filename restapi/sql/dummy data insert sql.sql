@@ -4,40 +4,40 @@ INSERT INTO authority (authority_name, authority_desc) VALUES
     ('ROLE_USER', '일반 유저');
 
 -- 회원(Member) 테이블에 대한 더미 데이터
-INSERT INTO member (member_id, member_password, member_email, member_name, member_gender, birth_date, member_phone) VALUES
-    ('admin', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'admin@example.com', 'User One', 'Female', '1990-01-01', '010-1010-1010'),
-    ('user77', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'wade@example.com', '웨이드', 'Male', '1998-03-28', '010-1111-1111'),
-    ('user2', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user2@example.com', 'User Two', 'Female', '1992-02-02', '010-2222-2222'),
-    ('user3', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user3@example.com', 'User Three', 'Male', '1993-03-03', '010-3333-3333'),
-    ('user4', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user4@example.com', 'User Four', 'Female', '1994-04-04', '010-4444-4444'),
-    ('user5', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user5@example.com', 'User Five', 'Male', '1995-05-05', '010-5555-5555'),
-    ('user6', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user6@example.com', 'User Six', 'Female', '1996-06-06', '010-6666-6666'),
-    ('user7', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user7@example.com', 'User Seven', 'Male', '1997-07-07', '010-7777-7777'),
-    ('user8', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user8@example.com', 'User Eight', 'Female', '1998-08-08', '010-8888-8888'),
-    ('user9', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user9@example.com', 'User Nine', 'Male', '1999-09-09', '010-9999-9999'),
-    ('user10', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user10@example.com', 'User Ten', 'Female', '2000-10-10', '010-1010-1010');
+INSERT INTO member (member_code, member_id, member_password, member_email, member_name, member_gender, birth_date, member_phone) VALUES
+    (20231115, 'admin', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'admin@example.com', 'User One', 'Female', '1990-01-01', '010-1010-1010'),
+    (20231116, 'user77', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'wade@example.com', '웨이드', 'Male', '1998-03-28', '010-1111-1111'),
+    (20231117, 'user2', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user2@example.com', 'User Two', 'Female', '1992-02-02', '010-2222-2222'),
+    (20231118,'user3', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user3@example.com', 'User Three', 'Male', '1993-03-03', '010-3333-3333'),
+    (20231119,'user4', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user4@example.com', 'User Four', 'Female', '1994-04-04', '010-4444-4444'),
+    (20231120,'user5', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user5@example.com', 'User Five', 'Male', '1995-05-05', '010-5555-5555'),
+    (20231121,'user6', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user6@example.com', 'User Six', 'Female', '1996-06-06', '010-6666-6666'),
+    (20231122,'user7', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user7@example.com', 'User Seven', 'Male', '1997-07-07', '010-7777-7777'),
+    (20231123,'user8', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user8@example.com', 'User Eight', 'Female', '1998-08-08', '010-8888-8888'),
+    (20231124,'user9', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user9@example.com', 'User Nine', 'Male', '1999-09-09', '010-9999-9999'),
+    (20231125,'user10', '$2a$10$Q6ryDWturyqyQ/3kQkkw5.rIJY8D/.uvFOwOyqhUtUlBNI/A2Lswm', 'user10@example.com', 'User Ten', 'Female', '2000-10-10', '010-1010-1010');
 
 INSERT INTO member_role (member_code, authority_code)
-    SELECT
-        m.member_code,
-        a.authority_code
-    FROM
-        member m,
-        authority a
-    WHERE
-        m.member_id = 'admin'
-    AND a.authority_name = 'ROLE_ADMIN';
+SELECT
+m.member_code,
+a.authority_code
+FROM
+member m,
+authority a
+WHERE
+m.member_id = 'admin'
+AND a.authority_name = 'ROLE_ADMIN';
 
 INSERT INTO member_role (member_code, authority_code)
-    SELECT
-        m.member_code,
-        a.authority_code
-    FROM
-        member m,
-        authority a
-    WHERE
-        m.member_id = 'user77'
-    AND a.authority_name = 'ROLE_USER';
+SELECT
+m.member_code,
+a.authority_code
+FROM
+member m,
+authority a
+WHERE
+m.member_id = 'user77'
+AND a.authority_name = 'ROLE_USER';
 
 -- 공항(Airport) 테이블에 대한 더미 데이터
 INSERT INTO airport (airport_Name, airport_Iata, airport_location) VALUES
@@ -147,17 +147,24 @@ INSERT INTO pet (member_code, pet_Name, species, breed) VALUES
     (20231124, 'Buddy', 'Cat', 'Persian');
 
 -- 쿠폰(Coupon) 테이블에 대한 더미 데이터
-INSERT INTO coupon (member_code, coupon_code, discount_amount, discount_percentage, valid_until, is_possible) VALUES
-    (20231115, 'C1001', 100000, 8, '2024-12-31', true),
-    (20231116, 'C1002', 20000, 15, '2024-12-31', true),
-    (20231117, 'C1003', 15000, 20, '2024-12-31', true),
-    (20231118, 'C1004', 30000, 25, '2024-12-31', true),
-    (20231119, 'C1005', 5000, 5, '2024-12-31', true),
-    (20231120, 'C1006', 25000, 30, '2024-12-31', true),
-    (20231121, 'C1007', 35000, 35, '2024-12-31', true),
-    (20231122, 'C1008', 40000, 40, '2024-12-31', true),
-    (20231123, 'C1009', 45000, 45, '2024-12-31', true),
-    (20231124, 'C1010', 30000, 15, '2024-12-31', true);
+-- INSERT INTO coupon (member_code, coupon_code, discount_amount, discount_percentage, valid_until, is_possible) VALUES
+--     (20231115, 'C1001', 100000, 8, '2024-12-31', true),
+--     (20231116, 'C1002', 20000, 15, '2024-12-31', true),
+--     (20231117, 'C1003', 15000, 20, '2024-12-31', true),
+--     (20231118, 'C1004', 30000, 25, '2024-12-31', true),
+--     (20231119, 'C1005', 5000, 5, '2024-12-31', true),
+--     (20231120, 'C1006', 25000, 30, '2024-12-31', true),
+--     (20231121, 'C1007', 35000, 35, '2024-12-31', true),
+--     (20231122, 'C1008', 40000, 40, '2024-12-31', true),
+--     (20231123, 'C1009', 45000, 45, '2024-12-31', true),
+--     (20231124, 'C1010', 30000, 15, '2024-12-31', true);
+
+INSERT INTO coupon (member_code, coupon_code, discount_amount, discount_percentage, created_at, valid_until, is_possible) VALUES
+    (20231115, 'DUMMYCODE1', 1000, NULL, NOW(), '2024-12-31', 1),
+    (20231115, 'DUMMYCODE2', NULL, 10, NOW(), '2024-12-31', 0),
+    (20231116, 'DUMMYCODE3', 500, NULL, NOW(), '2024-12-31', 1),
+    (20231117, 'DUMMYCODE4', NULL, 5, NOW(), '2024-12-31', 1);
+
 
 -- 게시판(Board) 테이블에 대한 더미 데이터
 INSERT INTO board (member_code, title, content, submission_date, status, answer) VALUES

@@ -29,6 +29,8 @@ DROP TABLE IF EXISTS member;
 DROP TABLE IF EXISTS seat_type;
 DROP TABLE IF EXISTS seat_class;
 DROP TABLE IF EXISTS verification_code;
+DROP TABLE IF EXISTS verification_token;
+
 
 show tables;
 
@@ -81,7 +83,7 @@ create table if not exists member_role
     constraint pk_member_role primary key (member_code, authority_code),
     FOREIGN KEY (member_code) REFERENCES member (member_code),
     FOREIGN KEY (authority_code) REFERENCES authority (authority_code)
-    ) engine=innodb comment '회원별권한';
+) engine=innodb comment '회원별권한';
 
 -- 독립적인 테이블 생성
 CREATE TABLE airport (
