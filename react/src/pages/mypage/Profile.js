@@ -39,6 +39,10 @@ function Profile() {
             setIsEditing(false);
         });
     };
+    
+    const onClickCouponRegisterHandler = () => {
+        navigate('/coupon-register');
+    };
 
     useEffect(() => {
         if (token && token.sub) {
@@ -71,6 +75,14 @@ function Profile() {
 
     return (
         <div style={{ backgroundColor: 'white', padding: '20px' }}>
+
+            <button
+                onClick={onClickCouponRegisterHandler}
+                style={{ border: 'none', padding: '10px', fontSize: '14px', cursor: 'pointer', backgroundColor: '#282c34', color: 'white', marginTop: '10px' }}
+            >
+                쿠폰 등록
+            </button>
+
             <div style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'center' }}>
                 <h1>내 정보</h1>
                 <input 

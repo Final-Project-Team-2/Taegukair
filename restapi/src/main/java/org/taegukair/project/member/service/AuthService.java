@@ -19,6 +19,9 @@ import org.taegukair.project.member.repository.MemberRepository;
 import org.taegukair.project.member.repository.MemberRoleRepository;
 import org.taegukair.project.member.response.LoginResponse;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class AuthService {
 
@@ -71,13 +74,16 @@ public class AuthService {
         log.info("[AuthService] signup() Start.");
         log.info("[AuthService] memberDTO {}", memberDTO);
 
-        if(memberRepository.findByMemberEmail(memberDTO.getMemberEmail()) != null) {
+        if (memberRepository.findByMemberEmail(memberDTO.getMemberEmail()) != null) {
             log.info("[AuthService] 이메일이 중복됩니다.");
             throw new DuplicatedMemberEmailException("이메일이 중복됩니다.");
         }
 
+        // DTO를 엔티티로 변환
         Member registMember = modelMapper.map(memberDTO, Member.class);
+        registMember.setBirthDate(LocalDate.parse(memberDTO.getBirthDate(), DateTimeFormatter.ISO_DATE));
         registMember.setMemberPassword(passwordEncoder.encode(registMember.getMemberPassword()));
+
         Member result1 = memberRepository.save(registMember);
 
         int maxMemberCode = memberRepository.maxMemberCode();

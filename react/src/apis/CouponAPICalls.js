@@ -1,6 +1,8 @@
 import {
     GET_ALL_COUPONS,
-    GET_COUPON_BY_MEMBER_NO
+    GET_COUPON_BY_MEMBER_NO,
+    CHECK_COUPON,
+    ASSIGN_COUPON
 } from '../modules/CouponModule';
 import axios from 'axios';
 
@@ -65,3 +67,52 @@ export const callGetCouponByMemberCodeAPI = ({memberCode}) => {
             });
     };
 }
+
+export const callCheckCouponAPI = ({ couponCode }) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/coupon/check`;
+
+    return async (dispatch, getState) => {
+        const result = await axios({
+            method: "GET",
+            url: requestURL,
+            params: { couponCode },
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(result => result.data)
+        .catch(error => {
+            console.error("에러 발생", error);
+        });
+
+        dispatch({ type: CHECK_COUPON, payload: result });
+        return result;
+    };
+}
+
+export const callAssignCouponAPI = ({ couponCode, memberCode }) => {
+        const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/coupon/assign`;
+    
+        return async (dispatch) => {
+        try {
+            const response = await axios({
+            method: 'POST',
+            url: requestURL,
+            data: { couponCode, memberCode },
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*',
+                Authorization: 'Bearer ' + window.localStorage.getItem('accessToken')
+            }
+            });
+            console.log('Assign coupon API response:', response.data); // 로그 추가
+            dispatch({ type: ASSIGN_COUPON, payload: response.data });
+            return response.data; // 응답 데이터를 반환
+        } catch (error) {
+            console.error('에러 발생', error);
+            throw error;
+        }
+    };
+};
