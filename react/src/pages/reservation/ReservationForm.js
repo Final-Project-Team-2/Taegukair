@@ -35,11 +35,15 @@ const ReservationForm = () => {
       return;
     }
 
-    navigate('/reservation/results', {
+    const offset = date.getTimezoneOffset() * 60000;
+    const dateOffset = new Date(date.getTime() - offset);
+
+    navigate('/reservation/searchresults', {
+      
       state: {
         departureAirport,
         arrivalAirport,
-        date: date.toISOString().split('T')[0],
+        date: dateOffset.toISOString().split('T')[0],
       },
     });
   };
@@ -87,7 +91,7 @@ const ReservationForm = () => {
               <select value={departureAirport} onChange={(e) => setDepartureAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
@@ -100,7 +104,7 @@ const ReservationForm = () => {
               <select value={arrivalAirport} onChange={(e) => setArrivalAirport(e.target.value)}>
                 <option value="">공항 선택</option>
                 {airports.map((airport) => (
-                  <option key={airport.airportId} value={airport.airportId}>
+                  <option key={airport.airportId} value={JSON.stringify(airport)}>
                     {airport.airportName}
                   </option>
                 ))}
