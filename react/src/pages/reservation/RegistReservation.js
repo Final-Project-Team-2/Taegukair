@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { decodeJwt } from '../../utils/tokenUtils';
+import './RegistReservation.css';
 import {
     callPostReservationAPI
 } from '../../apis/ReservationAPICalls';
@@ -20,7 +21,11 @@ const RegistReservation = () => {
 
     const departureFlight = location.state.departureFlight || {};
 
-    const initialSeat = location.state.seat || {};
+    const returnFlight = location.state.returnFlight || {};
+
+    const initialDepartureSeat = location.state.initialDepartureSeat || {};
+
+    const initialReturnSeat = location.state.initialReturnSeat || {};
 
     const coupon = useSelector(state => state.coupon);
 
@@ -30,21 +35,6 @@ const RegistReservation = () => {
     const token = decodeJwt(accessToken);
 
     const dispatch = useDispatch();
-
-    const [departureForm, setDepartureForm] = useState({
-
-        reservationNo: "",
-        member: 0,
-        flight: 0,
-        seat: 0,
-        coupon: 0,
-        baggageAmount: 0,
-        extraBaggageAmount: 0,
-        baggagePrice: 0,
-        reservationDate: null,
-        reservationTotalPrice: 0
-
-    });
 
     const [memberData, setMemberData] = useState({
         memberCode: '',
@@ -64,15 +54,21 @@ const RegistReservation = () => {
 
     const [baggagePrice, setBaggagePrice] = useState();
 
+    const [returnBaggageAmount, setReturnBaggageAmount] = useState();
+
+    const [returnExtraBaggageAmount, setReturnExtraBaggageAmount] = useState();
+
+    const [returnBaggagePrice, setReturnBaggagePrice] = useState();
+
     const [selectedCouponId, setSelectedCouponId] = useState(0);
 
     const [selectedCoupon, setSelectedCoupon] = useState({});
 
     const [sumPrice, setSumPrice] = useState(null);
 
-    const [totalPrice, setTotalPrice] = useState(null);
+    const [returnSumPrice, setReturnSumPrice] = useState(null);
 
-    const [seat, setSeat] = useState(initialSeat);
+    const [totalPrice, setTotalPrice] = useState(null);
 
     const calculateSumPrice = () => {
         if (departureFlight.flightPrice) {
@@ -80,8 +76,8 @@ const RegistReservation = () => {
             if (baggagePrice) {
                 price += baggagePrice;
             }
-            if (seat.seatId) {
-                price += (seat.seatType.seatTypePrice + seat.seatClass.seatClassPrice);
+            if (initialDepartureSeat.seatId) {
+                price += (initialDepartureSeat.seatType.seatTypePrice + initialDepartureSeat.seatClass.seatClassPrice);
             }
             setSumPrice(price);
         } else {
@@ -89,28 +85,50 @@ const RegistReservation = () => {
         }
     };
 
+    const calculateReturnSumPrice = () => {
+        if (returnFlight.flightPrice) {
+            let price = returnFlight.flightPrice;
+            if (returnBaggagePrice) {
+                price += returnBaggagePrice;
+            }
+            if (initialReturnSeat.seatId) {
+                price += (initialReturnSeat.seatType.seatTypePrice + initialReturnSeat.seatClass.seatClassPrice);
+            }
+            setReturnSumPrice(price);
+        } else {
+            setReturnSumPrice(null);
+        }
+    };
+
     const calculateTotalPrice = () => {
+        let price = sumPrice;
+    
+        if (Object.keys(returnFlight).length !== 0) {
+            price += returnSumPrice;
+        }
+    
         if (selectedCoupon != null) {
             if (selectedCoupon.discountAmount) {
-                setTotalPrice(sumPrice - selectedCoupon.discountAmount);
+                price -= selectedCoupon.discountAmount;
             } else if (selectedCoupon.discountPercentage) {
-                setTotalPrice(sumPrice * (1 - selectedCoupon.discountPercentage / 100));
-            } else {
-                setTotalPrice(sumPrice);
+                price *= (1 - selectedCoupon.discountPercentage / 100);
             }
-        } else {
-            setTotalPrice(sumPrice);
         }
+    
+        setTotalPrice(price);
     };
 
     useEffect(() => {
         calculateSumPrice();
-    }, [departureFlight.flightPrice, seat, baggagePrice]);
+    }, [departureFlight.flightPrice, initialDepartureSeat, baggagePrice, ]);
     
     useEffect(() => {
-        calculateTotalPrice();
+        calculateReturnSumPrice();
+    }, [returnFlight.flightPrice, initialReturnSeat, returnBaggagePrice]);
 
-    }, [sumPrice, selectedCoupon]);
+    useEffect(() => {
+        calculateTotalPrice();
+    }, [sumPrice, returnSumPrice, selectedCoupon]);
 
     useEffect(() => {
         if (token && token.sub) {
@@ -169,6 +187,13 @@ const RegistReservation = () => {
         }
     };
 
+    const onReturnBaggageChangeHandler = (e) => {
+        const amount = e.target.value;
+        if (amount !== returnBaggageAmount) {
+            setReturnBaggageAmount(amount);
+        }
+    };
+
     const onExtraBaggageChangeHandler = (e) => {
         const amount = e.target.value;
         if (amount !== extraBaggageAmount) {
@@ -177,34 +202,76 @@ const RegistReservation = () => {
         }
     };
 
+    const onReturnExtraBaggageChangeHandler = (e) => {
+        const amount = e.target.value;
+        if (amount !== returnExtraBaggageAmount) {
+            setReturnExtraBaggageAmount(amount);
+            setReturnBaggagePrice(amount * 10000);
+        }
+    };
+
     const onChooseSeatHandler = () => {
         navigate('chooseSeat', {
-            state: { flight : departureFlight }
+            state: { 
+                departureFlight : departureFlight,
+                returnFlight: returnFlight,
+            }
         });
     };
 
-    const onsubmitHandler = () => {
+    const onsubmitHandler = async () => {
         const updatedDepartureForm = {
             reservationNo: "",
             member: Number(member.data.memberCode),
             flight: Number(departureFlight.flightId),
-            seat: Number(seat.seatId),
+            seat: Number(initialDepartureSeat.seatId),
             coupon: Number(selectedCouponId) || null,
             baggageAmount: Number(baggageAmount),
             extraBaggageAmount: Number(extraBaggageAmount),
             baggagePrice: Number(baggagePrice),
             reservationDate: "",
-            reservationTotalPrice: Number(totalPrice)
+            reservationTotalPrice: returnSumPrice == null 
+            ? selectedCoupon
+                ? selectedCoupon.discountAmount
+                    ? Number(sumPrice - selectedCoupon.discountAmount)
+                    : Number(sumPrice * (1 - selectedCoupon.discountPercentage / 100))
+                : Number(sumPrice)
+            : Number(totalPrice)
         };
+        
+        let updatedReturnForm = null;
 
-        setForm(updatedDepartureForm);
+        if ((Object.keys(returnFlight).length !== 0)) {
+            updatedReturnForm = {
+                reservationNo: "",
+                member: Number(member.data.memberCode),
+                flight: Number(returnFlight.flightId),
+                seat: Number(initialReturnSeat.seatId),
+                coupon: Number(selectedCouponId) || null,
+                baggageAmount: Number(returnBaggageAmount),
+                extraBaggageAmount: Number(returnExtraBaggageAmount),
+                baggagePrice: Number(returnBaggagePrice),
+                reservationDate: "",
+                reservationTotalPrice: selectedCoupon
+                ? selectedCoupon.discountAmount
+                    ? Number(returnSumPrice - (selectedCoupon.discountAmount / 2))
+                    : Number(returnSumPrice * (1 - selectedCoupon.discountPercentage / 100))
+                : Number(returnSumPrice)
+            };
+        }
 
-        if (updatedDepartureForm.member && updatedDepartureForm.flight && updatedDepartureForm.seat) {
-            console.log("Updated form: ", updatedDepartureForm);
-            dispatch(callPostReservationAPI(updatedDepartureForm));
+        try {
+            console.log("updatedDepartureForm: ", updatedDepartureForm);
+            await dispatch(callPostReservationAPI(updatedDepartureForm));
+    
+            if (updatedReturnForm && updatedReturnForm.flight !== 0) {
+                console.log("updatedReturnForm: ", updatedReturnForm);
+                await dispatch(callPostReservationAPI(updatedReturnForm));
+            }
+    
             alert("예약이 완료되었습니다");
             navigate("/");
-        } else {
+        } catch (error) {
             alert("예약 정보를 저장하던 중 오류가 발생했습니다");
             navigate("/");
         }
@@ -214,8 +281,12 @@ const RegistReservation = () => {
         return <p>Loading...</p>;
     }
 
-    if(seat.seatId) {
-        console.log("seat :", seat);
+    if(initialDepartureSeat.seatId) {
+        console.log("seat :", initialDepartureSeat);
+    }
+
+    if(initialReturnSeat.seatId) {
+        console.log("seat :", initialReturnSeat);
     }
 
     return (
@@ -223,26 +294,91 @@ const RegistReservation = () => {
             <br/>
                 <div>
                     <div>
-                        <div>
-                            <label>항공편 번호</label>
-                            <p>{departureFlight.flightId}</p>
+                        <div className='departureFlightInfo'>
+                            <div className='infoItem'>
+                                <label>항공편 번호</label>
+                                <p>{departureFlight.flightId}</p>
+                            </div>
+                            <div className='infoItem'>
+                                <label>출발공항</label>
+                                <p>{departureFlight.startAirPort.airportName}</p>
+                            </div>
+                            <div className='infoItem'>
+                                <label>도착공항</label>
+                                <p>{departureFlight.endAirPort.airportName}</p>
+                            </div>
+                            <div className='infoItem'>
+                                <label>출발시간</label>
+                                <p>{departureFlight.startTime}</p>
+                            </div>
+                            <div className='infoItem'>
+                                <label>도착시간</label>
+                                <p>{departureFlight.endTime}</p>
+                            </div>
                         </div>
                         <div>
-                            <label>출발공항</label>
-                            <p>{departureFlight.startAirPort.airportName}</p>
+                            <label>기본 수하물 선택</label>
+                            <select name='baggageAmount' value={baggageAmount} onChange={onBaggageChangeHandler}>
+                                <option value="">갯수선택</option>
+                                <option value="0">0개</option>
+                                <option value="1">1개</option>
+                            </select>
                         </div>
                         <div>
-                            <label>도착공항</label>
-                            <p>{departureFlight.endAirPort.airportName}</p>
+                            <label>추가 수하물 선택</label>
+                            <select name="extraBaggageAmount" value={extraBaggageAmount} onChange={onExtraBaggageChangeHandler}>
+                                <option value="">갯수선택</option>
+                                <option value="0">0개</option>
+                                <option value="1">1개</option>
+                                <option value="2">2개</option>
+                                <option value="3">3개</option>
+                            </select>
                         </div>
-                        <div>
-                            <label>출발시간</label>
-                            <p>{departureFlight.startTime}</p>
-                        </div>
-                        <div>
-                            <label>도착시간</label>
-                            <p>{departureFlight.endTime}</p>
-                        </div>
+                        {Object.keys(returnFlight).length > 0 && (
+                            <>
+                            <div className='returnFlightInfo'>
+                                <div className='infoItem'>
+                                    <label>항공편 번호</label>
+                                    <p>{returnFlight.flightId}</p>
+                                </div>
+                                <div className='infoItem'>
+                                    <label>출발공항</label>
+                                    <p>{returnFlight.startAirPort.airportName}</p>
+                                </div>
+                                <div className='infoItem'>
+                                    <label>도착공항</label>
+                                    <p>{returnFlight.endAirPort.airportName}</p>
+                                </div>
+                                <div className='infoItem'>
+                                    <label>출발시간</label>
+                                    <p>{returnFlight.startTime}</p>
+                                </div>
+                                <div className='infoItem'>
+                                    <label>도착시간</label>
+                                    <p>{returnFlight.endTime}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label>기본 수하물 선택</label>
+                                <select name='returnBaggageAmount' value={returnBaggageAmount} onChange={onReturnBaggageChangeHandler}>
+                                    <option value="">갯수선택</option>
+                                    <option value="0">0개</option>
+                                    <option value="1">1개</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>추가 수하물 선택</label>
+                                <select name="returnExtraBaggageAmount" value={returnExtraBaggageAmount} onChange={onReturnExtraBaggageChangeHandler}>
+                                    <option value="">갯수선택</option>
+                                    <option value="0">0개</option>
+                                    <option value="1">1개</option>
+                                    <option value="2">2개</option>
+                                    <option value="3">3개</option>
+                                </select>
+                            </div>
+                            </>
+                        )}
+
                         <div>
                             <label>승객명</label>
                             <input
@@ -292,32 +428,29 @@ const RegistReservation = () => {
                             />
                         </div>
                         <div>
-                            <label>좌석선택</label>
+                            <label>{returnFlight ? '출발 항공편 좌석 번호' : '좌석 번호'}</label>
                             <input
                                 type='text'
-                                value={seat.seatNo}
+                                value={initialDepartureSeat.seatNo}
                                 readOnly
                             />
+                        </div>
+                        { Object.keys(returnFlight).length > 0 ?
+                        <>
+                        <div>
+                            <label>도착 항공편 좌석 번호</label>
+                            <input
+                                type='text'
+                                value={initialReturnSeat.seatNo}
+                                readOnly
+                            />
+                            <br/>
                             <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
                         </div>
-                        <div>
-                            <label>기본 수하물 선택</label>
-                            <select name='baggageAmount' value={baggageAmount} onChange={onBaggageChangeHandler}>
-                                <option value="">갯수선택</option>
-                                <option value="0">0개</option>
-                                <option value="1">1개</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>추가 수하물 선택</label>
-                            <select name="extraBaggageAmount" value={extraBaggageAmount} onChange={onExtraBaggageChangeHandler}>
-                                <option value="">갯수선택</option>
-                                <option value="0">0개</option>
-                                <option value="1">1개</option>
-                                <option value="2">2개</option>
-                                <option value="3">3개</option>
-                            </select>
-                        </div>
+                        </>
+                        : <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
+
+                        }
                         <div>
                             <label>쿠폰 선택</label>
                             <select value={selectedCouponId} onChange={onChangeCouponHandler}>

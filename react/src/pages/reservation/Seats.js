@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {callgetAllSeatsByFlightAPI} from '../../apis/SeatAPICalls';
+import {callGetAllSeatsByFlightAPI} from '../../apis/SeatAPICalls';
 import IconWindowPossible from '../../asset/seats/seat_window_possible.png';
 import IconWindowImpossible from '../../asset/seats/seat_window_impossible.png';
 import IconPetPossible from '../../asset/seats/seat_pet_possible.png';
@@ -10,42 +10,65 @@ import IconComfortPossible from '../../asset/seats/seat_comfort_possible.png';
 import IconComfortImpossible from '../../asset/seats/seat_comfort_impossible.png';
 import IconNormalPossible from '../../asset/seats/seat_possible.png';
 import IconNormalImpossible from '../../asset/seats/seat_impossible.png';
+import "./Seats.css";
 
 const ChooseSeat = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const flight = location.state.flight || {};
 
-    const seats = useSelector(state => state.seat)
+    const { departureFlight, returnFlight } = location.state;
+    
+    const departureFlightInfo = departureFlight || {};
 
-    const [selectedSeat, setSelectedSeat] = useState('');
+    const returnFlightInfo = returnFlight || {};
 
-    useEffect(
-        () => {
-            if (flight.flightId) {
-                const flightId = flight.flightId;
-                dispatch(callgetAllSeatsByFlightAPI({flightId}));
-            }
-        },
-        [dispatch, flight.flightId]
-    );
+    const departureSeats = useSelector(state => state.seat.departureSeats);
 
-    useEffect(
-        () => {
-            if (seats && seats.length > 0) {
-            }
-        },
-        [seats]
-    );
+    const returnSeats = useSelector(state => state.seat.returnSeats);
+
+    const [selectedDepartureSeat, setSelectedDepartureSeat] = useState('');
+
+    const [selectedReturnSeat, setSelectedReturnSeat] = useState('');
+
+    useEffect(() => {
+        if (departureFlightInfo.flightId) {
+            const flightId = departureFlightInfo.flightId;
+            dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: false }));
+        }
+    
+        if (returnFlightInfo.flightId) {
+            const flightId = returnFlightInfo.flightId;
+            dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: true }));
+        }
+    }, [dispatch, departureFlightInfo.flightId, returnFlightInfo.flightId]);
+
+    // useEffect(
+    //     () => {
+    //         if (seats && seats.length > 0) {
+    //         }
+    //     },
+    //     [seats]
+    // );
 
     const handleConfirm = () => {
-        if (selectedSeat.seatId) {
+        if (selectedDepartureSeat && !returnFlightInfo.flightId) {
             navigate('/reservation/searchresults/registreservation', {
                 state: {
-                    seat: selectedSeat,
-                    flight: flight
+                    initialDepartureSeat: selectedDepartureSeat,
+                    initialReturnSeat: selectedReturnSeat,
+                    departureFlight: departureFlightInfo,
+                    returnFlight: returnFlightInfo
+                }
+            });
+        } else if (selectedDepartureSeat && selectedReturnSeat) {
+            navigate('/reservation/searchresults/registreservation', {
+                state: {
+                    initialDepartureSeat: selectedDepartureSeat,
+                    initialReturnSeat: selectedReturnSeat,
+                    departureFlight: departureFlightInfo,
+                    returnFlight: returnFlightInfo
                 }
             });
         } else {
@@ -53,44 +76,102 @@ const ChooseSeat = () => {
         }
     };
 
-    const handleSeatSelection = (seat) => {
-        setSelectedSeat(seat);
+    const handleDepartureSeatSelection = (seat) => {
+        setSelectedDepartureSeat(seat);
+    }
+
+    const handleReturnSeatSelection = (seat) => {
+        setSelectedReturnSeat(seat);
     }
     
+    if(departureFlightInfo) {
+        console.log("departureFlightInfo : ", departureFlightInfo);
+    }
+
+    if(returnSeats) {
+        console.log("returnSeats : ", returnSeats);
+    }
+
     return (
         <div>
             <h1>좌석 선택</h1>
             <div>
-                {seats.map(seat => {
-                    let icon;
-                    switch (seat.seatType.seatTypeId) {
-                        case 1:
-                            icon = seat.reserved ? IconWindowImpossible : IconWindowPossible;
-                            break;
-                        case 2:
-                            icon = seat.reserved ? IconPetImpossible : IconPetPossible;
-                            break;
-                        case 3:
-                            icon = seat.reserved ? IconComfortImpossible : IconComfortPossible;
-                            break;
-                        case 4:
-                            icon = seat.reserved ? IconNormalImpossible : IconNormalPossible;
-                            break;
-                        default:
-                            icon = null;
-                    }
+                <h2>출발 좌석</h2>
+                {departureSeats && departureSeats.data && departureSeats.data.length > 0 ? (
+                    departureSeats.data.map(dSeat => {
+                        let icon;
+                        switch (dSeat.seatType.seatTypeId) {
+                            case 1:
+                                icon = dSeat.reserved ? IconWindowImpossible : IconWindowPossible;
+                                break;
+                            case 2:
+                                icon = dSeat.reserved ? IconPetImpossible : IconPetPossible;
+                                break;
+                            case 3:
+                                icon = dSeat.reserved ? IconComfortImpossible : IconComfortPossible;
+                                break;
+                            case 4:
+                                icon = dSeat.reserved ? IconNormalImpossible : IconNormalPossible;
+                                break;
+                            default:
+                                icon = null;
+                        }
 
-                    return (
-                        <button
-                            key={seat.seatNo}
-                            onClick={() => handleSeatSelection(seat)}
-                            disabled={seat.reserved}
-                        >
-                            {icon && <img src={icon} alt="Seat Icon" />}
-                            {seat.seatNo}
-                        </button>
-                    );
-                })}
+                        return (
+                            <button
+                                className='seats'
+                                key={dSeat.seatNo}
+                                onClick={() => handleDepartureSeatSelection(dSeat)}
+                                disabled={dSeat.reserved}
+                            >
+                                {icon && <img src={icon} alt="Seat Icon" />}
+                                {dSeat.seatNo}
+                            </button>
+                        );
+                    })
+                ) : (
+                    null
+                )}
+            </div>
+            <div>
+                {returnSeats && returnSeats.data && returnSeats.data.length > 0 ? (
+                    <>
+                    <h2>귀국 좌석</h2>
+                    {returnSeats.data.map(rSeat => {
+                        let icon;
+                        switch (rSeat.seatType.seatTypeId) {
+                            case 1:
+                                icon = rSeat.reserved ? IconWindowImpossible : IconWindowPossible;
+                                break;
+                            case 2:
+                                icon = rSeat.reserved ? IconPetImpossible : IconPetPossible;
+                                break;
+                            case 3:
+                                icon = rSeat.reserved ? IconComfortImpossible : IconComfortPossible;
+                                break;
+                            case 4:
+                                icon = rSeat.reserved ? IconNormalImpossible : IconNormalPossible;
+                                break;
+                            default:
+                                icon = null;
+                        }
+
+                        return (
+                            <button
+                                className='seats'
+                                key={rSeat.seatNo}
+                                onClick={() => handleReturnSeatSelection(rSeat)}
+                                disabled={rSeat.reserved}
+                            >
+                                {icon && <img src={icon} alt="Seat Icon" />}
+                                {rSeat.seatNo}
+                            </button>
+                        );
+                    })}
+                    </>
+                ) : (
+                    null
+                )}
             </div>
             <button onClick={handleConfirm}>확인</button>
         </div>
