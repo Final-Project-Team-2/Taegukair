@@ -20,6 +20,7 @@ import AirplaneDetail from './pages/admin/AirplaneDetail';
 import AirplaneAdd from './pages/admin/AirplaneAdd';
 import AirplaneEdit from './pages/admin/AirplaneEdit';
 import Admin from './pages/admin/Admin';
+import Members from './pages/admin/Members';
 
 import Login from './pages/member/Login';
 import Signup from './pages/signup/Signup';
@@ -88,6 +89,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
             <Route path="main/admin" element={<Admin />} />
+            <Route path="/main/admin/members" element={<Members />} />
             <Route path="main/admin/airports" element={<AirportList />} />
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
             <Route path="main/admin/airports/:id/edit" element={<AirportAdd />} />

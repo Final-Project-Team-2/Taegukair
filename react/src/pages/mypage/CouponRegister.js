@@ -27,11 +27,10 @@ function CouponRegister() {
 
         try {
             const response = await dispatch(callAssignCouponAPI({ couponCode, memberCode }));
-            console.log('Coupon assigned, navigating to /profile', response); // 로그 추가
+            console.log('Coupon assigned, response:', response); // 로그 추가
 
             if (response && response.valid) {
                 setCouponDetails(response.coupon);
-                navigate('/profile'); // 프로필 페이지로 리다이렉트
             } else {
                 setErrorMessage(response.message || '쿠폰 번호가 유효하지 않거나 이미 사용되었습니다.');
             }
@@ -39,6 +38,10 @@ function CouponRegister() {
             console.error('Error assigning coupon:', error); // 에러 로그 추가
             setErrorMessage('쿠폰 등록 중 오류가 발생했습니다.');
         }
+    };
+
+    const onConfirmHandler = () => {
+        navigate('/profile');
     };
 
     return (
@@ -68,6 +71,12 @@ function CouponRegister() {
                         {couponDetails.discountAmount && <p>{couponDetails.discountAmount}원 할인쿠폰</p>}
                         {couponDetails.discountPercentage && <p>{couponDetails.discountPercentage}% 할인쿠폰</p>}
                         <p>유효기간: {couponDetails.validUntil}</p>
+                        <button
+                            onClick={onConfirmHandler}
+                            style={{ border: 'none', padding: '10px', fontSize: '14px', cursor: 'pointer', backgroundColor: '#282c34', color: 'white', marginTop: '10px' }}
+                        >
+                            확인
+                        </button>
                     </div>
                 )}
             </div>
