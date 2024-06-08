@@ -36,6 +36,7 @@ const ReservationForm = () => {
     }
 
     const offset = date.getTimezoneOffset() * 60000;
+    
     const dateOffset = new Date(date.getTime() - offset);
 
     navigate('/reservation/searchresults', {

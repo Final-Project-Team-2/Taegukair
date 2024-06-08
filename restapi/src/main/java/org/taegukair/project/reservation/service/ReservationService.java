@@ -157,8 +157,9 @@ public class ReservationService {
 
             seat.setReserved(true);
 
-            assert coupon != null;
-            coupon.setPossible(false);
+            if (coupon != null) {
+                coupon.setPossible(false);
+            }
 
             result = 1;
         } catch (Exception e) {
