@@ -19,7 +19,31 @@ function Profile() {
         memberPhone: ''
     });
     const accessToken = window.localStorage.getItem("accessToken");
-    const token = decodeJwt(accessToken);
+    const token = accessToken ? decodeJwt(accessToken) : null;
+
+    useEffect(() => {
+        if (!token) {
+            alert("로그인이 필요합니다");
+            navigate('/login');
+            return;
+        }
+        if (token && token.sub) {
+            dispatch(callGetMemberAPI({ memberId: token.sub }));
+        }
+    }, [dispatch, token, navigate]);
+
+    useEffect(() => {
+        if (member && member.data) {
+            setFormData({
+                memberCode: member.data.memberCode,
+                memberId: member.data.memberId,
+                memberName: member.data.memberName,
+                memberEmail: member.data.memberEmail,
+                birthDate: member.data.birthDate,
+                memberPhone: member.data.memberPhone
+            });
+        }
+    }, [member]);
 
     const onClickBackHandler = () => {
         navigate(-1);
@@ -48,29 +72,6 @@ function Profile() {
     const onClickTicketHandler = () => {
         navigate('/reservation-tickets');
     };
-
-    useEffect(() => {
-        if (token && token.sub) {
-            console.log('Dispatching callGetMemberAPI with memberId:', token.sub);
-            dispatch(callGetMemberAPI({ memberId: token.sub }));
-        } else {
-            console.error("Token is null or invalid");
-        }
-    }, [dispatch, token.sub]);
-
-    useEffect(() => {
-        if (member && member.data) {
-            console.log('Member data:', member.data);
-            setFormData({
-                memberCode: member.data.memberCode,
-                memberId: member.data.memberId,
-                memberName: member.data.memberName,
-                memberEmail: member.data.memberEmail,
-                birthDate: member.data.birthDate,
-                memberPhone: member.data.memberPhone
-            });
-        }
-    }, [member]);
 
     if (!member || !member.data) {
         return <p>Loading...</p>;

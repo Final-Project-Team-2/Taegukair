@@ -44,6 +44,7 @@ import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
 import CouponRegister from './pages/mypage/CouponRegister';
 import './App.css';
+// import ReservationTickets from './pages/mypage/ReservationTickets';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -116,6 +117,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="reservation/round-trip" element={<RoundTripReservationForm />} />
             <Route path="reservation/round-trip-results" element={<RoundTripFlightResults />} />
             <Route path="profile" element={<Profile />} />
+            {/* <Route path="reservation-tickets" element={<ReservationTickets />} /> */}
             <Route path="/coupon-register" element={<CouponRegister />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />
