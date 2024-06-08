@@ -9,6 +9,8 @@ function Profile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const member = useSelector(state => state.member.memberData);
+    // 로그아웃을 했을때 토큰의 정보가 없을 때 로그인 안내 문자가 오는데 랜더링을 확인해주는 state
+    const [hasFetchedData, setHasFetchedData] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         memberCode: '',
@@ -21,16 +23,29 @@ function Profile() {
     const accessToken = window.localStorage.getItem("accessToken");
     const token = accessToken ? decodeJwt(accessToken) : null;
 
+
     useEffect(() => {
-        if (!token) {
-            alert("로그인이 필요합니다");
-            navigate('/login');
-            return;
-        }
-        if (token && token.sub) {
-            dispatch(callGetMemberAPI({ memberId: token.sub }));
-        }
-    }, [dispatch, token, navigate]);
+        const checkTokenAndFetchData = async () => {
+            if (!token) {
+                alert("로그인이 필요합니다");
+                navigate('/login');
+                return;
+            }
+
+            if (token && token.sub && !hasFetchedData) {
+                try {
+                    await dispatch(callGetMemberAPI({ memberId: token.sub }));
+                    setHasFetchedData(true); // 데이터 가져오기 성공 시 상태 업데이트
+                } catch (error) {
+                    console.error("Failed to fetch member data:", error);
+                    alert("회원 정보를 가져오는 데 실패했습니다. 다시 로그인해 주세요.");
+                    navigate('/login');
+                }
+            }
+        };
+
+        checkTokenAndFetchData();
+    }, [dispatch, token, hasFetchedData, navigate]);
 
     useEffect(() => {
         if (member && member.data) {
