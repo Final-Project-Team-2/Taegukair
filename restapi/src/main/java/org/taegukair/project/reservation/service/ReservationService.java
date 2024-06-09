@@ -85,6 +85,7 @@ public class ReservationService {
         List<Reservation> reservations = reservationRepository.findByMember_MemberCode(memberCode);
 
         if (reservations.isEmpty()) {
+            log.warn("No reservations found for memberCode: " + memberCode);
             throw new RuntimeException("예약이 존재하지 않습니다.");
         }
 

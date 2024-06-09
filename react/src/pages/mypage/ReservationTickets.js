@@ -10,20 +10,47 @@ function ReservationTickets() {
     const dispatch = useDispatch();
     const [reservations, setReservations] = useState([]);
     const accessToken = window.localStorage.getItem("accessToken");
-    const token = decodeJwt(accessToken);
-    const memberCode = token.sub;
+    const token = accessToken ? decodeJwt(accessToken) : null;
+    const memberCode = token ? token.memberCode : null;
 
     useEffect(() => {
-        if (memberCode) {
-            dispatch(callGetMyReservationsAPI({ memberCode }))
-                .then(response => setReservations(response.data));
-        }
+        const fetchReservations = async () => {
+            if (memberCode && !isNaN(memberCode)) {
+                try {
+                    const response = await dispatch(callGetMyReservationsAPI({ memberCode }));
+                    if (response) {
+                        console.log('Reservations: ', response);
+                        setReservations(response.data); 
+                    } else {
+                        setReservations([]);
+                    }
+                } catch (error) {
+                    console.error("Failed to fetch reservations:", error);
+                }
+            } else {
+                console.error('Invalid memberCode:', memberCode);
+            }
+        };
+
+        fetchReservations();
     }, [dispatch, memberCode]);
 
-    const handleDelete = (reservationNo) => {
-        dispatch(callDeleteReservationAPI({ reservationNo }))
-            .then(() => dispatch(callGetMyReservationsAPI({ memberCode }))
-                .then(response => setReservations(response.data)));
+    const handleDelete = async (reservationNo) => {
+        const confirmation = window.confirm("정말로 취소하시겠습니까? 이미 사용된 쿠폰은 복구되지 않습니다.");
+        if (!confirmation) {
+            return;
+        }
+        try {
+            await dispatch(callDeleteReservationAPI({ reservationNo }));
+            const response = await dispatch(callGetMyReservationsAPI({ memberCode }));
+            if (response) {
+                setReservations(response.data);
+            } else {
+                setReservations([]);
+            }
+        } catch (error) {
+            console.error("Failed to delete reservation:", error);
+        }
     };
 
     return (
