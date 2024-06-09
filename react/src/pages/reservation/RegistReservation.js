@@ -270,7 +270,7 @@ const RegistReservation = () => {
             }
     
             alert("예약이 완료되었습니다");
-            navigate("/");
+            navigate("DoneReservation");
         } catch (error) {
             alert("예약 정보를 저장하던 중 오류가 발생했습니다");
             navigate("/");
