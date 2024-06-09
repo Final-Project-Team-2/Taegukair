@@ -1,0 +1,32 @@
+/* src/components/FAQ.css */
+.faq {
+    margin: 20px;
+  }
+  
+  .faq-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .faq-question {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+  }
+  
+  .faq-question:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 10px;
+  }
+  
+  .faq-answer.active {
+    max-height: 100px; /* 충분히 큰 값으로 설정하여 내용이 모두 표시되도록 함 */
+    padding: 10px;
+  }
+  

@@ -7,9 +7,8 @@ import Main from './pages/Main';
 import Layout from './layouts/Layout';
 import BoardForm from './pages/mypage/BoardForm';
 import UserBoardList from './pages/user/UserBoardList';
-import UserBoardDetail from './pages/user/UserBoardDetail'; // 올바른 경로로 수정
+import UserBoardDetail from './pages/user/UserBoardDetail'; 
 
-// 올바른 경로로 수정
 import AirportList from './pages/admin/AirportList';
 import AirportDetail from './pages/admin/AirportDetail';
 import AirportAdd from './pages/admin/AirportAdd';

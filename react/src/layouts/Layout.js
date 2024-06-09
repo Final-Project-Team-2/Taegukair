@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Outlet, useNavigate, NavLink } from 'react-router-dom';
 import { decodeJwt } from '../utils/tokenUtils';
-import { NavLink } from 'react-router-dom';
+import '../App.css';
 
 function Layout({ isLoggedIn, memberId, onLogout }) {
+  const [reservationHover, setReservationHover] = useState(false);
+  const [feedbackHover, setFeedbackHover] = useState(false);
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
@@ -14,18 +16,16 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
   };
 
   const isLogin = window.localStorage.getItem('accessToken');
-    let decoded = null;
+  let decoded = null;
 
-    if(isLogin !== undefined && isLogin !== null) {
-        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
-        // console.log(temp);
-        decoded = temp.auth[0];
-    }
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
 
   return (
-    <div>
+    <div className="layout">
       <header style={headerStyle}>
-        
         <Link to="/" style={logoStyle}>
           <h1>태극항공</h1>
         </Link>
@@ -43,12 +43,46 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
               <Link to="/signup/terms" style={linkStyle}>Signup</Link>
             </>
           )}
-          
         </div>
       </header>
-      <main>
-        <Outlet />
-      </main>
+      <div className="main-container">
+        <nav className="navbar">
+          <h2>메뉴</h2>
+          <div 
+            className="nav-item" 
+            onMouseEnter={() => setReservationHover(true)} 
+            onMouseLeave={() => setReservationHover(false)}
+          >
+            예약하기
+            {reservationHover && (
+              <div className="dropdown">
+                <NavLink to="/reservation/new" className="dropdown-item">편도 예약</NavLink>
+                <NavLink to="/reservation/round-trip" className="dropdown-item">왕복 예약</NavLink>
+              </div>
+            )}
+          </div>
+          <NavLink to="/reservation-tickets" className="nav-item">예약조회</NavLink>
+          <div 
+            className="nav-item" 
+            onMouseEnter={() => setFeedbackHover(true)} 
+            onMouseLeave={() => setFeedbackHover(false)}
+          >
+            고객의 말씀
+            {feedbackHover && (
+              <div className="dropdown">
+                <NavLink to="/main/user/board" className="dropdown-item">작성하기</NavLink>
+                <NavLink to="/main/user/boards" className="dropdown-item">조회하기</NavLink>
+              </div>
+            )}
+          </div>
+          {decoded === "ROLE_ADMIN" && (
+            <NavLink to="/main/admin" className="nav-item">홈페이지 관리</NavLink>
+          )}
+        </nav>
+        <main className="content">
+          <Outlet />
+        </main>
+      </div>
       <footer style={footerStyle}>
         <p>© 2024 Airport Management</p>
       </footer>
@@ -57,8 +91,8 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
 }
 
 const spanNav = {
-  color : 'white',
-  textDecoration : 'line'
+  color: 'white',
+  textDecoration: 'line'
 };
 
 const headerStyle = {

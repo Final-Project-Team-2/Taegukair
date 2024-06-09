@@ -41,20 +41,26 @@ const Reservations = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(reservations) && reservations.length > 0 && reservations.map(reservation => (
-                        <tr className='reservationList' onClick={onClickHandler} key={reservation.reservationNo} data-reservationno={reservation.reservationNo}>
-                            <td>{reservation.reservationNo}</td>
-                            <td>{reservation.member.memberName}</td>
-                            <td>{reservation.flight.flightId}</td>
-                            <td>{reservation.seat.seatNo}</td>
-                            <td>{reservation.coupon ? reservation.coupon.couponId : "없음"}</td>
-                            <td>{reservation.baggageAmount}</td>
-                            <td>{reservation.extraBaggageAmount}</td>
-                            <td>{reservation.baggagePrice}</td>
-                            <td>{reservation.reservationDate}</td>
-                            <td>{reservation.reservationTotalPrice}</td>
+                    {reservations.data && Array.isArray(reservations.data) && reservations.data.length > 0 ? (
+                        reservations.data.map(reservation => (
+                            <tr className='reservationList' onClick={onClickHandler} key={reservation.reservationNo} data-reservationno={reservation.reservationNo}>
+                                <td>{reservation.reservationNo}</td>
+                                <td>{reservation.member.memberName}</td>
+                                <td>{reservation.flight.flightId}</td>
+                                <td>{reservation.seat.seatNo}</td>
+                                <td>{reservation.coupon ? reservation.coupon.couponId : "없음"}</td>
+                                <td>{reservation.baggageAmount}</td>
+                                <td>{reservation.extraBaggageAmount}</td>
+                                <td>{reservation.baggagePrice}</td>
+                                <td>{reservation.reservationDate}</td>
+                                <td>{reservation.reservationTotalPrice}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="10">예약 정보를 불러오는 중입니다...</td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>
