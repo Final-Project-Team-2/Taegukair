@@ -44,14 +44,6 @@ const ChooseSeat = () => {
         }
     }, [dispatch, departureFlightInfo.flightId, returnFlightInfo.flightId]);
 
-    // useEffect(
-    //     () => {
-    //         if (seats && seats.length > 0) {
-    //         }
-    //     },
-    //     [seats]
-    // );
-
     const handleConfirm = () => {
         if (selectedDepartureSeat && !returnFlightInfo.flightId) {
             navigate('/reservation/searchresults/registreservation', {
@@ -95,8 +87,10 @@ const ChooseSeat = () => {
     return (
         <div>
             <h1>좌석 선택</h1>
-            <div>
+            <div className="seat-row">
+            <div className="seat-column">
                 <h2>출발 좌석</h2>
+                <div className="seat-container">
                 {departureSeats && departureSeats.data && departureSeats.data.length > 0 ? (
                     departureSeats.data.map(dSeat => {
                         let icon;
@@ -132,11 +126,14 @@ const ChooseSeat = () => {
                 ) : (
                     null
                 )}
+                </div>
             </div>
             <div>
                 {returnSeats && returnSeats.data && returnSeats.data.length > 0 ? (
                     <>
+                    <div className="seat-column">
                     <h2>귀국 좌석</h2>
+                    <div className="seat-container">
                     {returnSeats.data.map(rSeat => {
                         let icon;
                         switch (rSeat.seatType.seatTypeId) {
@@ -168,12 +165,17 @@ const ChooseSeat = () => {
                             </button>
                         );
                     })}
+                    </div>
+                    </div>
                     </>
                 ) : (
                     null
                 )}
             </div>
-            <button onClick={handleConfirm}>확인</button>
+            <button onClick={handleConfirm}>좌석 확인</button>
+            <br/>
+            <br/>
+        </div>
         </div>
     );
 }

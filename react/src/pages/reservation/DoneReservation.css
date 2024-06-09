@@ -1,0 +1,11 @@
+.done-reservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.buttons {
+    margin-top: 20px; /* Adjust margin as needed */
+}
