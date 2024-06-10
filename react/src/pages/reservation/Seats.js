@@ -66,6 +66,7 @@ const ChooseSeat = () => {
     return (
         <div className="container">
             <h1>좌석 선택</h1>
+
             <div className="seat-section">
                 <h2>출발 좌석</h2>
                 <div className="seats-container">
@@ -149,6 +150,7 @@ const ChooseSeat = () => {
                 </div>
             )}
             <button className="confirm-button" onClick={handleConfirm}>확인</button>
+
         </div>
     );
 };
