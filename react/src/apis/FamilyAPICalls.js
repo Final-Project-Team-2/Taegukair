@@ -1,7 +1,7 @@
 import { GET_FAMILY, UPDATE_FAMILY, ADD_FAMILY, DELETE_FAMILY } from '../modules/FamilyModule';
 
 export const callGetFamilyAPI = ({ memberId }) => {
-    const requestURL = `http://localhost:8080/api/family/member/${memberId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/family/member/${memberId}`;
 
     return async (dispatch, getState) => {
         try {
@@ -23,7 +23,7 @@ export const callGetFamilyAPI = ({ memberId }) => {
 }
 
 export const callAddFamilyAPI = ({ form }) => {
-    const requestURL = `http://localhost:8080/api/family`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/family`;
 
     return async (dispatch, getState) => {
         try {
@@ -53,7 +53,7 @@ export const callAddFamilyAPI = ({ form }) => {
 }
 
 export const callUpdateFamilyAPI = ({ form }) => {
-    const requestURL = `http://localhost:8080/api/family/${form.familyUserId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/family/${form.familyUserId}`;
 
     const updatedForm = {
         ...form,
@@ -91,7 +91,7 @@ export const callUpdateFamilyAPI = ({ form }) => {
 
 
 export const callDeleteFamilyAPI = ({ id }) => {
-    const requestURL = `http://localhost:8080/api/family/${id}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/family/${id}`;
 
     return async (dispatch, getState) => {
         try {

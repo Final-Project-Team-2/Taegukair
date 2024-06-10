@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  *  접속: http://zibegaza.site:8080/swagger-ui/index.html (application.yaml 참고)
  * */
 @OpenAPIDefinition(
-        info = @Info(title = "Ohgi-Restaurant 메뉴 조회 및 주문 서비스 API 명세서",
+        info = @Info(title = "태극항공 항공편 서비스 API 명세서",
                 description = "React부터 Spring Data Jpa까지 진행하는 서비스 API 명세서",
                 version = "v1"))
 @Configuration
@@ -24,7 +24,7 @@ public class SwaggerConfig {
         String [] paths = {"/api/v1/**", "/auth/**"};
 
         return GroupedOpenApi.builder()
-                .group("주문 서비스 API v1")
+                .group("항공편 서비스 API v1")
                 .pathsToMatch(paths)
                 .build();
     }

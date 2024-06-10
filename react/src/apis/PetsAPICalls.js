@@ -1,7 +1,7 @@
 import { GET_PETS, UPDATE_PET, ADD_PET, DELETE_PET } from '../modules/PetsModule';
 
 export const callGetPetsAPI = ({ memberId }) => {
-    const requestURL = `http://localhost:8080/api/pet/member/${memberId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/pet/member/${memberId}`;
 
     return async (dispatch, getState) => {
         try {
@@ -23,7 +23,7 @@ export const callGetPetsAPI = ({ memberId }) => {
 }
 
 export const callUpdatePetAPI = ({ form }) => {
-    const requestURL = `http://localhost:8080/api/pet/${form.petId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/pet/${form.petId}`;
 
     const updatedForm = {
         ...form,
@@ -57,7 +57,7 @@ export const callUpdatePetAPI = ({ form }) => {
 
 
 export const callAddPetAPI = ({ form }) => {
-    const requestURL = `http://localhost:8080/api/pet`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/pet`;
 
     return async (dispatch, getState) => {
         try {
@@ -87,7 +87,7 @@ export const callAddPetAPI = ({ form }) => {
 }
 
 export const callDeletePetAPI = ({ id }) => {
-    const requestURL = `http://localhost:8080/api/pet/${id}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/pet/${id}`;
 
     return async (dispatch, getState) => {
         try {
