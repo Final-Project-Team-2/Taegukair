@@ -13,7 +13,7 @@ function FindPassword() {
     const navigate = useNavigate();
 
     const sendVerificationCode = () => {
-        axios.post('http://localhost:8080/api/send-code', null, { params: { phoneNumber } })
+        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, null, { params: { phoneNumber } })
             .then(response => {
                 alert(response.data);
             })
@@ -23,7 +23,7 @@ function FindPassword() {
     };
 
     const verifyCode = () => {
-        axios.post('http://localhost:8080/api/verify-code', null, { params: { phoneNumber, code: verificationCode } })
+        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, null, { params: { phoneNumber, code: verificationCode } })
             .then(response => {
                 if (response.data === 'Verification successful') {
                     alert('인증 성공');
@@ -37,7 +37,7 @@ function FindPassword() {
     };
 
     const resetPassword = () => {
-        axios.post('http://localhost:8080/api/reset-password', null, { params: { memberId, memberEmail, newPassword } })
+        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/reset-password`, null, { params: { memberId, memberEmail, newPassword } })
             .then(response => {
                 alert('비밀번호 재설정 성공');
                 navigate('/login');

@@ -11,7 +11,7 @@ function BoardDetail() {
   const navigate = useNavigate(); // navigate 추가
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/boards/${id}`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}`)
       .then(response => {
         const boardData = response.data;
         setBoard(boardData);
@@ -30,7 +30,7 @@ function BoardDetail() {
 
   const handleAnswerSubmit = () => {
     if (window.confirm('등록하시겠습니까?')) {
-      axios.put(`http://localhost:8080/api/v1/boards/${id}/answer`, { answer })
+      axios.put(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}/answer`, { answer })
         .then(response => {
           navigate('/main/admin/board'); // 전체 조회 페이지로 이동
         })

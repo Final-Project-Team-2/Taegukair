@@ -9,7 +9,7 @@ function AirportList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/airports')
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports`)
       .then(response => {
         setAirports(response.data.data); // ResponseDTO의 data 필드에 접근
       })
