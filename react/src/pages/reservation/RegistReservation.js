@@ -27,6 +27,8 @@ const RegistReservation = () => {
 
     const initialReturnSeat = location.state.initialReturnSeat || {};
 
+    const baggageInfo = location.state.baggageInfo || {};
+
     const coupon = useSelector(state => state.coupon);
 
     const member = useSelector(state => state.member.memberData);
@@ -48,17 +50,17 @@ const RegistReservation = () => {
 
     const [loading, setLoading] = useState(true);
 
-    const [baggageAmount, setBaggageAmount] = useState();
+    const [baggageAmount, setBaggageAmount] = useState(baggageInfo.baggageAmount);
 
-    const [extraBaggageAmount, setExtraBaggageAmount] = useState();
+    const [extraBaggageAmount, setExtraBaggageAmount] = useState(baggageInfo.extraBaggageAmount);
 
-    const [baggagePrice, setBaggagePrice] = useState();
+    const [baggagePrice, setBaggagePrice] = useState(baggageInfo.baggagePrice);
 
-    const [returnBaggageAmount, setReturnBaggageAmount] = useState();
+    const [returnBaggageAmount, setReturnBaggageAmount] = useState(baggageInfo.returnBaggageAmount);
 
-    const [returnExtraBaggageAmount, setReturnExtraBaggageAmount] = useState();
+    const [returnExtraBaggageAmount, setReturnExtraBaggageAmount] = useState(baggageInfo.returnExtraBaggageAmount);
 
-    const [returnBaggagePrice, setReturnBaggagePrice] = useState();
+    const [returnBaggagePrice, setReturnBaggagePrice] = useState(baggageInfo.returnBaggagePrice);
 
     const [selectedCouponId, setSelectedCouponId] = useState(0);
 
@@ -215,6 +217,7 @@ const RegistReservation = () => {
             state: { 
                 departureFlight : departureFlight,
                 returnFlight: returnFlight,
+                baggageInfo: {baggageAmount, extraBaggageAmount, baggagePrice, returnBaggageAmount, returnExtraBaggageAmount, returnBaggagePrice}
             }
         });
     };
@@ -230,10 +233,10 @@ const RegistReservation = () => {
             extraBaggageAmount: Number(extraBaggageAmount),
             baggagePrice: Number(baggagePrice),
             reservationDate: "",
-            reservationTotalPrice: returnSumPrice == null 
+            reservationTotalPrice: Object.keys(returnFlight).length !== 0
             ? selectedCoupon
                 ? selectedCoupon.discountAmount
-                    ? Number(sumPrice - selectedCoupon.discountAmount)
+                    ? Number(sumPrice - (selectedCoupon.discountAmount / 2))
                     : Number(sumPrice * (1 - selectedCoupon.discountPercentage / 100))
                 : Number(sumPrice)
             : Number(totalPrice)

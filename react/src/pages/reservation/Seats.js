@@ -18,7 +18,7 @@ const ChooseSeat = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const { departureFlight, returnFlight } = location.state;
+    const { departureFlight, returnFlight, baggageInfo } = location.state;
     
     const departureFlightInfo = departureFlight || {};
 
@@ -51,7 +51,8 @@ const ChooseSeat = () => {
                     initialDepartureSeat: selectedDepartureSeat,
                     initialReturnSeat: selectedReturnSeat,
                     departureFlight: departureFlightInfo,
-                    returnFlight: returnFlightInfo
+                    returnFlight: returnFlightInfo,
+                    baggageInfo: baggageInfo
                 }
             });
         } else if (selectedDepartureSeat && selectedReturnSeat) {
@@ -60,7 +61,8 @@ const ChooseSeat = () => {
                     initialDepartureSeat: selectedDepartureSeat,
                     initialReturnSeat: selectedReturnSeat,
                     departureFlight: departureFlightInfo,
-                    returnFlight: returnFlightInfo
+                    returnFlight: returnFlightInfo,
+                    baggageInfo: baggageInfo
                 }
             });
         } else {
