@@ -226,14 +226,112 @@ form button:hover {
   margin-left: 20px; /* 테이블과 동일한 좌우 여백 */
 }
 
-/* App.css */
-.modal-content {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  position: relative;
+.main-container {
+  display: flex;
 }
 
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.8);
+.navbar {
+  width: 200px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.navbar h2 {
+  margin-bottom: 20px;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  width: 160px; /* 메뉴 너비 설정 */
+  height: 40px; /* 메뉴 높이 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #000;
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  white-space: nowrap;
+  width: 160px; /* 하위 메뉴 너비 설정 */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 글자색 상속 */
+}
+
+.dropdown-item:hover {
+  background-color: #e9ecef;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header-button {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 글자색 상속 */
+}
+
+.header-button:visited,
+.header-button:focus,
+.header-button:active {
+  text-decoration: none; /* 방문, 포커스, 활성 상태일 때 밑줄 제거 */
+  color: inherit; /* 글자색 상속 */
+}
+
+.announcement, .about, .contact {
+  margin-bottom: 20px;
+}
+
+.announcement h2, .about h2, .contact h2 {
+  margin-bottom: 10px;
+}
+
+.announcement-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.announcement-table th, .announcement-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.announcement-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.announcement-table tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
 }

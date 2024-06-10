@@ -44,7 +44,7 @@ public class VerificationController {
         verificationCodeRepository.save(verificationCode);
 
         try {
-            coolSMSService.sendSms(phoneNumber, "Your verification code is " + code);
+            coolSMSService.sendSms(phoneNumber, "요청하신 인증번호는 " + code + "입니다.");
             logger.info("Verification code sent to: " + phoneNumber);
             return "Verification code sent";
         } catch (Exception e) {

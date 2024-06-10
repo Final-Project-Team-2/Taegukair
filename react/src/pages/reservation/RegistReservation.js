@@ -1,3 +1,4 @@
+// src/components/RegistReservation.js
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -120,7 +121,7 @@ const RegistReservation = () => {
 
     useEffect(() => {
         calculateSumPrice();
-    }, [departureFlight.flightPrice, initialDepartureSeat, baggagePrice, ]);
+    }, [departureFlight.flightPrice, initialDepartureSeat, baggagePrice]);
     
     useEffect(() => {
         calculateReturnSumPrice();
@@ -290,43 +291,84 @@ const RegistReservation = () => {
     }
 
     return (
-        <div>
+        <div className="reservation-container">
             <br/>
-                <div>
-                    <div>
-                        <div className='departureFlightInfo'>
-                            <div className='infoItem'>
+                <div className="flight-section">
+                    <div className="departureFlightInfo">
+                        <div className="infoItem">
+                            <label>항공편 번호</label>
+                            <p>{departureFlight.flightId}</p>
+                        </div>
+                        <div className="infoItem">
+                            <label>출발공항</label>
+                            <p>{departureFlight.startAirPort.airportName}</p>
+                        </div>
+                        <div className="infoItem">
+                            <label>도착공항</label>
+                            <p>{departureFlight.endAirPort.airportName}</p>
+                        </div>
+                        <div className="infoItem">
+                            <label>출발시간</label>
+                            <p>{departureFlight.startTime}</p>
+                        </div>
+                        <div className="infoItem">
+                            <label>도착시간</label>
+                            <p>{departureFlight.endTime}</p>
+                        </div>
+                    </div>
+                    <div className="baggage-section">
+                        <label>기본 수하물 선택</label>
+                        <select name='baggageAmount' value={baggageAmount} onChange={onBaggageChangeHandler}>
+                            <option value="">갯수선택</option>
+                            <option value="0">0개</option>
+                            <option value="1">1개</option>
+                        </select>
+                    </div>
+                    <div className="extra-baggage-section">
+                        <label>추가 수하물 선택</label>
+                        <select name="extraBaggageAmount" value={extraBaggageAmount} onChange={onExtraBaggageChangeHandler}>
+                            <option value="">갯수선택</option>
+                            <option value="0">0개</option>
+                            <option value="1">1개</option>
+                            <option value="2">2개</option>
+                            <option value="3">3개</option>
+                        </select>
+                    </div>
+                    {Object.keys(returnFlight).length > 0 && (
+                        <>
+                        <div className="returnFlightInfo">
+                            <div className="infoItem">
                                 <label>항공편 번호</label>
-                                <p>{departureFlight.flightId}</p>
+                                <p>{returnFlight.flightId}</p>
                             </div>
-                            <div className='infoItem'>
+                            <div className="infoItem">
                                 <label>출발공항</label>
-                                <p>{departureFlight.startAirPort.airportName}</p>
+                                <p>{returnFlight.startAirPort.airportName}</p>
                             </div>
-                            <div className='infoItem'>
+                            <div className="infoItem">
                                 <label>도착공항</label>
-                                <p>{departureFlight.endAirPort.airportName}</p>
+                                <p>{returnFlight.endAirPort.airportName}</p>
                             </div>
-                            <div className='infoItem'>
+                            <div className="infoItem">
                                 <label>출발시간</label>
-                                <p>{departureFlight.startTime}</p>
+                                <p>{returnFlight.startTime}</p>
                             </div>
-                            <div className='infoItem'>
+                            <div className="infoItem">
                                 <label>도착시간</label>
-                                <p>{departureFlight.endTime}</p>
+                                <p>{returnFlight.endTime}</p>
                             </div>
                         </div>
-                        <div>
+                        <div className="baggage-section">
                             <label>기본 수하물 선택</label>
-                            <select name='baggageAmount' value={baggageAmount} onChange={onBaggageChangeHandler}>
+                            <select name='returnBaggageAmount' value={returnBaggageAmount} onChange={onReturnBaggageChangeHandler}>
                                 <option value="">갯수선택</option>
                                 <option value="0">0개</option>
                                 <option value="1">1개</option>
                             </select>
                         </div>
-                        <div>
+                        <div className="extra-baggage-section">
                             <label>추가 수하물 선택</label>
-                            <select name="extraBaggageAmount" value={extraBaggageAmount} onChange={onExtraBaggageChangeHandler}>
+                            <select name="returnExtraBaggageAmount" value={returnExtraBaggageAmount} onChange={onReturnExtraBaggageChangeHandler}>
                                 <option value="">갯수선택</option>
                                 <option value="0">0개</option>
                                 <option value="1">1개</option>
@@ -334,148 +376,104 @@ const RegistReservation = () => {
                                 <option value="3">3개</option>
                             </select>
                         </div>
-                        {Object.keys(returnFlight).length > 0 && (
-                            <>
-                            <div className='returnFlightInfo'>
-                                <div className='infoItem'>
-                                    <label>항공편 번호</label>
-                                    <p>{returnFlight.flightId}</p>
-                                </div>
-                                <div className='infoItem'>
-                                    <label>출발공항</label>
-                                    <p>{returnFlight.startAirPort.airportName}</p>
-                                </div>
-                                <div className='infoItem'>
-                                    <label>도착공항</label>
-                                    <p>{returnFlight.endAirPort.airportName}</p>
-                                </div>
-                                <div className='infoItem'>
-                                    <label>출발시간</label>
-                                    <p>{returnFlight.startTime}</p>
-                                </div>
-                                <div className='infoItem'>
-                                    <label>도착시간</label>
-                                    <p>{returnFlight.endTime}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <label>기본 수하물 선택</label>
-                                <select name='returnBaggageAmount' value={returnBaggageAmount} onChange={onReturnBaggageChangeHandler}>
-                                    <option value="">갯수선택</option>
-                                    <option value="0">0개</option>
-                                    <option value="1">1개</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>추가 수하물 선택</label>
-                                <select name="returnExtraBaggageAmount" value={returnExtraBaggageAmount} onChange={onReturnExtraBaggageChangeHandler}>
-                                    <option value="">갯수선택</option>
-                                    <option value="0">0개</option>
-                                    <option value="1">1개</option>
-                                    <option value="2">2개</option>
-                                    <option value="3">3개</option>
-                                </select>
-                            </div>
-                            </>
-                        )}
-
-                        <div>
-                            <label>승객명</label>
-                            <input
-                                type="text"
-                                value={memberData.memberName}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                        <label>성별</label>
-                            <input
-                                type="text"
-                                value={memberData.memberGender}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                            <label>생년월일</label>
-                            <input
-                                type="date"
-                                value={memberData.birthDate}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                            <label>회원번호</label>
-                            <input 
-                                type="text"
-                                value={memberData.memberCode}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                            <label>연락처</label>
-                            <input
-                                type="tel"
-                                value={memberData.memberPhone}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                            <label>이메일</label>
-                            <input
-                                type="email"
-                                value={memberData.memberEmail}
-                                readOnly
-                            />
-                        </div>
-                        <div>
-                            <label>{returnFlight ? '출발 항공편 좌석 번호' : '좌석 번호'}</label>
-                            <input
-                                type='text'
-                                value={initialDepartureSeat.seatNo}
-                                readOnly
-                            />
-                        </div>
-                        { Object.keys(returnFlight).length > 0 ?
-                        <>
-                        <div>
-                            <label>도착 항공편 좌석 번호</label>
-                            <input
-                                type='text'
-                                value={initialReturnSeat.seatNo}
-                                readOnly
-                            />
-                            <br/>
-                            <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
-                        </div>
                         </>
-                        : <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
-
-                        }
-                        <div>
-                            <label>쿠폰 선택</label>
-                            <select value={selectedCouponId} onChange={onChangeCouponHandler}>
-                            <option value="">쿠폰을 선택하세요</option>
-                            {Array.isArray(coupon) && coupon.length > 0 && coupon
-                            .filter(couponItem => couponItem.possible === true)
-                            .map(couponItem => (
-                                <option key={couponItem.couponId} value={couponItem.couponId}>
-                                    쿠폰코드 : {couponItem.couponCode}, 할인금액 : {couponItem.discountAmount}, 할인율 : {couponItem.discountPercentage}%
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label>최종 금액</label>
-                            {totalPrice > 0 &&
-                            <input
-                                value={totalPrice}
-                                type="text"
-                            />
-                            }
-                        </div>
-                        <button type='button' onClick={onsubmitHandler}>항공편 예약</button>
-                    </div>
+                    )}
                 </div>
+
+                <div className="member-info-section">
+                    <div className="infoItem">
+                        <label>승객명</label>
+                        <input
+                            type="text"
+                            value={memberData.memberName}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>성별</label>
+                        <input
+                            type="text"
+                            value={memberData.memberGender}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>생년월일</label>
+                        <input
+                            type="date"
+                            value={memberData.birthDate}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>회원번호</label>
+                        <input 
+                            type="text"
+                            value={memberData.memberCode}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>연락처</label>
+                        <input
+                            type="tel"
+                            value={memberData.memberPhone}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>이메일</label>
+                        <input
+                            type="email"
+                            value={memberData.memberEmail}
+                            readOnly
+                        />
+                    </div>
+                    <div className="infoItem">
+                        <label>{returnFlight ? '출발 항공편 좌석 번호' : '좌석 번호'}</label>
+                        <input
+                            type='text'
+                            value={initialDepartureSeat.seatNo}
+                            readOnly
+                        />
+                    </div>
+                    { Object.keys(returnFlight).length > 0 &&
+                    <div className="infoItem">
+                        <label>도착 항공편 좌석 번호</label>
+                        <input
+                            type='text'
+                            value={initialReturnSeat.seatNo}
+                            readOnly
+                        />
+                    </div>
+                    }
+                </div>
+                <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
+
+                <div className="coupon-section">
+                    <label>쿠폰 선택</label>
+                    <select value={selectedCouponId} onChange={onChangeCouponHandler}>
+                    <option value="">쿠폰을 선택하세요</option>
+                    {Array.isArray(coupon) && coupon.length > 0 && coupon
+                    .filter(couponItem => couponItem.possible === true)
+                    .map(couponItem => (
+                        <option key={couponItem.couponId} value={couponItem.couponId}>
+                            쿠폰코드 : {couponItem.couponCode}, 할인금액 : {couponItem.discountAmount}, 할인율 : {couponItem.discountPercentage}%
+                        </option>
+                    ))}
+                    </select>
+                </div>
+                <div className="price-section">
+                    <label>최종 금액</label>
+                    {totalPrice > 0 &&
+                    <input
+                        value={totalPrice}
+                        type="text"
+                        readOnly
+                    />
+                    }
+                </div>
+                <button type='button' onClick={onsubmitHandler}>항공편 예약</button>
         </div>
     );
 }
