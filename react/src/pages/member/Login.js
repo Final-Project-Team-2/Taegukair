@@ -95,14 +95,6 @@ function Login({ setIsLoggedIn, setMemberId }) {
             <button onClick={handleLogin}>
                 {loginMethod === 'memberId' ? '아이디로 로그인' : '회원 번호로 로그인'}
             </button>
-            <div className="remember-me">
-                <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                />
-                <label>아이디 저장</label>
-            </div>
 
             {error && <p className="error-message">{error}</p>}
             <br/>

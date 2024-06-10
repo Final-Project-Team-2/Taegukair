@@ -1,34 +1,77 @@
-/* Seats.css */
-.seat-row {
+
+/* src/components/Seats.css */
+
+.container {
     display: flex;
-    justify-content: center; /* 좌석 그룹을 가운데 정렬 */
-    align-items: flex-start; /* 좌석 그룹의 상단 정렬 */
-    margin-bottom: 20px; /* 좌석 그룹 사이의 간격 설정 */
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
 }
 
-.seat-column {
+.seat-section {
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: column; /* 좌석 그룹 내의 좌석들을 세로로 정렬 */
-    align-items: center; /* 좌석 그룹 내의 좌석들을 가운데 정렬 */
-    flex: 1; /* 좌석 그룹이 같은 너비를 가지도록 설정 */
-    max-width: 300px; /* 최대 너비 설정 (4개의 좌석이 64px씩이므로 256px) */
-    margin-right: 20px; /* 좌석 그룹 사이의 간격 설정 */
+    flex-direction: column;
+    align-items: center;
 }
 
-.seat-container {
+.seats-container {
     display: flex;
-    flex-wrap: wrap; /* 좌석 버튼이 넘치면 다음 줄로 넘어갈 수 있도록 설정 */
-    justify-content: center; /* 좌석 그룹을 가운데 정렬 */
-    gap: 10px;
-    max-width: 300px; /* 좌석 그룹의 최대 너비 설정 */
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .seats {
-    width: 64px;
-    height: 64px;
+    width: 80px;  /* 좌석 박스 크기를 더 크게 조정 */
+    height: 80px; /* 좌석 박스 크기를 더 크게 조정 */
+    margin: 10px;
+    border: 2px solid transparent;
+    background-color: #f8f8f8;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px; /* 폰트 크기 조정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+
 }
 
 .seats img {
     width: 40px;
     height: 40px;
 }
+
+
+.seats.selected {
+    background-color: #4CAF50;
+    border-color: #45a049;
+    color: white;
+}
+
+.seats:hover:not(:disabled) {
+    background-color: #ddd;
+}
+
+.seats:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+button.confirm-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button.confirm-button:hover {
+    background-color: #45a049;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
