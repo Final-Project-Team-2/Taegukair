@@ -17,7 +17,9 @@ const ChooseSeat = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const { departureFlight, returnFlight } = location.state;
+    const { departureFlight, returnFlight, baggageInfo } = location.state;
+    
+    const departureFlightInfo = departureFlight || {};
 
     const departureFlightInfo = departureFlight || {};
     const returnFlightInfo = returnFlight || {};
@@ -41,13 +43,24 @@ const ChooseSeat = () => {
     }, [dispatch, departureFlightInfo.flightId, returnFlightInfo.flightId]);
 
     const handleConfirm = () => {
-        if (selectedDepartureSeat && (!returnFlightInfo.flightId || selectedReturnSeat)) {
+        if (selectedDepartureSeat && !returnFlightInfo.flightId) {
             navigate('/reservation/searchresults/registreservation', {
                 state: {
                     initialDepartureSeat: selectedDepartureSeat,
                     initialReturnSeat: selectedReturnSeat,
                     departureFlight: departureFlightInfo,
-                    returnFlight: returnFlightInfo
+                    returnFlight: returnFlightInfo,
+                    baggageInfo: baggageInfo
+                }
+            });
+        } else if (selectedDepartureSeat && selectedReturnSeat) {
+            navigate('/reservation/searchresults/registreservation', {
+                state: {
+                    initialDepartureSeat: selectedDepartureSeat,
+                    initialReturnSeat: selectedReturnSeat,
+                    departureFlight: departureFlightInfo,
+                    returnFlight: returnFlightInfo,
+                    baggageInfo: baggageInfo
                 }
             });
         } else {
