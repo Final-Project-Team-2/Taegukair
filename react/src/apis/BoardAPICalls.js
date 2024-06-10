@@ -12,7 +12,7 @@ function decodeJwt(token) {
 }
 
 export const callRegisterAPI = ({ form, navigate }) => {
-    const requestURL = `http://localhost:8080/api/v1/boards`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards`;
 
     return async (dispatch, getState) => {
         const memberCode = localStorage.getItem('memberCode'); // memberCode를 로컬 스토리지에서 가져옴
@@ -59,7 +59,7 @@ export const callRegisterAPI = ({ form, navigate }) => {
 }
 
 export const callFetchUserBoards = () => {
-    const requestURL = `http://localhost:8080/api/v1/boards/user`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/user`;
 
     return async (dispatch, getState) => {
         const memberCode = localStorage.getItem('memberCode'); // memberCode를 로컬 스토리지에서 가져옴
@@ -88,7 +88,7 @@ export const callFetchUserBoards = () => {
 }
 
 export const callFetchUserBoardDetail = (boardId) => {
-    const requestURL = `http://localhost:8080/api/v1/boards`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards`;
 
     return async (dispatch, getState) => {
         const accessToken = localStorage.getItem('accessToken'); // accessToken 가져오기

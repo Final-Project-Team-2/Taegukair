@@ -7,7 +7,7 @@ import {
 } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({memberId}) => {
-    const requestURL = `http://localhost:8080/api/v1/members/${memberId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members/${memberId}`;
 
     return async (dispatch, getState) => {
         console.log('Request URL:', requestURL);
@@ -28,7 +28,7 @@ export const callGetMemberAPI = ({memberId}) => {
 }
 
 export const callGetAllMembersAPI = () => {
-    const requestURL = `http://localhost:8080/api/v1/members`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
@@ -48,7 +48,7 @@ export const callGetAllMembersAPI = () => {
 }
 
 export const callUpdateMemberAPI = ({ form }) => {
-    const requestURL = `http://localhost:8080/api/v1/members`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members`;
 
     return async (dispatch, getState) => {
         console.log('Update Request URL:', requestURL);
@@ -75,7 +75,7 @@ export const callUpdateMemberAPI = ({ form }) => {
 }
 
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/login`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -115,7 +115,7 @@ export const callLogoutAPI = () => {
 }
 
 export const callRegisterAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/signup`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/signup`;
 
     return async (dispatch, getState) => {
 
