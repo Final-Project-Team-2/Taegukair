@@ -1,0 +1,34 @@
+/* Seats.css */
+.seat-row {
+    display: flex;
+    justify-content: center; /* 좌석 그룹을 가운데 정렬 */
+    align-items: flex-start; /* 좌석 그룹의 상단 정렬 */
+    margin-bottom: 20px; /* 좌석 그룹 사이의 간격 설정 */
+}
+
+.seat-column {
+    display: flex;
+    flex-direction: column; /* 좌석 그룹 내의 좌석들을 세로로 정렬 */
+    align-items: center; /* 좌석 그룹 내의 좌석들을 가운데 정렬 */
+    flex: 1; /* 좌석 그룹이 같은 너비를 가지도록 설정 */
+    max-width: 300px; /* 최대 너비 설정 (4개의 좌석이 64px씩이므로 256px) */
+    margin-right: 20px; /* 좌석 그룹 사이의 간격 설정 */
+}
+
+.seat-container {
+    display: flex;
+    flex-wrap: wrap; /* 좌석 버튼이 넘치면 다음 줄로 넘어갈 수 있도록 설정 */
+    justify-content: center; /* 좌석 그룹을 가운데 정렬 */
+    gap: 10px;
+    max-width: 300px; /* 좌석 그룹의 최대 너비 설정 */
+}
+
+.seats {
+    width: 64px;
+    height: 64px;
+}
+
+.seats img {
+    width: 40px;
+    height: 40px;
+}

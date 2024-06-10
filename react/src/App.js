@@ -20,6 +20,7 @@ import AirplaneDetail from './pages/admin/AirplaneDetail';
 import AirplaneAdd from './pages/admin/AirplaneAdd';
 import AirplaneEdit from './pages/admin/AirplaneEdit';
 import Admin from './pages/admin/Admin';
+import Members from './pages/admin/Members';
 
 import Login from './pages/member/Login';
 import Signup from './pages/signup/Signup';
@@ -43,6 +44,8 @@ import Family from './pages/mypage/Family';
 import Pets from './pages/mypage/Pets';
 import CouponRegister from './pages/mypage/CouponRegister';
 import './App.css';
+import ReservationTickets from './pages/mypage/ReservationTickets';
+import DoneReservation from './pages/reservation/DoneReservation';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -88,6 +91,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
             <Route path="main/admin" element={<Admin />} />
+            <Route path="/main/admin/members" element={<Members />} />
             <Route path="main/admin/airports" element={<AirportList />} />
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
             <Route path="main/admin/airports/:id/edit" element={<AirportAdd />} />
@@ -109,11 +113,13 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
             <Route path="reservation/searchresults/registreservation" element={<RegistReservation />} />
             <Route path="reservation/searchresults/registreservation/chooseSeat" element={<ChooseSeats />} />
+            <Route path="reservation/searchresults/registreservation/DoneReservation" element={<DoneReservation />} />
             <Route path="reservation/new" element={<ReservationForm />} />
             <Route path="reservation/searchresults" element={<FlightResults />} />
             <Route path="reservation/round-trip" element={<RoundTripReservationForm />} />
             <Route path="reservation/round-trip-results" element={<RoundTripFlightResults />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="reservation-tickets" element={<ReservationTickets />} />
             <Route path="/coupon-register" element={<CouponRegister />} />
             <Route path="family" element={<Family />} />
             <Route path="pets" element={<Pets />} />

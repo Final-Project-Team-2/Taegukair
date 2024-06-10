@@ -64,7 +64,7 @@ const FlightResults = () => {
       navigate('/reservation/searchresults/registreservation',
         {state : 
           {
-            flight: selectedFlight,
+            departureFlight: selectedFlight,
             flightType: "OneWay"
           }
         }

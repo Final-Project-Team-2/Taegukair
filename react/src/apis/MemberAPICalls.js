@@ -1,5 +1,6 @@
 import { 
     GET_MEMBER,
+    GET_ALL_MEMBERS,
     POST_LOGIN,
     POST_REGISTER,
     UPDATE_MEMBER // 추가된 부분
@@ -23,6 +24,26 @@ export const callGetMemberAPI = ({memberId}) => {
         console.log('[MemberAPICalls] callGetMemberAPI RESULT : ', result);
 
         dispatch({ type: GET_MEMBER,  payload: result });
+    };
+}
+
+export const callGetAllMembersAPI = () => {
+    const requestURL = `http://localhost:8080/api/v1/members`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(response => response.json());
+
+        console.log('[MemberAPICalls] callGetAllMembersAPI RESULT : ', result);
+
+        dispatch({ type: GET_ALL_MEMBERS, payload: result.data });
     };
 }
 

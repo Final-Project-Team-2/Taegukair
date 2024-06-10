@@ -170,10 +170,10 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http
-				.csrf(csrf -> csrf.disable())	// CSRF 보호 비활성화
-				.exceptionHandling(exception -> {	//예외 처리
-					exception.authenticationEntryPoint(jwtAuthenticationEntryPoint);	// 유효한 자격증명을 제공하지 않고 접근 시 401 상태코드 발생
-					exception.accessDeniedHandler(jwtAccessDeniedHandler);				// 필요한 권한이 없을 시 403 상태코드 발생
+				.csrf(csrf -> csrf.disable())   // CSRF 보호 비활성화
+				.exceptionHandling(exception -> {   //예외 처리
+					exception.authenticationEntryPoint(jwtAuthenticationEntryPoint);   // 유효한 자격증명을 제공하지 않고 접근 시 401 상태코드 발생
+					exception.accessDeniedHandler(jwtAccessDeniedHandler);            // 필요한 권한이 없을 시 403 상태코드 발생
 				})
 				.authorizeHttpRequests(auth -> {
 					/* 설명.
@@ -182,25 +182,27 @@ public class SecurityConfig {
 					 *  요청 할 url이 외부 도메인일 경우 웹 브라우저에서 자체 실행되며 options 메소드로 사전 요청을 보내게 된다.
 					 *  사전에 요청이 안전한지 확인하기 위함(유효한지 서버에 미리 파악할 수 있도록 보내는 수단이다.)
 					 * */
-					auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();	// CORS Preflight 요청 허용
+					auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();   // CORS Preflight 요청 허용
 					// 기본 경로는 인증 필요 대신 모든 요청 허용으로 수정
 					// auth.requestMatchers("/").authenticated();
 
 					// 다음 주석 처리된 라인들은 인증을 요구하지 않는 경로를 설정하는 부분입니다.
-					// auth.requestMatchers("/auth/**", "/api/v1/products/**", "/api/v1/reviews/**").permitAll();	// 특정 경로는 무조건 허용
-					// auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
-					// auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN"); // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
+					auth.requestMatchers("/auth/**", "/api/v1/airports/**", "api/v1/flights/**").permitAll();   // 특정 경로는 무조건 허용
+//                auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+					auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN"); // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
+					auth.requestMatchers("/api/admin/**").hasAnyRole("ADMIN"); // API/ADMIN 경로는 ADMIN 역할을 가진 사용자만 접근 가능
 
 					/* 설명. 아래부터는 프로젝트 초기 Security 기능을 약화시켜 개발을 진행하게 끔 해주는 내용들이다. */
-					auth.anyRequest().permitAll();	// 어떤 요청이든 허용 -> Security를 활용한 로그인이 모두 완성되지 않았을 때 사용할 것
+//               auth.anyRequest().permitAll();   // 어떤 요청이든 허용 -> Security를 활용한 로그인이 모두 완성되지 않았을 때 사용할 것
 				})
 				.sessionManagement(session ->  // 세션 방식을 사용하지 않음
 						session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.cors(cors -> {})	// 기본 CORS 설정 사용
+				.cors(cors -> {})   // 기본 CORS 설정 사용
 				.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);  // 우리가 직접 작성한 커스텀 필터인 JwtFilter를 필터 체인에 추가
 
 		return http.build();
 	}
+
 
 	/* 설명. 4. CORS 설정용 Bean(허용 할 origin과 httpMethod 종류와 header 값) */
 	@Bean

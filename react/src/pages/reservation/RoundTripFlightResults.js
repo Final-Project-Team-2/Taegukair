@@ -78,7 +78,6 @@ const RoundTripFlightResults = () => {
     console.log("DepartureFlightData :", flightData);
     if (flightData.flightId) {
       setSelectedDepartureFlight(flightData);
-      console.log(selectedDepartureFlight);
     }
   };
 
@@ -87,7 +86,6 @@ const RoundTripFlightResults = () => {
     console.log("ArrivalFlightData :", flightData);
     if (flightData.flightId) {
       setSelectedReturnFlight(flightData);
-      console.log(selectedReturnFlight);
     }
   };
 
