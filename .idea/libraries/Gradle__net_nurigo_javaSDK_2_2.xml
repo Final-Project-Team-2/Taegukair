@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: net.nurigo:javaSDK:2.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.nurigo" artifactId="javaSDK" version="2.2" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.nurigo/javaSDK/2.2/5e0e9102e4ffb0d83d29b7c79dac4212e948efaf/javaSDK-2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
