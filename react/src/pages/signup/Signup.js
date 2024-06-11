@@ -30,7 +30,7 @@ function Signup() {
 
       console.log('Sending signup data:', signupData);
 
-      await axios.post('http://localhost:8080/auth/signup', signupData);
+      await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/signup`, signupData);
 
       navigate('/signup/complete');
     } catch (error) {

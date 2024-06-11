@@ -8,7 +8,7 @@ function BoardList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/boards/all')
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/all`)
       .then(response => {
         setBoards(response.data);
       })

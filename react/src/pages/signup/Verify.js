@@ -14,7 +14,7 @@ function Verify() {
     const sendCode = async () => {
         try {
             const formattedPhone = phone.startsWith('+') ? phone : `+82${phone.slice(1)}`;
-            const response = await axios.post('http://localhost:8080/api/send-code', null, {
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, null, {
                 params: { phoneNumber: formattedPhone }
             });
             setMessage('인증번호가 전송되었습니다.');
@@ -28,7 +28,7 @@ function Verify() {
     const verifyCode = async () => {
         try {
             const formattedPhone = phone.startsWith('+') ? phone : `+82${phone.slice(1)}`;
-            const response = await axios.post('http://localhost:8080/api/verify-code', null, {
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, null, {
                 params: { phoneNumber: formattedPhone, code }
             });
             if (response.data === 'Verification successful') {

@@ -10,7 +10,7 @@ function AirplaneDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/admin/airplane/${id}`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`)
       .then(response => {
         setAirplane(response.data.data); // ResponseDTO의 data 필드에 접근
       })
@@ -22,7 +22,7 @@ function AirplaneDetail() {
 
   const handleDelete = () => {
     if (window.confirm(`${airplane.airplaneType} 항공기를 삭제하시겠습니까?`)) {
-      axios.delete(`http://localhost:8080/api/v1/admin/airplane/${id}`)
+      axios.delete(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`)
         .then(() => {
           navigate('/main/admin/airplanes');
         })

@@ -10,7 +10,7 @@ function AirportDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/v1/airports/${id}`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`)
       .then(response => {
         setAirport(response.data.data); // ResponseDTO의 data 필드에 접근
       })
@@ -22,7 +22,7 @@ function AirportDetail() {
 
   const handleDelete = () => {
     if (window.confirm(`${airport.airportName} 공항을 삭제하시겠습니까?`)) {
-      axios.delete(`http://localhost:8080/api/v1/airports/${id}`)
+      axios.delete(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`)
         .then(() => {
           navigate('/main/admin/airports');
         })

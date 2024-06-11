@@ -14,7 +14,7 @@ function AirportAdd() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:8080/api/v1/airports/${id}`)
+      axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`)
         .then(response => {
           const { airportName, airportIata, airportLocation } = response.data.data;
           setForm({ airportName, airportIata, airportLocation });
@@ -40,7 +40,7 @@ function AirportAdd() {
       : `${form.airportName} 공항을 추가하시겠습니까?`;
 
     if (window.confirm(confirmMessage)) {
-      const url = id ? `http://localhost:8080/api/v1/airports/${id}` : 'http://localhost:8080/api/v1/airports/registAirPort';
+      const url = id ? `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}` : `http://${process.env.REACT_APP_RESTAPI_IP}:8080api/v1/airports/registAirPort`;
       const method = id ? 'put' : 'post';
 
       axios({

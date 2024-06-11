@@ -22,7 +22,7 @@ const RoundTripReservationForm = () => {
   useEffect(() => {
     const fetchAirports = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/airports');
+        const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports`);
         setAirports(response.data.data);
       } catch (error) {
         console.error('Error fetching airports:', error);
