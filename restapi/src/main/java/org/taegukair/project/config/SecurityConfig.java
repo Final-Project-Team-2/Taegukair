@@ -210,7 +210,7 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		// 변경된 부분: setAllowedOrigins에 추가된 도메인들
-		configuration.setAllowedOrigins(Arrays.asList( "http://taegukair.site"));
+		configuration.setAllowedOrigins(Arrays.asList( "http://taegukair.site", "http://gwonwoongjin.shop"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin",
 				"Content-type",

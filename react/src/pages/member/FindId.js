@@ -31,7 +31,7 @@ function FindID() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/find-id', { memberEmail: email, birthDate, memberName: name });
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/find-id`, { memberEmail: email, birthDate, memberName: name });
             console.log('Server response:', response.data);
             setId(response.data.memberId);
             setError(''); // 에러 메시지 초기화

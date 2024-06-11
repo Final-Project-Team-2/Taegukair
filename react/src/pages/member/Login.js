@@ -17,7 +17,7 @@ function Login({ setIsLoggedIn, setMemberId }) {
         try {
             const identifier = loginMethod === 'memberCode' ? memberCode : memberId;
             const loginData = { identifier, password: memberPassword };
-            const response = await axios.post('http://localhost:8080/auth/login', loginData);
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/login`, loginData);
 
             const responseData = response.data;
 

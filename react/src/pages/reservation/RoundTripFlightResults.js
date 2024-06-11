@@ -18,7 +18,7 @@ const RoundTripFlightResults = () => {
   useEffect(() => {
     const fetchAirports = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/airports');
+        const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports`);
         const airportsMap = response.data.data.reduce((map, airport) => {
           map[airport.airportId] = airport.airportName;
           return map;
@@ -36,14 +36,14 @@ const RoundTripFlightResults = () => {
     const fetchFlights = async () => {
       try {
         const [departureResponse, returnResponse] = await Promise.all([
-          axios.get('http://localhost:8080/api/v1/flights/bothairport', {
+          axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/bothairport`, {
             params: {
               startAirport: (JSON.parse(departureStartAirport)).airportId,
               endAirport: (JSON.parse(departureEndAirport)).airportId,
               selectedDate: `${departureDate}T00:00:00`,
             },
           }),
-          axios.get('http://localhost:8080/api/v1/flights/bothairport', {
+          axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/bothairport`, {
             params: {
               startAirport: (JSON.parse(returnStartAirport)).airportId,
               endAirport: (JSON.parse(returnEndAirport)).airportId,

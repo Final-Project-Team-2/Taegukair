@@ -20,8 +20,6 @@ const ChooseSeat = () => {
     const { departureFlight, returnFlight, baggageInfo } = location.state;
     
     const departureFlightInfo = departureFlight || {};
-
-    const departureFlightInfo = departureFlight || {};
     const returnFlightInfo = returnFlight || {};
 
     const departureSeats = useSelector(state => state.seat.departureSeats);
