@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.sonatype.aether:aether-spi:1.7" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.sonatype.aether" artifactId="aether-spi" version="1.7" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.sonatype.aether/aether-spi/1.7/1ea472b28d9d891d353c0311593f5e2a0e73d4be/aether-spi-1.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

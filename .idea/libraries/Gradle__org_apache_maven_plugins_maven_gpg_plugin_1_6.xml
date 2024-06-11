@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.maven.plugins:maven-gpg-plugin:1.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.apache.maven.plugins" artifactId="maven-gpg-plugin" version="1.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven.plugins/maven-gpg-plugin/1.6/4ec125296d79f591e412ccc8ebdfcc3a91e2cdd7/maven-gpg-plugin-1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

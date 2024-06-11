@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: sslext:sslext:1.2-0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="sslext" artifactId="sslext" version="1.2-0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/sslext/sslext/1.2-0/c86a7db4ac0bc450e675f3d44b3d64cdc934361b/sslext-1.2-0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

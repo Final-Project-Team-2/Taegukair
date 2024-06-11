@@ -1,14 +1,14 @@
 services:
   # Front-end : React App
   react-app:
-    image: chdwp981016467/react-app
+    image: mrjinis/react-app
     container_name: react-app
     ports:
       - "80:3000"
 
   # Back-end : SpringBoot REST API Server
   springboot:
-    image: chdwp981016467/springboot-app
+    image: mrjinis/springboot-app
     container_name: restapi-server
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/taegukair
@@ -47,8 +47,8 @@ services:
     container_name: elasticsearch
     environment:
       discovery.type: single-node
-      xpack.security.enabled: true
-      xpack.security.transport.ssl.enabled: true
+      xpack.security.enabled: 'true'
+      xpack.security.transport.ssl.enabled: 'true'
       ELASTIC_USERNAME: "elastic"
       ELASTIC_PASSWORD: "taegukair"
     ports:
