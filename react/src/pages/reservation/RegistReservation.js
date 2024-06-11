@@ -451,7 +451,7 @@ const RegistReservation = () => {
                     </div>
                     }
                 </div>
-                <button type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
+                <button className='reservation-button' type='button' onClick={onChooseSeatHandler}>좌석 선택</button>
 
                 <div className="coupon-section">
                     <label>쿠폰 선택</label>
@@ -476,7 +476,7 @@ const RegistReservation = () => {
                     />
                     }
                 </div>
-                <button type='button' onClick={onsubmitHandler}>항공편 예약</button>
+                <button className='reservation-button' type='button' onClick={onsubmitHandler}>항공편 예약</button>
         </div>
     );
 }

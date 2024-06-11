@@ -47,7 +47,7 @@ function Layout({ onLogout }) {
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
               <Link to="/profile" style={linkStyle}>마이페이지</Link>
-              {decoded === "ROLE_ADMIN" && <span style={spanNav}><NavLink to="/main/admin">홈페이지 관리</NavLink></span>}
+              {decoded === "ROLE_ADMIN" && <Link to="/main/admin" style={linkStyle}>홈페이지 관리</Link>}
               <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (
@@ -102,11 +102,6 @@ function Layout({ onLogout }) {
     </div>
   );
 }
-
-const spanNav = {
-  color: 'white',
-  textDecoration: 'line'
-};
 
 const headerStyle = {
   display: 'flex',
