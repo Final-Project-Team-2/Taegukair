@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 
-function Login({ setIsLoggedIn, setMemberId }) {
+function Login({ setMemberId }) {
     const [loginMethod, setLoginMethod] = useState('memberId');
     const [memberId, setMemberIdInput] = useState('');
     const [memberPassword, setMemberPassword] = useState('');
@@ -32,7 +32,8 @@ function Login({ setIsLoggedIn, setMemberId }) {
                 } else {
                     localStorage.removeItem('memberId');
                 }
-                setIsLoggedIn(true);
+                sessionStorage.setItem("LoggedMember", "true");
+                sessionStorage.setItem("MemberId", responseData.data.memberId);
                 setMemberId(responseData.data.memberId);
 
                 navigate('/');
