@@ -14,7 +14,12 @@ function AirplaneAdd() {
     if (window.confirm('정말 등록하시겠습니까?')) {
       const form = { airplaneType, airplaneNo, airplaneSeat };
 
-      axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/register`, form) // 변경된 경로
+      axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/register`, form, {
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        }
+      }) // 변경된 경로
         .then(response => {
           navigate('/main/admin/airplanes');
         })
