@@ -66,7 +66,7 @@
 }
 
 .header-button {
-  color: white;
+  color: white !important;
   text-decoration: none;
   background-color: #4CAF50;
   padding: 10px 20px;
@@ -294,8 +294,13 @@ form button:hover {
   padding: 20px;
 }
 
+.admin-container {
+  text-align: center;
+}
+
 .header-button {
-  display: block;
+  display: inline-block;
+  text-align: center;
   margin-bottom: 10px;
   text-decoration: none; /* 밑줄 제거 */
   color: inherit; /* 글자색 상속 */
