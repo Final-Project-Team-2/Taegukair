@@ -56,9 +56,8 @@ function Terms() {
     return (
         <div>
             <h1>회원가입</h1>
-            <br />
             <h2>약관 동의</h2>
-
+            <div className='termbox'> 
             <div>
                 <label>
                     <input
@@ -90,13 +89,12 @@ function Terms() {
                     </p>
                 </div>
             </div>
-            <br />
 
             <div>
                 <h3 onClick={() => openModal('required2')} style={{ cursor: 'pointer', display: 'inline' }}>
                     [필수] 개인 정보 수집 및 동의
                 </h3>
-                
+                <br/>
                 <label style={{ marginLeft: '10px' }}>
                     <input
                         type="checkbox"
@@ -112,13 +110,11 @@ function Terms() {
                     </p>
                 </div>
             </div>
-            <br />
 
             <div>
                 <h3 onClick={() => openModal('optional1')} style={{ cursor: 'pointer', display: 'inline' }}>
                     [선택] 개인정보 제3자 제공 동의
                 </h3>
-                
                 <label style={{ marginLeft: '10px' }}>
                     <input
                         type="checkbox"
@@ -134,6 +130,7 @@ function Terms() {
                     </p>
                 </div>
             </div>
+            
             <br />
 
             <div>
@@ -154,9 +151,8 @@ function Terms() {
                     </p>
                 </div>
             </div>
-            <br />
-
             <button onClick={handleAccept} className='nextbutton'>다음</button>
+        </div>
 
             <Modal
                 isOpen={isModalOpen}

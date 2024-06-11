@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import './FindId.css'
 
 function FindID() {
     const [email, setEmail] = useState('');
@@ -42,53 +43,55 @@ function FindID() {
     };
 
     return (
-        <div className="find-id-container">
-            <h2>아이디 찾기</h2>
-            <Form>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>이메일 주소</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="이메일 입력"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group controlId="formBasicName">
-                    <Form.Label>이름</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="이름 입력"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group controlId="formBasicBirthDate">
-                    <Form.Label>생년월일 (YYYYMMDD)</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="생년월일 입력"
-                        value={birthDate}
-                        onChange={(e) => setBirthDate(e.target.value)}
-                    />
-                </Form.Group>
-                {id && (
-                    <Form.Group controlId="formBasicId">
-                        <Form.Label>찾은 아이디</Form.Label>
+        <div>
+                <h2>아이디 찾기</h2>
+            <div className="find-id-container">
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>이메일 주소</Form.Label>
                         <Form.Control
-                            type="text"
-                            readOnly
-                            value={id}
+                            type="email"
+                            placeholder="이메일 입력"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </Form.Group>
-                )}
-                {error && (
-                    <p className="text-danger">{error}</p>
-                )}
-                <Button variant="primary" onClick={handleFindId}>
-                    아이디 찾기
-                </Button>
-            </Form>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label>이름</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="이름 입력"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicBirthDate">
+                        <Form.Label>생년월일 (YYYYMMDD)</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="생년월일 입력"
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                        />
+                    </Form.Group>
+                    {id && (
+                        <Form.Group controlId="formBasicId">
+                            <Form.Label>찾은 아이디</Form.Label>
+                            <Form.Control
+                                type="text"
+                                readOnly
+                                value={id}
+                            />
+                        </Form.Group>
+                    )}
+                    {error && (
+                        <p className="text-danger">{error}</p>
+                    )}
+                    <Button variant="primary" onClick={handleFindId}>
+                        아이디 찾기
+                    </Button>
+                </Form>
+            </div>
         </div>
     );
 }
