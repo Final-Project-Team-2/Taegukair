@@ -60,9 +60,12 @@ public class MemberController {
 	}
 
 	@PostMapping("/find-id")
-	public MemberDTO findIdByEmailAndBirthDateAndName(@RequestBody MemberDTO memberDTO) {
+	public ResponseEntity<MemberDTO> findIdByEmailAndBirthDateAndName(@RequestBody MemberDTO memberDTO) {
 		String id = memberService.findIdByEmailAndBirthDateAndName(memberDTO.getMemberEmail(), memberDTO.getBirthDate(), memberDTO.getMemberName());
+		if (id == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
 		memberDTO.setMemberId(id);
-		return memberDTO;
+		return ResponseEntity.ok(memberDTO);
 	}
 }

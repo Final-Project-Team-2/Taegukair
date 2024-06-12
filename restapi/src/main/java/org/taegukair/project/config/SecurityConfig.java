@@ -187,8 +187,8 @@ public class SecurityConfig {
 					auth.requestMatchers("/").authenticated();
 
 					// 다음 주석 처리된 라인들은 인증을 요구하지 않는 경로를 설정하는 부분입니다.
-					auth.requestMatchers("/auth/**", "/api/v1/airports/**", "api/v1/flights/**", "api/send-code", "api/verify-code", "api/reset-password").permitAll();   // 특정 경로는 무조건 허용
-                	auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+					auth.requestMatchers("/auth/**", "/api/v1/airports/**", "api/v1/flights/**", "api/send-code", "api/verify-code", "api/reset-password", "api/v1/find-id").permitAll();   // 특정 경로는 무조건 허용
+//                	auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
 					auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN"); // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
 					auth.requestMatchers("/api/admin/**").hasAnyRole("ADMIN"); // API/ADMIN 경로는 ADMIN 역할을 가진 사용자만 접근 가능
 

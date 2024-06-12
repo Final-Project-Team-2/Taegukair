@@ -1,6 +1,8 @@
 package org.taegukair.project.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.taegukair.project.member.dto.VerificationDTO;
@@ -32,7 +34,7 @@ public class VerificationController {
     private PasswordEncoder passwordEncoder;  // PasswordEncoder 주입
 
     @PostMapping("/send-code")
-    public String sendCode(@RequestBody VerificationDTO verificationDTO) {
+    public ResponseEntity<String> sendCode(@RequestBody VerificationDTO verificationDTO) {
 
         String phoneNumber = verificationDTO.getPhoneNumber();
         System.out.println("phoneNumber : " + phoneNumber);
@@ -51,10 +53,10 @@ public class VerificationController {
         try {
             coolSMSService.sendSms(phoneNumber, "요청하신 인증번호는 " + code + "입니다.");
             logger.info("Verification code sent to: " + phoneNumber);
-            return "Verification code sent";
+            return ResponseEntity.ok("Verification code sent");
         } catch (Exception e) {
             logger.severe("Failed to send verification code to: " + phoneNumber + " Error: " + e.getMessage());
-            return "Failed to send verification code: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send verification code: " + e.getMessage());
         }
     }
 
@@ -64,7 +66,12 @@ public class VerificationController {
         String phoneNumber = verificationDTO.getPhoneNumber();
         String code = verificationDTO.getCode();
 
+        if (!phoneNumber.startsWith("+")) {
+            phoneNumber = "+82" + phoneNumber.substring(1);
+        }
+
         System.out.println("phoneNumber : " + phoneNumber);
+        System.out.println("code : " + code);
 
         Optional<VerificationCode> verificationCode = verificationCodeRepository
                 .findByPhoneNumberAndCode(phoneNumber, code);

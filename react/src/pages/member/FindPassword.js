@@ -14,38 +14,69 @@ function FindPassword() {
     const navigate = useNavigate();
 
     const sendVerificationCode = () => {
-        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, null, { params: { phoneNumber } })
-            .then(response => {
-                alert(response.data);
+        const result  = fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            },
+            body: JSON.stringify({
+                phoneNumber: phoneNumber
             })
-            .catch(error => {
-                setError('인증번호 전송 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
-            });
-    };
+        }).then(response => {
+            return response.text();
+        }).then(data => {
+            console.log('인증번호 전송 성공:', data);
+        }).catch(error => {
+            setError('인증번호 전송 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
+        });
+        console.log(result);
+
+    }
 
     const verifyCode = () => {
-        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, null, { params: { phoneNumber, code: verificationCode } })
-            .then(response => {
-                if (response.data === 'Verification successful') {
-                    alert('인증 성공');
-                } else {
-                    alert(response.data);
-                }
+        const result  = fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            },
+            body: JSON.stringify({
+                phoneNumber: phoneNumber,
+                code: verificationCode
             })
-            .catch(error => {
-                setError('인증 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
-            });
+        }).then(response => {
+            return response.text();
+        }).then(data => {
+            console.log('인증 전송:', data);
+        }).catch(error => {
+            setError('인증 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
+        });
+        console.log(result);
     };
 
     const resetPassword = () => {
-        axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/reset-password`, null, { params: { memberId, memberEmail, newPassword } })
-            .then(response => {
-                alert('비밀번호 재설정 성공');
+            const result  = fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/reset-password`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*"
+                },
+                body: JSON.stringify({
+                    memberId: memberId,
+                    memberEmail: memberEmail,
+                    newPassword: newPassword
+                })
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                console.log('인증 성공:', data);
+                alert("인증에 성공하였습니다. 로그인 페이지로 이동합니다.")
                 navigate('/login');
-            })
-            .catch(error => {
-                setError('비밀번호 재설정 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
+            }).catch(error => {
+                setError('인증 실패: ' + (error.response && error.response.data ? error.response.data : '서버와의 연결에 실패했습니다.'));
             });
+            console.log(result);
     };
 
     return (
