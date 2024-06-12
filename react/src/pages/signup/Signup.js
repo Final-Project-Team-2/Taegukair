@@ -6,6 +6,7 @@ import './Signup.css'
 function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
@@ -15,6 +16,11 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSignup = async () => {
+    if (password !== confirmPassword) {
+      setError('입력 정보를 확인해주세요.');
+      return;
+    }
+
     try {
       const formattedBirthDate = birthDate ? new Date(birthDate).toISOString().split('T')[0] : '';
 
@@ -40,53 +46,62 @@ function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      
-      <h2>회원 정보 입력</h2>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-      />
-      <input
-        type="text"
-        value={gender}
-        onChange={(e) => setGender(e.target.value)}
-        placeholder="Gender"
-      />
-      <input
-        type="date"
-        value={birthDate}
-        onChange={(e) => setBirthDate(e.target.value)}
-        placeholder="Birth Date"
-      />
-      <input
-        type="text"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="Phone"
-      />
-      <button onClick={handleSignup}>Sign Up</button>
-      {error && <p>{error}</p>}
+    <div className='signup-box'>
+      <div className="signup-container">
+        <h2>회원 정보 입력</h2>
+        {error && <p>{error}</p>}
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="아이디"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="비밀번호"
+        />
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="비밀번호 확인"
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일"
+        />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="이름"
+        />
+        <select
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+        >
+          <option value="">성별 선택</option>
+          <option value="male">남성</option>
+          <option value="female">여성</option>
+        </select>
+        <input
+          type="date"
+          value={birthDate}
+          onChange={(e) => setBirthDate(e.target.value)}
+          placeholder="생년월일"
+        />
+        <input
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="휴대폰 번호"
+        />
+        <button onClick={handleSignup}>Sign Up</button>
+      </div>
     </div>
   );
 }

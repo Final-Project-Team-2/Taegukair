@@ -7,7 +7,7 @@ function Search() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/airports/search', {
+      const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/search`, {
         params: { s: airportName },
       });
       console.log(response.data); // 응답 데이터 확인
