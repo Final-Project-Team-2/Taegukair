@@ -11,12 +11,7 @@ function BoardDetail() {
   const navigate = useNavigate(); // navigate 추가
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}`, {
-      headers: {
-        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
-        'Content-Type': 'application/json'
-      }
-    })
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}`)
       .then(response => {
         const boardData = response.data;
         setBoard(boardData);

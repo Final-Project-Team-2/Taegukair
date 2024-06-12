@@ -12,12 +12,7 @@ function AirplaneEdit() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`, {
-      headers: {
-        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
-        'Content-Type': 'application/json'
-      }
-    })
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`)
       .then(response => {
         const airplane = response.data.data;
         setAirplaneType(airplane.airplaneType);
