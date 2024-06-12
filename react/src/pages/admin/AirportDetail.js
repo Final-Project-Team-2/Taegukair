@@ -10,7 +10,12 @@ function AirportDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`), {
+      headers: {
+        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+        'Content-Type': 'application/json'
+      }
+    }
       .then(response => {
         setAirport(response.data.data); // ResponseDTO의 data 필드에 접근
       })

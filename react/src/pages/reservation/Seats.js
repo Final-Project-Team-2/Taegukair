@@ -29,15 +29,19 @@ const ChooseSeat = () => {
     const [selectedReturnSeat, setSelectedReturnSeat] = useState('');
 
     useEffect(() => {
-        if (departureFlightInfo.flightId) {
-            const flightId = departureFlightInfo.flightId;
-            dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: false }));
-        }
+        const fetchSeats = async () => {
+            if (departureFlightInfo.flightId) {
+                const flightId = departureFlightInfo.flightId;
+                dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: false }));
+            }
 
-        if (returnFlightInfo.flightId) {
-            const flightId = returnFlightInfo.flightId;
-            dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: true }));
-        }
+            if (returnFlightInfo.flightId) {
+                const flightId = returnFlightInfo.flightId;
+                dispatch(callGetAllSeatsByFlightAPI({ flightId, isReturnFlight: true }));
+            }
+        };
+
+        fetchSeats();
     }, [dispatch, departureFlightInfo.flightId, returnFlightInfo.flightId]);
 
     const handleConfirm = () => {

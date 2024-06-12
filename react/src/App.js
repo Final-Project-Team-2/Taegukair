@@ -12,6 +12,9 @@ import UserBoardDetail from './pages/user/UserBoardDetail';
 import AirportList from './pages/admin/AirportList';
 import AirportDetail from './pages/admin/AirportDetail';
 import AirportAdd from './pages/admin/AirportAdd';
+import FlightList from './pages/admin/FlightList';
+import FlightDetail from './pages/admin/FlightDetail';
+import FlightAdd from './pages/admin/FlightAdd';
 import BoardList from './pages/admin/BoardList';
 import BoardDetail from './pages/admin/BoardDetail';
 import AirplaneList from './pages/admin/AirplaneList';
@@ -95,6 +98,10 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
             <Route path="main/admin/airports/:id/edit" element={<AirportAdd />} />
             <Route path="main/admin/airports/registAirPort" element={<AirportAdd />} />
+            <Route path="main/admin/flights" element={<FlightList />} />
+            <Route path="main/admin/flights/:id" element={<FlightDetail />} />
+            <Route path="main/admin/flights/:id/edit" element={<FlightAdd />} />
+            <Route path="main/admin/flights/addflight" element={<FlightAdd />} />
             <Route path="main/admin/board" element={<BoardList />} />
             <Route path="main/admin/board/:id" element={<BoardDetail />} />
             <Route path="main/admin/airplanes" element={<AirplaneList />} />

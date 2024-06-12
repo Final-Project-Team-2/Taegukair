@@ -28,6 +28,10 @@ const Admin = () => {
       <Link to="/main/admin/members" className="header-button">
         Manage Members
       </Link>
+      <h1>항공편 관리</h1>
+      <Link to="/main/admin/flights" className="header-button">
+        Manage flights
+      </Link>
     </div>
   );
 }
