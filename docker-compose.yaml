@@ -47,8 +47,8 @@ services:
     container_name: elasticsearch
     environment:
       discovery.type: single-node
-      xpack.security.enabled: true
-      xpack.security.transport.ssl.enabled: true
+      xpack.security.enabled: 'true'
+      xpack.security.transport.ssl.enabled: 'true'
       ELASTIC_USERNAME: "elastic"
       ELASTIC_PASSWORD: "taegukair"
     ports:
