@@ -3,6 +3,7 @@ package org.taegukair.project.member.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.taegukair.project.member.dto.VerificationDTO;
 import org.taegukair.project.member.entity.Member;
 import org.taegukair.project.member.entity.VerificationCode;
 import org.taegukair.project.member.repository.MemberRepository;
@@ -31,7 +32,11 @@ public class VerificationController {
     private PasswordEncoder passwordEncoder;  // PasswordEncoder 주입
 
     @PostMapping("/send-code")
-    public String sendCode(@RequestParam String phoneNumber) {
+    public String sendCode(@RequestBody VerificationDTO verificationDTO) {
+
+        String phoneNumber = verificationDTO.getPhoneNumber();
+        System.out.println("phoneNumber : " + phoneNumber);
+
         if (!phoneNumber.startsWith("+")) {
             phoneNumber = "+82" + phoneNumber.substring(1);
         }
@@ -54,7 +59,13 @@ public class VerificationController {
     }
 
     @PostMapping("/verify-code")
-    public String verifyCode(@RequestParam String phoneNumber, @RequestParam String code) {
+    public String verifyCode(@RequestBody VerificationDTO verificationDTO) {
+
+        String phoneNumber = verificationDTO.getPhoneNumber();
+        String code = verificationDTO.getCode();
+
+        System.out.println("phoneNumber : " + phoneNumber);
+
         Optional<VerificationCode> verificationCode = verificationCodeRepository
                 .findByPhoneNumberAndCode(phoneNumber, code);
 
@@ -76,7 +87,12 @@ public class VerificationController {
     }
 
     @PostMapping("/reset-password")
-    public String resetPassword(@RequestParam String memberId, @RequestParam String memberEmail, @RequestParam String newPassword) {
+    public String resetPassword(@RequestBody VerificationDTO verificationDTO) {
+
+        String memberId = verificationDTO.getMemberId();
+        String memberEmail = verificationDTO.getMemberEmail();
+        String newPassword = verificationDTO.getNewPassword();
+
         Optional<Member> member = memberRepository.findByMemberIdAndMemberEmail(memberId, memberEmail);
 
         if (member.isPresent()) {
