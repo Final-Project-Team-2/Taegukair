@@ -9,7 +9,12 @@ function FlightsList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/all`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/all`, {
+      headers: {
+        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => {
         setFlights(response.data.data); // ResponseDTO의 data 필드에 접근
       })
@@ -42,12 +47,12 @@ function FlightsList() {
         </thead>
         <tbody>
           {flights.map(flight => (
-            <tr key={flight.airportId} onClick={() => handleRowClick(flight.flightId)} style={{ cursor: 'pointer' }}>
+            <tr key={flight.flightId} onClick={() => handleRowClick(flight.flightId)} style={{ cursor: 'pointer' }}>
               <td>{flight.flightId}</td>
               <td>{flight.startTime}</td>
               <td>{flight.endTime}</td>
-              <td>{flight.startAirPort}</td>
-              <td>{flight.endAirPort}</td>
+              <td>{flight.startAirPort.airportName}</td>
+              <td>{flight.endAirPort.airportName}</td>
             </tr>
           ))}
         </tbody>

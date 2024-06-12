@@ -10,7 +10,12 @@ function FlightDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`)
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`, {
+      headers: {
+        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => {
         setFlight(response.data.data); // ResponseDTO의 data 필드에 접근
       })
@@ -22,7 +27,12 @@ function FlightDetail() {
 
   const handleDelete = () => {
     if (window.confirm(`${flight.flightId} 항공편을 삭제하시겠습니까?`)) {
-      axios.delete(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`)
+      axios.delete(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`, {
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        }
+      })
         .then(() => {
           navigate('/main/admin/flights/all');
         })

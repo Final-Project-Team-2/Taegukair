@@ -52,7 +52,7 @@ const ReservationDetail = () => {
                 )}
 
                 <h2 className="table-title">예약자 상세 정보</h2>
-                {reservation && reservation.member && (
+                {reservation && (
                     <table className="reservation-detail-table uniform-table">
                         <tbody>
                             <tr>
@@ -84,7 +84,7 @@ const ReservationDetail = () => {
                 )}
 
                 <h2 className="table-title">항공편 상세 정보</h2>
-                {reservation && reservation.flight && (
+                {reservation && (
                     <table className="reservation-detail-table uniform-table">
                         <tbody>
                             <tr>
@@ -116,7 +116,7 @@ const ReservationDetail = () => {
                 )}
 
                 <h2 className="table-title">좌석 정보</h2>
-                {reservation && reservation.seat && (
+                {reservation && (
                     <table className="reservation-detail-table uniform-table">
                         <tbody>
                             <tr>
