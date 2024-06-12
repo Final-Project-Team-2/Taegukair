@@ -17,12 +17,12 @@ function FlightAdd() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`), {
+      axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`, {
         headers: {
           'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
           'Content-Type': 'application/json'
         }
-      }
+      })
         .then(response => {
           const { startTime, endTime, airplane, startAirPort, endAirPort, flightPrice } = response.data.data;
           setForm({ startTime, endTime, airplane: airplane.airplaneId, startAirPort: startAirPort.airportId, endAirPort: endAirPort.airportId, flightPrice });
@@ -72,7 +72,7 @@ function FlightAdd() {
   return (
     <div className="form-container">
       <h1>{id ? 'Edit Flight' : 'Add Flight'}</h1>
-      <form onSubmit={handleSubmit}>
+      <div onSubmit={handleSubmit}>
         <table className="table">
           <tbody>
             <tr>
@@ -113,7 +113,7 @@ function FlightAdd() {
                 <input
                   type="number"
                   name="airplane"
-                  value={form.airplane.airplaneId}
+                  value={form.airplane}
                   onChange={handleChange}
                   placeholder="항공기 ID"
                   required
@@ -128,7 +128,7 @@ function FlightAdd() {
                 <input
                   type="number"
                   name="startAirPort"
-                  value={form.startAirPort.airportId}
+                  value={form.startAirPort}
                   onChange={handleChange}
                   placeholder="출발 공항 ID"
                   required
@@ -143,7 +143,7 @@ function FlightAdd() {
                 <input
                   type="number"
                   name="endAirPort"
-                  value={form.endAirPort.airportId}
+                  value={form.endAirPort}
                   onChange={handleChange}
                   placeholder="도착 공항 ID"
                   required
@@ -170,7 +170,7 @@ function FlightAdd() {
         <div className="button-container">
           <button type="submit">{id ? 'Update' : 'Add'}</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

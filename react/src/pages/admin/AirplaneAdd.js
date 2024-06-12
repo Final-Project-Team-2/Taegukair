@@ -32,7 +32,7 @@ function AirplaneAdd() {
   return (
     <div className="form-container">
       <h1>Add Airplane</h1>
-      <form onSubmit={handleSubmit}>
+      <div onSubmit={handleSubmit}>
         <label>
           Type:
           <input type="text" value={airplaneType} onChange={(e) => setAirplaneType(e.target.value)} required />
@@ -46,7 +46,7 @@ function AirplaneAdd() {
           <input type="number" value={airplaneSeat} onChange={(e) => setAirplaneSeat(e.target.value)} required />
         </label>
         <button type="submit">Add Airplane</button>
-      </form>
+      </div>
     </div>
   );
 }
