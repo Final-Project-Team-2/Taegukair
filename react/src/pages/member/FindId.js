@@ -53,11 +53,13 @@ function FindID() {
             const data = await response.json();
             setId(data.memberId);
             setError('');
-            alert("인증에 성공하였습니다. 로그인 페이지로 이동합니다.");
-            navigate('/login');
         } catch (error) {
             setError('인증 실패: ' + (error.message || '서버와의 연결에 실패했습니다.'));
         }
+    };
+
+    const handleNavigateToLogin = () => {
+        navigate('/login');
     };
 
     return (
@@ -72,6 +74,7 @@ function FindID() {
                             placeholder="이메일 입력"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            disabled={!!id}
                         />
                     </Form.Group>
                     <Form.Group controlId="formBasicName">
@@ -81,6 +84,7 @@ function FindID() {
                             placeholder="이름 입력"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            disabled={!!id}
                         />
                     </Form.Group>
                     <Form.Group controlId="formBasicBirthDate">
@@ -90,6 +94,7 @@ function FindID() {
                             placeholder="생년월일 입력"
                             value={birthDate}
                             onChange={(e) => setBirthDate(e.target.value)}
+                            disabled={!!id}
                         />
                     </Form.Group>
                     {id && (
@@ -105,9 +110,15 @@ function FindID() {
                     {error && (
                         <p className="text-danger">{error}</p>
                     )}
-                    <Button variant="primary" onClick={handleFindId}>
-                        아이디 찾기
-                    </Button>
+                    {!id ? (
+                        <Button variant="primary" onClick={handleFindId}>
+                            아이디 찾기
+                        </Button>
+                    ) : (
+                        <Button variant="success" onClick={handleNavigateToLogin}>
+                            로그인 페이지로 이동
+                        </Button>
+                    )}
                 </Form>
             </div>
         </div>
