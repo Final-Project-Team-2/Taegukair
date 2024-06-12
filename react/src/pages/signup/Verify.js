@@ -14,8 +14,8 @@ function Verify() {
     const sendCode = async () => {
         try {
             const formattedPhone = phone.startsWith('+') ? phone : `+82${phone.slice(1)}`;
-            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, null, {
-                params: { phoneNumber: formattedPhone }
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/send-code`, {
+                phoneNumber: formattedPhone
             });
             setMessage('인증번호가 전송되었습니다.');
             setError('');
@@ -28,8 +28,9 @@ function Verify() {
     const verifyCode = async () => {
         try {
             const formattedPhone = phone.startsWith('+') ? phone : `+82${phone.slice(1)}`;
-            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, null, {
-                params: { phoneNumber: formattedPhone, code }
+            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, {
+                phoneNumber: formattedPhone,
+                code
             });
             if (response.data === 'Verification successful') {
                 setVerified(true);
@@ -58,7 +59,7 @@ function Verify() {
     return (
         <div className='verify-box'>
             <div className="verify-container">
-            <h2>본인 인증</h2>
+                <h2>본인 인증</h2>
                 <input
                     type="text"
                     value={phone}
