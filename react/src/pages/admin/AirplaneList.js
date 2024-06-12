@@ -9,12 +9,7 @@ function AirplaneList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/all`, {
-      headers: {
-        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
-        'Content-Type': 'application/json'
-      }
-    })
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/all`)
       .then(response => {
         setAirplanes(response.data.data); // ResponseDTO의 data 필드에 접근
       })
