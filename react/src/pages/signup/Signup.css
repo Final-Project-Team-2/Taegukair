@@ -1,9 +1,25 @@
+.signup-box{
+    margin-top: 0px;
+    margin-bottom: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* 배경색 추가 */
+}
+
+
+  /* 회원가입 폼 컨테이너 스타일 설정 */
 .signup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
     width: 450px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 .signup-container h2 {
@@ -11,8 +27,9 @@
     margin-bottom: 20px;
 }
 
-.signup-container input {
-    width: 220px;
+.signup-container input,
+.signup-container select {
+    width: 450px; /* 모든 input, select 요소의 너비를 동일하게 설정 */
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
