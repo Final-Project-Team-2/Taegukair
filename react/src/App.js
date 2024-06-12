@@ -73,9 +73,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <RoutesWithAnimation 
-          isLoggedIn={isLoggedIn}
           memberId={memberId}
-          setIsLoggedIn={setIsLoggedIn}
           setMemberId={setMemberId}
           onLogout={handleLogout}
         />
@@ -84,13 +82,13 @@ function App() {
   );
 }
 
-function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId, onLogout }) {
+function RoutesWithAnimation({ memberId, setIsLoggedIn, setMemberId, onLogout }) {
   const location = useLocation();
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} classNames="fade" timeout={300}>
         <Routes location={location}>
-          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
+          <Route path="/" element={<Layout memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
             <Route path="main/admin" element={<Admin />} />
             <Route path="/main/admin/members" element={<Members />} />
@@ -108,7 +106,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airplanes/:id" element={<AirplaneDetail />} />
             <Route path="main/admin/airplanes/add" element={<AirplaneAdd />} />
             <Route path="main/admin/airplanes/:id/edit" element={<AirplaneEdit />} />
-            <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
+            <Route path="login" element={<Login setMemberId={setMemberId} />} />
             <Route path="findPassword" element={<FindPassword />} />
             <Route path="findId" element={<FindID />} />
             <Route path="signup" element={<Signup />} />

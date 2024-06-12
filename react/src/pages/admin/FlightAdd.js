@@ -45,7 +45,7 @@ function FlightAdd() {
     e.preventDefault();
     const confirmMessage = id 
       ? `입력하신 정보로 항공편 정보를 수정하시겠습니까?`
-      : `${form.flightId} 공항을 추가하시겠습니까?`;
+      : `항공편을 추가하시겠습니까?`;
 
     if (window.confirm(confirmMessage)) {
       const url = id ? `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}` : `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/addflight`;

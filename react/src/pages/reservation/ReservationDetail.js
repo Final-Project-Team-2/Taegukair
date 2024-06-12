@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callGetReservationAPI } from '../../apis/ReservationAPICalls';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Reservations.css';
 
 const ReservationDetail = () => {
-    const reservation = useSelector(state => state.reservation);
-    const [searchParams] = useSearchParams();
+    const reservation = useSelector(state => state.reservation.reservationDetail);
+    const { reservationNo } = useParams();
     const dispatch = useDispatch();
     
     useEffect(() => {
-        const reservationNo = searchParams.get('reservationNo');
-        console.log(reservationNo);
+        console.log("reservationNo : ", reservationNo);
         // 페이지가 로드될 때 예약 상세 정보를 가져오도록 액션을 디스패치합니다.
         dispatch(callGetReservationAPI({ reservationNo }));
-    }, [dispatch, searchParams]);
+    }, [dispatch, reservationNo]);
+
+    if (reservation) {
+        console.log("reservation Info : ", reservation);
+    }
 
     return (
         <div className="detail-container">

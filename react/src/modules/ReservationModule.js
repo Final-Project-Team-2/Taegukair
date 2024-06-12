@@ -24,7 +24,7 @@ const reservationReducer = handleActions(
             return payload;
         },
         [GET_RESERVATION_BY_NO]: (state, { payload }) => {
-            return payload;
+            return {reservationDetail: payload};
         },
         [POST_RESERVATION]: (state, { payload }) => {
             return payload;

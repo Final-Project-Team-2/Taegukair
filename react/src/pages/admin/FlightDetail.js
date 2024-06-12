@@ -26,7 +26,7 @@ function FlightDetail() {
   }, [id]);
 
   const handleDelete = () => {
-    if (window.confirm(`${flight.flightId} 항공편을 삭제하시겠습니까?`)) {
+    if (window.confirm(`${flight.flightId}번 항공편을 삭제하시겠습니까?`)) {
       axios.delete(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/flights/${id}`, {
         headers: {
           'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
@@ -34,7 +34,7 @@ function FlightDetail() {
         }
       })
         .then(() => {
-          navigate('/main/admin/flights/all');
+          navigate('/main/admin/flights');
         })
         .catch(error => {
           console.error('There was an error deleting the flight!', error);
@@ -44,7 +44,7 @@ function FlightDetail() {
   };
 
   const handleEdit = () => {
-    navigate(`/main/admin/airports/${id}/edit`);
+    navigate(`/main/admin/flights/${id}/edit`);
   };
 
   if (error) {
@@ -81,7 +81,7 @@ function FlightDetail() {
             </tbody>
           </table>
           <h1>Airplane Details</h1>
-          <table>
+          <table className="table">
             <tbody>
               <tr>
                 <th>항공기 ID</th>
