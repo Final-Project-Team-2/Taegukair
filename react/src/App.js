@@ -114,7 +114,7 @@ function RoutesWithAnimation({ memberId, setIsLoggedIn, setMemberId, onLogout })
             <Route path="signup/verify" element={<Verify />} />
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
-            <Route path="main/admin/reservations/detail/:id" element={<ReservationDetail />} />
+            <Route path="main/admin/reservations/detail/:reservationNo" element={<ReservationDetail />} />
             <Route path="reservation/searchresults/registreservation" element={<RegistReservation />} />
             <Route path="reservation/searchresults/registreservation/chooseSeat" element={<ChooseSeats />} />
             <Route path="reservation/searchresults/registreservation/DoneReservation" element={<DoneReservation />} />
