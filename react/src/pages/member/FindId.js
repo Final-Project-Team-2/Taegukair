@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
-import './FindId.css'
+import './FindId.css';
+import { useNavigate } from 'react-router-dom';
 
 function FindID() {
     const [email, setEmail] = useState('');
@@ -9,6 +9,7 @@ function FindID() {
     const [name, setName] = useState('');
     const [id, setId] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const isValidDate = (date) => {
         const regex = /^\d{4}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
@@ -32,19 +33,36 @@ function FindID() {
         }
 
         try {
-            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/find-id`, { memberEmail: email, birthDate, memberName: name });
-            console.log('Server response:', response.data);
-            setId(response.data.memberId);
-            setError(''); // 에러 메시지 초기화
+            const response = await fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/find-id`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "*/*"
+                },
+                body: JSON.stringify({
+                    memberName: name,
+                    memberEmail: email,
+                    birthDate: birthDate
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('네트워크 응답이 올바르지 않습니다.');
+            }
+
+            const data = await response.json();
+            setId(data.memberId);
+            setError('');
+            alert("인증에 성공하였습니다. 로그인 페이지로 이동합니다.");
+            navigate('/login');
         } catch (error) {
-            console.error('Error:', error);
-            setError('정보를 다시 입력해주세요.');
+            setError('인증 실패: ' + (error.message || '서버와의 연결에 실패했습니다.'));
         }
     };
 
     return (
         <div>
-                <h2>아이디 찾기</h2>
+            <h2>아이디 찾기</h2>
             <div className="find-id-container">
                 <Form>
                     <Form.Group controlId="formBasicEmail">
