@@ -1,14 +1,14 @@
 services:
   # Front-end : React App
   react-app:
-    image: mrjinis/react-app
+    image: chdwp981016467/react-app
     container_name: react-app
     ports:
       - "80:3000"
 
   # Back-end : SpringBoot REST API Server
   springboot:
-    image: mrjinis/springboot-app
+    image: chdwp981016467/springboot-app
     container_name: restapi-server
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/taegukair
