@@ -1,0 +1,31 @@
+.find-id-container {
+    max-width: 400px;
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .find-id-container {
+        width: 90%;
+        padding: 10px;
+    }
+}
+
+.find-password-container {
+    max-width: 400px;
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .find-password-container {
+        width: 90%;
+        padding: 10px;
+    }
+}

@@ -56,25 +56,27 @@ function Verify() {
     };
 
     return (
-        <div className="verify-container">
+        <div className='verify-box'>
+            <div className="verify-container">
             <h2>본인 인증</h2>
-            <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="전화번호를 입력하세요"
-            />
-            <button onClick={sendCode}>인증번호 받기</button>
-            <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="인증번호를 입력하세요"
-            />
-            <button onClick={verifyCode}>인증</button>
-            <button className="nextbutton" onClick={handleNextPage}>다음 페이지로</button>
-            {message && <p>{message}</p>}
-            {error && <p>{error}</p>}
+                <input
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="전화번호를 입력하세요"
+                />
+                <button onClick={sendCode}>인증번호 받기</button>
+                <input
+                    type="text"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    placeholder="인증번호를 입력하세요"
+                />
+                <button onClick={verifyCode}>인증</button>
+                <button className="nextbutton" onClick={handleNextPage}>다음 페이지로</button>
+                {message && <p>{message}</p>}
+                {error && <p>{error}</p>}
+            </div>
         </div>
     );
 }

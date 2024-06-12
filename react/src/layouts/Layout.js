@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, NavLink } from 'react-router-dom';
 import { decodeJwt } from '../utils/tokenUtils';
 import '../App.css';
 
-function Layout({ isLoggedIn, memberId, onLogout }) {
+function Layout({ onLogout }) {
   const [reservationHover, setReservationHover] = useState(false);
   const [feedbackHover, setFeedbackHover] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberId, setMemberId] = useState("");
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
     onLogout();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("memberCode");
+    sessionStorage.removeItem("LoggedMember");
+    sessionStorage.removeItem("MemberId");
     navigate('/');
   };
+
+  useEffect(() => {
+    const loggedMember = sessionStorage.getItem('LoggedMember');
+        if (loggedMember === "true") {
+      setIsLoggedIn(true);
+    }
+    
+    setMemberId(sessionStorage.getItem('MemberId'));
+  }, []);
 
   const isLogin = window.localStorage.getItem('accessToken');
   let decoded = null;
@@ -34,7 +47,7 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
             <>
               <span style={welcomeStyle}>환영합니다, {memberId}님!</span>
               <Link to="/profile" style={linkStyle}>마이페이지</Link>
-              {decoded === "ROLE_ADMIN" && <span style={spanNav}><NavLink to="/main/admin">홈페이지 관리</NavLink></span>}
+              {decoded === "ROLE_ADMIN" && <Link to="/main/admin" style={linkStyle}>홈페이지 관리</Link>}
               <button onClick={handleLogoutClick} style={linkStyle}>Logout</button>
             </>
           ) : (
@@ -89,11 +102,6 @@ function Layout({ isLoggedIn, memberId, onLogout }) {
     </div>
   );
 }
-
-const spanNav = {
-  color: 'white',
-  textDecoration: 'line'
-};
 
 const headerStyle = {
   display: 'flex',
