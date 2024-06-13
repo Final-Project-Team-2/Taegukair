@@ -69,7 +69,7 @@ function AirportAdd() {
   return (
     <div className="form-container">
       <h1>{id ? 'Edit Airport' : 'Add Airport'}</h1>
-      <div onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <table className="table">
           <tbody>
             <tr>
@@ -122,7 +122,7 @@ function AirportAdd() {
         <div className="button-container">
           <button type="submit">{id ? 'Update' : 'Add'}</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

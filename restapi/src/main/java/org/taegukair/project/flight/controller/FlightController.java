@@ -39,7 +39,7 @@ public class FlightController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 추가 성공", flightService.saveFlight(flightDTO)));
     }
 
-    @PostMapping("/{flightId}")
+    @PutMapping("/{flightId}")
     public ResponseEntity<ResponseDTO> updateFlight(@PathVariable int flightId, @RequestBody FlightDTO flightDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "항공편 수정 성공", flightService.updateFlight(flightId, flightDTO)));
