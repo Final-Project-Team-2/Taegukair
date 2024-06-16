@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-<<<<<<< HEAD
 import './FindId.css';
 import { useNavigate } from 'react-router-dom';
-=======
-import axios from 'axios';
-import './FindId.css'
->>>>>>> b78b9cb532278b60582d21710e95759d03d79c48
 
 function FindID() {
     const [email, setEmail] = useState('');
