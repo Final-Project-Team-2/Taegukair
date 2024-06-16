@@ -10,16 +10,12 @@ function AirplaneDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-<<<<<<< HEAD
     axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`, {
       headers: {
         'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
         'Content-Type': 'application/json'
       }
     })
-=======
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`)
->>>>>>> f685840 (fix: localhost => taegukair)
       .then(response => {
         setAirplane(response.data.data); // ResponseDTO의 data 필드에 접근
       })
