@@ -103,7 +103,7 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airplanes/:id/edit" element={<AirplaneEdit />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
             <Route path="findPassword" element={<FindPassword />} />
-            <Route path="findId" element={<FindID />} />
+            <Route path="findId" element={<FindID />} /> 
             <Route path="signup" element={<Signup />} />
             <Route path="signup/terms" element={<Terms />} />
             <Route path="signup/verify" element={<Verify />} />
