@@ -28,9 +28,8 @@ function Verify() {
     const verifyCode = async () => {
         try {
             const formattedPhone = phone.startsWith('+') ? phone : `+82${phone.slice(1)}`;
-            const response = await axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/verify-code`, {
-                phoneNumber: formattedPhone,
-                code
+            const response = await axios.post('http://localhost:8080/api/verify-code', null, {
+                params: { phoneNumber: formattedPhone, code }
             });
             if (response.data === 'Verification successful') {
                 setVerified(true);
