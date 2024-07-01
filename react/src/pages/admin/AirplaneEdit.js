@@ -12,12 +12,7 @@ function AirplaneEdit() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`, {
-      headers: {
-        'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
-        'Content-Type': 'application/json'
-      }
-    })
+    axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`)
       .then(response => {
         const airplane = response.data.data;
         setAirplaneType(airplane.airplaneType);
@@ -35,7 +30,12 @@ function AirplaneEdit() {
     if (window.confirm('정말 수정하시겠습니까?')) {
       const form = { airplaneType, airplaneNo, airplaneSeat };
 
-      axios.put(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`, form)
+      axios.put(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/admin/airplane/${id}`, form, {
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           navigate(`/main/admin/airplanes/${id}`);
         })

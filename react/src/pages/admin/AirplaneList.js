@@ -13,7 +13,10 @@ function AirplaneList() {
       headers: {
         'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
         'Content-Type': 'application/json'
-      }
+      },
+      method: method,
+      url: url,
+      data: form
     })
       .then(response => {
         setAirplanes(response.data.data); // ResponseDTO의 data 필드에 접근

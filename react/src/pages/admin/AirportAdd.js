@@ -14,7 +14,12 @@ function AirportAdd() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`)
+      axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/airports/${id}`, {
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           const { airportName, airportIata, airportLocation } = response.data.data;
           setForm({ airportName, airportIata, airportLocation });
@@ -44,6 +49,10 @@ function AirportAdd() {
       const method = id ? 'put' : 'post';
 
       axios({
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        },
         method: method,
         url: url,
         data: form

@@ -15,7 +15,10 @@ function BoardDetail() {
       headers: {
         'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
         'Content-Type': 'application/json'
-      }
+      },
+      method: method,
+      url: url,
+      data: form
     })
       .then(response => {
         const boardData = response.data;
@@ -35,7 +38,12 @@ function BoardDetail() {
 
   const handleAnswerSubmit = () => {
     if (window.confirm('등록하시겠습니까?')) {
-      axios.put(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}/answer`, { answer })
+      axios.put(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/boards/${id}/answer`, { answer }, {
+        headers: {
+          'Authorization': "Bearer " + window.localStorage.getItem("accessToken"),
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           navigate('/main/admin/board'); // 전체 조회 페이지로 이동
         })

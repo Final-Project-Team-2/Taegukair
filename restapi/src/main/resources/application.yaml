@@ -27,6 +27,8 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+  config:
+    import: optional:classpath:coolsms.properties
 
 jwt:
   secret: q+hXD1LywTnxIvzJNXVlMVvms/PylZZgDTGlexM8BF2rRewM6QbkAdQUyOa1DiXzjui5wLitTd+2u9EjKzbRjg==
@@ -45,7 +47,4 @@ logging:
   level:
     root: info
 
-coolsms:
-  apiKey: NCSQ7KW4SSREA2EC
-  apiSecret: ROQITMW5VFELUVB9O3XVPZYS7DMVPZGT
 

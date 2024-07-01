@@ -17,7 +17,7 @@ const Reservations = () => {
     const onClickHandler = (e) => {
         const reservationNo = e.currentTarget.getAttribute('data-reservationno');
         console.log(reservationNo);
-        navigate(`detail?reservationNo=${reservationNo}`);
+        navigate(`detail/${reservationNo}`);
     }
 
     console.log(reservations);

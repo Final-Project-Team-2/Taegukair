@@ -12,6 +12,9 @@ import UserBoardDetail from './pages/user/UserBoardDetail';
 import AirportList from './pages/admin/AirportList';
 import AirportDetail from './pages/admin/AirportDetail';
 import AirportAdd from './pages/admin/AirportAdd';
+import FlightList from './pages/admin/FlightList';
+import FlightDetail from './pages/admin/FlightDetail';
+import FlightAdd from './pages/admin/FlightAdd';
 import BoardList from './pages/admin/BoardList';
 import BoardDetail from './pages/admin/BoardDetail';
 import AirplaneList from './pages/admin/AirplaneList';
@@ -70,9 +73,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <RoutesWithAnimation 
-          isLoggedIn={isLoggedIn}
           memberId={memberId}
-          setIsLoggedIn={setIsLoggedIn}
           setMemberId={setMemberId}
           onLogout={handleLogout}
         />
@@ -81,13 +82,13 @@ function App() {
   );
 }
 
-function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId, onLogout }) {
+function RoutesWithAnimation({ memberId, setIsLoggedIn, setMemberId, onLogout }) {
   const location = useLocation();
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} classNames="fade" timeout={300}>
         <Routes location={location}>
-          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} memberId={memberId} onLogout={onLogout} />}>
+          <Route path="/" element={<Layout memberId={memberId} onLogout={onLogout} />}>
             <Route index element={<Main />} />
             <Route path="main/admin" element={<Admin />} />
             <Route path="/main/admin/members" element={<Members />} />
@@ -95,21 +96,25 @@ function RoutesWithAnimation({ isLoggedIn, memberId, setIsLoggedIn, setMemberId,
             <Route path="main/admin/airports/:id" element={<AirportDetail />} />
             <Route path="main/admin/airports/:id/edit" element={<AirportAdd />} />
             <Route path="main/admin/airports/registAirPort" element={<AirportAdd />} />
+            <Route path="main/admin/flights" element={<FlightList />} />
+            <Route path="main/admin/flights/:id" element={<FlightDetail />} />
+            <Route path="main/admin/flights/:id/edit" element={<FlightAdd />} />
+            <Route path="main/admin/flights/addflight" element={<FlightAdd />} />
             <Route path="main/admin/board" element={<BoardList />} />
             <Route path="main/admin/board/:id" element={<BoardDetail />} />
             <Route path="main/admin/airplanes" element={<AirplaneList />} />
             <Route path="main/admin/airplanes/:id" element={<AirplaneDetail />} />
             <Route path="main/admin/airplanes/add" element={<AirplaneAdd />} />
             <Route path="main/admin/airplanes/:id/edit" element={<AirplaneEdit />} />
-            <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setMemberId={setMemberId} />} />
+            <Route path="login" element={<Login setMemberId={setMemberId} />} />
             <Route path="findPassword" element={<FindPassword />} />
-            <Route path="findId" element={<FindID />} />
+            <Route path="findId" element={<FindID />} /> 
             <Route path="signup" element={<Signup />} />
             <Route path="signup/terms" element={<Terms />} />
             <Route path="signup/verify" element={<Verify />} />
             <Route path="signup/complete" element={<Complete />} />
             <Route path="main/admin/reservations" element={<Reservations />} />
-            <Route path="main/admin/reservations/detail" element={<ReservationDetail />} />
+            <Route path="main/admin/reservations/detail/:reservationNo" element={<ReservationDetail />} />
             <Route path="reservation/searchresults/registreservation" element={<RegistReservation />} />
             <Route path="reservation/searchresults/registreservation/chooseSeat" element={<ChooseSeats />} />
             <Route path="reservation/searchresults/registreservation/DoneReservation" element={<DoneReservation />} />

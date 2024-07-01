@@ -122,7 +122,8 @@ const linkStyle = {
   textDecoration: 'none',
   background: 'none',
   border: 'none',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  marginBottom: 0
 };
 
 const logoStyle = {
